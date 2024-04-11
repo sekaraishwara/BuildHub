@@ -152,7 +152,7 @@
                   </div>
               </form>
               <div class="modal-footer mx-auto border-0 my-3">
-                  <p>Belum punya akun? <a href="" class="text-primary"> daftar sekarang</a></p>
+                  <p>Belum punya akun? <a href="/register" class="text-primary"> daftar sekarang</a></p>
               </div>
           </div>
       </div>
