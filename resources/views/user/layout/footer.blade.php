@@ -8,8 +8,7 @@
                      <!-- Single Widget -->
                      <div class="single-footer about">
                          <div class="logo">
-                             <a href="index.html"><img src="{{ asset('layout/asset/images/logo2.png') }}"
-                                     alt="#"></a>
+                             <a href="index.html" class="navbar-brand">BUILDHUB</a>
                          </div>
                          <p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna
                              eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor,

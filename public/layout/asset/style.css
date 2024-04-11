@@ -282,6 +282,27 @@ Version:1.0
 /*======================================
 	01. Header CSS
 ========================================*/
+.text-help-center {
+    font-size: 22px;
+    color: #fff;
+}
+
+.text-help-center a {
+    font-weight: 800;
+    text-decoration: underline;
+    color: #eae9e7;
+}
+
+.product-area p {
+    font-size: 20px;
+    margin: 0 auto; /* Atur margin menjadi auto */
+    display: flex;
+    justify-content: center;
+}
+
+.hr {
+    background: #eae9e7;
+}
 /* Topbar */
 .topbar {
     background-color: #fff;
@@ -3759,8 +3780,9 @@ Version:1.0
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    padding: 75px;
+    padding: 25px;
 }
+
 .cown-down .content .small-title {
     font-size: 13px;
     color: #777;
@@ -3822,10 +3844,15 @@ Version:1.0
     padding: 80px 0 0px 0;
     background: #fff;
 }
-.shop-services.home {
+.shop-services.shop {
     padding: 60px 0;
     background: #f6f7fb;
 }
+.shop-services.tagline {
+    padding: 60px 0;
+    background: #64935c;
+}
+
 .shop-services .single-service {
     position: relative;
     padding-left: 65px;
