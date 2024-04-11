@@ -79,7 +79,8 @@
                  <div class="row">
                      <div class="col-lg-6 col-12">
                          <div class="left">
-                             <p>Copyright © 2020 <a href="http://www.wpthemesgrid.com" target="_blank">Wpthemesgrid</a>
+                             <p>Copyright © {{ date('Y') }} <a href="#" target="_blank"
+                                     style="font-style: italic; font-weight:800;">BUILDHUB</a>
                                  - All Rights Reserved.</p>
                          </div>
                      </div>
