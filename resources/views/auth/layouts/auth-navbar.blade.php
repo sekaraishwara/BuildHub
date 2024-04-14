@@ -41,10 +41,42 @@
                       </div>
                   </div>
                   <div class="col-lg-2 col-md-2 col-12 ">
-                      <div class="right-bar">
-                          {{-- <button class="btn-login" data-toggle="modal" data-target="#loginModal">Login</button> --}}
-                          <a href="{{ route('login') }}" class="btn-login text-white">Login</a>
-                      </div>
+                      @guest
+                          <div class="right-bar">
+                              <a href="{{ route('login') }}" class="btn-login text-white">Login</a>
+                          </div>
+                      @endguest
+                      @auth
+                          <div class="nice-select border-0" tabindex="0">
+                              <span class="current">
+
+                                  {{ auth()->user()->name }}
+                              </span>
+                              <ul class="list">
+                                  @if (auth()->user()->role === 'customer')
+                                      <li data-value="All Category" class="option"> <a
+                                              href="{{ route('customer.dashboard') }}">
+                                              Dashboard</a></li>
+                                  @elseif(auth()->user()->role === 'professional')
+                                      <li data-value="All Category" class="option"> <a
+                                              href="{{ route('professional.dashboard') }}">Dashboard</a></li>
+                                  @elseif(auth()->user()->role === 'vendor')
+                                      <a href="{{ route('vendor.dashboard') }}">Dashboard</a>
+                                  @elseif(auth()->user()->role === 'store')
+                                      <a href="{{ route('store.dashboard') }}">Dashboard</a>
+                                  @endif
+                                  <li data-value="logout" class="option text-danger">
+                                      <form method="POST" action="{{ route('logout') }}">
+                                          @csrf
+                                          <a class="text-danger"
+                                              onclick="event.preventDefault();
+                                    this.closest('form').submit();"
+                                              href="{{ route('logout') }}">Logout</a>
+                                      </form>
+                                  </li>
+                              </ul>
+                          </div>
+                      @endauth
                   </div>
               </div>
           </div>

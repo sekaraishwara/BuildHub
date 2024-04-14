@@ -86,7 +86,7 @@
                      </div>
                      <div class="col-lg-6 col-12">
                          <div class="right">
-                             <img src="{{ asset('layout/asset/images/payments.png') }}" alt="#">
+                             <img src="{{ asset('frontend/images/payments.png') }}" alt="#">
                          </div>
                      </div>
                  </div>

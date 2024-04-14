@@ -61,7 +61,7 @@
 
                                 <div class="col-12 mb-3">
                                     <hr>
-                                    <div class="d-block">
+                                    <div class="d-none">
                                         <h6 for="" class="mb-2">Create Account For</h6>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="account_type"

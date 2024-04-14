@@ -1,4 +1,4 @@
-@extends('frontend.layouts.master')
+@extends('auth.layouts.auth-master')
 @section('contents')
     <section class="section-box mt-75">
         <div class="breacrumb-cover">
