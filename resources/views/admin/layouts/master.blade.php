@@ -79,8 +79,23 @@
     @include('admin.layouts.sidebar')
 
     <!-- Right Panel -->
+    {{-- <div id="right-panel" class="right-panel">
+        <!-- Content -->
+        <div class="container">
+            @include('admin.layouts.navbar')
+            @yield('contents')
+            <!-- /.content -->
+            <div class="clearfix"></div>
+            @include('admin.layouts.footer')
+        </div>
+    </div> --}}
+
     <div id="right-panel" class="right-panel">
+        <!-- Header-->
         @include('admin.layouts.navbar')
+        <!-- /#header -->
+
+
         @yield('contents')
         <!-- /.content -->
         <div class="clearfix"></div>
@@ -89,7 +104,7 @@
             <div class="footer-inner bg-white">
                 <div class="row">
                     <div class="col-sm-6">
-                        Copyright &copy; 2018 Ela Admin
+                        Copyright © 2018 Ela Admin
                     </div>
                     <div class="col-sm-6 text-right">
                         Designed by <a href="https://colorlib.com">Colorlib</a>
@@ -99,6 +114,7 @@
         </footer>
         <!-- /.site-footer -->
     </div>
+
     <!-- /#right-panel -->
 
     <!-- Scripts -->

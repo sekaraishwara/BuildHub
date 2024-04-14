@@ -1,4 +1,5 @@
-@extends('frontend.layouts.master')
+@extends('auth.layouts.auth-master')
+
 @section('contents')
     <section class="py-5">
         <div class="container ">
@@ -6,7 +7,7 @@
                 <div class="col-lg-6 col-md-6 col-sm-12 mx-auto">
                     <div class="login-register-cover">
                         <div class="text-center">
-                            <h2 class="mb-3 text-brand-1">Register</h2>
+                            <h2 class="mb-3 text-brand-1">Register as Customer</h2>
                             <p class="font-sm text-muted mb-30">Dont have a account yet? Create one.</p>
                         </div>
                         <form class="login-register text-start mt-20" method="POST" action="{{ route('register') }}">
@@ -60,33 +61,37 @@
 
                                 <div class="col-12 mb-3">
                                     <hr>
-                                    <h6 for="" class="mb-2">Create Account For</h6>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="account_type"
-                                            id="typeCandidate" value="candidate">
-                                        <label class="form-check-label" for="typeCandidate">Candidate</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="account_type" id="typeCompany"
-                                            value="company">
-                                        <label class="form-check-label" for="typeCompany">Company</label>
-                                    </div>
-
-                                    @if ($errors->has('account_type'))
-                                        <div class="invalid-feedback d-block">
-                                            {{ $errors->first('account_type') }}
+                                    <div class="d-block">
+                                        <h6 for="" class="mb-2">Create Account For</h6>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="account_type"
+                                                id="typeCustomer" value="customer" checked>
+                                            <label class="form-check-label" for="typeCustomer">Customer</label>
                                         </div>
-                                    @endif
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="account_type"
+                                                id="typeProfessional" value="professional">
+                                            <label class="form-check-label" for="typeProfessional">Professional</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="account_type"
+                                                id="typeVendor" value="vendor">
+                                            <label class="form-check-label" for="typeVendor">Vendor</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="account_type"
+                                                id="typeStore" value="store">
+                                            <label class="form-check-label" for="typeStore">Store</label>
+                                        </div>
+                                    </div>
                                     <div class="form-group my-4">
                                         <button class="btn btn-default hover-up w-100" type="submit" name="login">Submit
                                             &amp;
                                             Register</button>
                                     </div>
                                 </div>
-
+                            </div>
                         </form>
-
-
                     </div>
                     <div class="text-muted text-center">Already have an account?
                         <a href="{{ route('login') }}">Sign in</a>

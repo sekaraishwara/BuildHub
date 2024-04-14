@@ -1,4 +1,4 @@
-@extends('user.layout.master')
+@extends('frontend.layouts.master')
 @section('contents')
     <!-- Slider Area -->
     {{-- <section class="hero-slider">
@@ -368,7 +368,8 @@
             <div class="row">
                 <div class="col-lg-12 col-md-6 col-12">
                     <p class="text-help-center text-center">
-                        Anda memiliki pertanyaan atau membutuhkan bantuan? Kunjungi <a href="#"> Help Center </a>
+                        Anda memiliki pertanyaan atau membutuhkan bantuan? Kunjungi <a href="#"> Help Center </a><i
+                            class="ti-headphone-alt mx-2"></i>
                     </p>
                 </div>
             </div>

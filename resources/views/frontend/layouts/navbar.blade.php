@@ -6,7 +6,7 @@
                   <div class="col-lg-2 col-md-2 col-12">
                       <!-- Logo -->
                       <div class="logo m-0">
-                          <a href="index.html" class="navbar-brand">BUILDHUB</a>
+                          <a href="{{ url('./') }}" class="navbar-brand">BUILDHUB</a>
                       </div>
                       <!--/ End Logo -->
                       <!-- Search Form -->
@@ -42,7 +42,8 @@
                   </div>
                   <div class="col-lg-2 col-md-2 col-12 ">
                       <div class="right-bar">
-                          <button class="btn-login" data-toggle="modal" data-target="#loginModal">Login</button>
+                          {{-- <button class="btn-login" data-toggle="modal" data-target="#loginModal">Login</button> --}}
+                          <a href="{{ route('login') }}" class="btn-login text-white">Login</a>
                       </div>
                   </div>
               </div>
@@ -159,10 +160,10 @@
   </div>
   <!--/ End Header -->
 
-  @if ($errors->any())
+  {{-- @if ($errors->any())
       <script type="text/javascript">
           $(window).on('load', function() {
               $('#loginModal').modal('show');
           });
       </script>
-  @endif
+  @endif --}}

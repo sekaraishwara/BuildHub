@@ -15,12 +15,38 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
+    public function _registerAs(): View
+    {
+        return view('auth.register-as');
+    }
+
+    public function _registerAs__customer(): View
+    {
+        return view('auth.register-customer');
+    }
+
+
+    public function _registerAs__professional(): View
+    {
+        return view('auth.register-professional');
+    }
+
+    public function _registerAs__vendor(): View
+    {
+        return view('auth.register-vendor');
+    }
+
+    public function _registerAs__store(): View
+    {
+        return view('auth.register-store');
+    }
+
     /**
      * Display the registration view.
      */
     public function create(): View
     {
-        return view('user.auth.register');
+        return view('auth.register');
     }
 
     /**
@@ -34,12 +60,14 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'account_type' => ['required', 'in:customer,vendor,professional,store']
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->account_type
         ]);
 
         event(new Registered($user));
