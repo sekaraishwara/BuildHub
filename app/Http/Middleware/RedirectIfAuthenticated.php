@@ -23,8 +23,14 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 if ($guard === 'admin') {
                     return redirect(RouteServiceProvider::ADMIN_DASHBOARD);
-                } else {
-                    return redirect(RouteServiceProvider::HOME);
+                } elseif ($request->user()->role === 'customer') {
+                    return redirect(RouteServiceProvider::CUSTOMER_DASHBOARD);
+                } elseif ($request->user()->role === 'professional') {
+                    return redirect(RouteServiceProvider::PROFESSIONAL_DASHBOARD);
+                } elseif ($request->user()->role === 'vendor') {
+                    return redirect(RouteServiceProvider::VENDOR_DASHBOARD);
+                } elseif ($request->user()->role === 'store') {
+                    return redirect(RouteServiceProvider::STORE_DASHBOARD);
                 }
             }
         }

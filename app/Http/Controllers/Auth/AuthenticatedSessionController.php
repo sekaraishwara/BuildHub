@@ -29,7 +29,16 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        //add direct session sesuai role
+        if ($request->user()->role === 'customer') {
+            return redirect()->intended(RouteServiceProvider::CUSTOMER_DASHBOARD);
+        } elseif (($request->user()->role === 'professional')) {
+            return redirect()->intended(RouteServiceProvider::PROFESSIONAL_DASHBOARD);
+        } elseif (($request->user()->role === 'vendor')) {
+            return redirect()->intended(RouteServiceProvider::VENDOR_DASHBOARD);
+        } elseif (($request->user()->role === 'store')) {
+            return redirect()->intended(RouteServiceProvider::STORE_DASHBOARD);
+        }
     }
 
     /**

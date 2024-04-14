@@ -41,10 +41,23 @@
                       </div>
                   </div>
                   <div class="col-lg-2 col-md-2 col-12 ">
-                      <div class="right-bar">
-                          {{-- <button class="btn-login" data-toggle="modal" data-target="#loginModal">Login</button> --}}
-                          <a href="{{ route('login') }}" class="btn-login text-white">Login</a>
-                      </div>
+                      @guest
+                          <div class="right-bar">
+                              <a href="{{ route('login') }}" class="btn-login text-white">Login</a>
+                          </div>
+                      @endguest
+                      @auth
+                          @if (auth()->user()->role === 'customer')
+                              <a href="{{ route('customer.dashboard') }}">Customer
+                                  Dashboard</a>
+                          @elseif(auth()->user()->role === 'professional')
+                              <a href="{{ route('professional.dashboard') }}">Professional Dashboard</a>
+                          @elseif(auth()->user()->role === 'vendor')
+                              <a href="{{ route('vendor.dashboard') }}">Vendor Dashboard</a>
+                          @elseif(auth()->user()->role === 'store')
+                              <a href="{{ route('store.dashboard') }}">Store Dashboard</a>
+                          @endif
+                      @endauth
                   </div>
               </div>
           </div>
@@ -95,7 +108,7 @@
       <!--/ End Header Inner -->
   </header>
 
-  <div class="modal fade m-0 p-0" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+  {{-- <div class="modal fade m-0 p-0" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
       <div class="modal-dialog ">
           <div class="modal-content">
               <div class="modal-header border-0">
@@ -148,7 +161,6 @@
                   </div>
 
                   <div class="text-center mt-3">
-                      {{-- <x-primary-button>{{ __('Log in') }}</x-primary-button> --}}
                       <button class="btn-login w-100">Masuk</button>
                   </div>
               </form>
@@ -157,7 +169,7 @@
               </div>
           </div>
       </div>
-  </div>
+  </div> --}}
   <!--/ End Header -->
 
   {{-- @if ($errors->any())
