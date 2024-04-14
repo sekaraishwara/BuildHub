@@ -12,6 +12,9 @@ use App\Http\Controllers\Frontend\Professional\ProfessionalServiceController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
 use App\Http\Controllers\Frontend\Store\StoreProductController;
 use App\Http\Controllers\Frontend\Store\StoreProfileController;
+use App\Http\Controllers\Frontend\Vendor\VendorPortfolioController;
+use App\Http\Controllers\Frontend\Vendor\VendorProfileController;
+use App\Http\Controllers\Frontend\Vendor\VendorserviceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +78,19 @@ Route::group(
     ],
     function () {
         Route::get('/dashboard', [VendorDashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/profile', [VendorProfileController::class, 'profile'])->name('profile');
+        Route::patch('/profile', [VendorProfileController::class, 'update'])->name('profile.update');
+
+        Route::get('/service', [VendorserviceController::class, 'index'])->name('service');
+        Route::post('/service/store', [VendorserviceController::class, 'store'])->name('service.store');
+        Route::post('/service/update{id}', [VendorserviceController::class, 'update'])->name('service.update');
+        Route::post('/service/delete{id}', [VendorserviceController::class, 'delete'])->name('service.delete');
+
+        Route::get('/portfolio', [VendorPortfolioController::class, 'index'])->name('portfolio');
+        Route::post('/portfolio/store', [VendorPortfolioController::class, 'store'])->name('portfolio.store');
+        Route::post('/portfolio/update{id}', [VendorPortfolioController::class, 'update'])->name('portfolio.update');
+        Route::post('/portfolio/delete{id}', [VendorPortfolioController::class, 'delete'])->name('portfolio.delete');
     }
 );
 
