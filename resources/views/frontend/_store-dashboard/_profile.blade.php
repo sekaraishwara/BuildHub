@@ -8,7 +8,9 @@
                         <div class="bread-inner">
                             <ul class="bread-list">
                                 <li><a href="{{ route('home') }}">Home / </a></li>
-                                <li class="active"><a href="{{ route('professional.dashboard') }}">Dashboard</a>
+                                <li><a href="{{ route('store.dashboard') }}">Dashboard /</a>
+                                </li>
+                                <li class="active"><a href="{{ route('store.profile') }}">Profile</a>
                                 </li>
                             </ul>
                         </div>
@@ -25,35 +27,30 @@
                 <div class="col-lg-9 col-md-8 col-sm-12 col-12 mb-50">
                     <div class="content-single">
 
-                        <div class="dashboard_overview">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            My Product
-                                            <h2 class="">{{ $product }}</h2>
+                        <x-app-layout>
+                            <div class="mb-5">
+                                <div class="max-w-7xl mx-auto sm:p-6 lg:p-8 space-y-6">
+                                    <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                                        <div class="max-w-xl">
+                                            @include('frontend._store-dashboard.partials.update-profile-information-form')
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            My Transaction
-                                            <h2 class="">20</h2>
+
+                                    <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                                        <div class="max-w-xl">
+                                            @include('frontend._store-dashboard.partials.update-password-form')
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            History
-                                            <h2 class="">15</h2>
+
+                                    <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                                        <div class="max-w-xl">
+                                            @include('frontend._store-dashboard.partials.delete-user-form')
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </x-app-layout>
 
-                        </div>
                     </div>
                 </div>
             </div>

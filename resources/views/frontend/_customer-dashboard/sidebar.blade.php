@@ -2,12 +2,13 @@
     <div class="shop-sidebar">
         <!-- Single Widget -->
         <div class="single-widget category">
-            <h3 class="title">Professional</a></h3>
+            <h3 class="title">Customer</a></h3>
             <ul class="categor-list">
-                <li><a href="{{ route('professional.dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ route('professional.profile') }}">Profile</a></li>
-                <li><a href="{{ route('professional.service') }}">Service</a></li>
-                <li><a href="{{ route('professional.portfolio') }}">Portfolio</a></li>
+                <li><a href="{{ route('customer.dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ route('customer.profile') }}">Profile</a></li>
+                <li><a href="">Payment</a></li>
+                <li><a href="">Building Checklist</a></li>
+                <li><a href="">History Transaction</a></li>
                 {{-- <li><a href="#">History</a></li> --}}
                 <li>
                     <form method="POST" action="{{ route('logout') }}">

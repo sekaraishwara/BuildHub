@@ -30,21 +30,24 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="card">
                                         <div class="card-body">
-                                            My Service
+                                            My Points
+                                            <h2 class="">300 <i class="ti-money"></i></h2>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="card">
                                         <div class="card-body">
-                                            My Portfolio
+                                            My Transaction
+                                            <h2 class="">2</h2>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="card">
                                         <div class="card-body">
-                                            History Client
+                                            History
+                                            <h2 class="">5</h2>
                                         </div>
                                     </div>
                                 </div>

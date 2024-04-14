@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\Customer\CustomerProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\Frontend\CustomerDashboardController;
 use App\Http\Controllers\Frontend\ProfessionalDashboardController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalServiceController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
+use App\Http\Controllers\Frontend\Store\StoreProductController;
+use App\Http\Controllers\Frontend\Store\StoreProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +39,8 @@ Route::group(
     ],
     function () {
         Route::get('/dashboard', [CustomerDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/profile', [CustomerProfileController::class, 'profile'])->name('profile');
+        Route::patch('/profile', [CustomerProfileController::class, 'update'])->name('profile.update');
     }
 );
 
@@ -81,6 +86,14 @@ Route::group(
     ],
     function () {
         Route::get('/dashboard', [StoreDashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/profile', [StoreProfileController::class, 'profile'])->name('profile');
+        Route::patch('/profile', [StoreProfileController::class, 'update'])->name('profile.update');
+
+        Route::get('/product', [StoreProductController::class, 'index'])->name('product');
+        Route::post('/product/store', [StoreProductController::class, 'store'])->name('product.store');
+        Route::post('/product/update{id}', [StoreProductController::class, 'update'])->name('product.update');
+        Route::post('/product/delete{id}', [StoreProductController::class, 'delete'])->name('product.delete');
     }
 );
 
