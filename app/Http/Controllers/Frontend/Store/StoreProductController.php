@@ -23,6 +23,12 @@ class StoreProductController extends Controller
         return view('frontend._store-dashboard._product', compact('data'));
     }
 
+    public function create(): View
+    {
+
+        return view('frontend._store-dashboard.product.create');
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $userId = auth()->user()->id;

@@ -111,6 +111,7 @@ Route::group(
         Route::post('/profile/password-update', [StoreProfileController::class, 'updatePassword'])->name('profile.password-update');
 
         Route::get('/product', [StoreProductController::class, 'index'])->name('product');
+        Route::get('/product/create', [StoreProductController::class, 'create'])->name('product.create');
         Route::post('/product/store', [StoreProductController::class, 'store'])->name('product.store');
         Route::post('/product/update{id}', [StoreProductController::class, 'update'])->name('product.update');
         Route::post('/product/delete{id}', [StoreProductController::class, 'delete'])->name('product.delete');
