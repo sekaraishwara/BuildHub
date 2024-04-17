@@ -12,7 +12,9 @@
                      <a href="index.html"><i class="menu-icon fa fa-group"></i>Data Vendor </a>
                      <a href="index.html"><i class="menu-icon fa fa-home"></i>Data Professional </a>
                      <a href="index.html"><i class="menu-icon fa fa-dropbox"></i>Data Produk </a>
-                     <a href="/admin/data-domisili"><i class="menu-icon fa fa-dropbox"></i>Data Domisili </a>
+                     <a href="{{ route('admin.master.store') }}"><i class="menu-icon fa fa-dropbox"></i>Master Store
+                     </a>
+
                  </li>
 
 

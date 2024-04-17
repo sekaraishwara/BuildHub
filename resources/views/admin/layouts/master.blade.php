@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="">
 
 <head>
@@ -22,7 +22,8 @@
 
     <link rel="stylesheet" href="{{ asset('admin/css/lib/datatable/dataTables.bootstrap.min.css') }}">
 
-
+    @notifyCss
+</head>
 
 <body>
     @include('admin.layouts.sidebar')
@@ -87,16 +88,11 @@
     <script src="{{ asset('admin/js/init/datatables-init.js') }}"></script>
 
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#bootstrap-data-table-export').DataTable();
-        });
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
+    {{-- <script>
         var urlProvinsi = "https://ibnux.github.io/data-indonesia/provinsi.json";
         var urlKabupaten = "https://ibnux.github.io/data-indonesia/kabupaten/";
 
@@ -160,7 +156,12 @@
                 })
             }
         });
-    </script>
+    </script> --}}
+
+
+    <x-notify::notify />
+    @notifyJs
+
 </body>
 
 </html>

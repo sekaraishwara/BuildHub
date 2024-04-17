@@ -57,6 +57,9 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.4/css/dataTables.dataTables.min.css">
+
     @notifyCss
 
 </head>
@@ -110,10 +113,20 @@
     <!-- Active JS -->
     <script src="{{ asset('frontend/js/active.js') }}"></script>
 
+    <!-- DataTable JS -->
+    <script src="https://cdn.datatables.net/2.0.4/js/dataTables.min.js"></script>
+
     <!-- Laravel Notify Plugin -->
 
     <x-notify::notify />
     @notifyJs
+
+
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable();
+        });
+    </script>
 
     <script>
         var urlProvinsi = "https://ibnux.github.io/data-indonesia/provinsi.json";

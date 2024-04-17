@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="my-4">
-                            <table class="table table-hover">
+                            <table class="table table-hover" id="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
@@ -78,7 +78,7 @@
 
     <!-- Modal Create-->
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog  modal-lg" role="document">
             <form method="POST" action="{{ route('store.product.store') }}">
                 @csrf
                 <div class="modal-content">
@@ -92,11 +92,17 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
+                                    <label for="Name">Product Image</label>
+                                    <input class="form-control" type="file" name="image" id="image">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
                                     <label for="Name">Product Name</label>
                                     <input class="form-control" type="text" name="name" id="name">
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label for="Category">Category</label>
                                     <input class="form-control" type="text" name="category" id="category">
@@ -127,9 +133,9 @@
 
     <!-- Modal Edit&Delete-->
     @foreach ($data as $item)
-        <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="editModal"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
+        <div class="modal  fade" id="editModal{{ $item->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="editModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
                 <form method="POST" action="{{ route('store.product.update', ['id' => $item->id]) }}">
                     @csrf
                     <div class="modal-content">
@@ -141,14 +147,14 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="Name">product Name</label>
                                         <input class="form-control" type="text" name="name" id="name"
                                             value="{{ $item->name }}">
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="Category">Category</label>
                                         <input class="form-control" type="text" name="category" id="category"
@@ -157,15 +163,15 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="Desc">Desc</label>
-                                        <textarea class="form-control" id="desc" name="desc" rows="3">{{ $item->desc }}</textarea>
+                                        <label for="Price">Price</label>
+                                        <input class="form-control" id="price" name="price"
+                                            value="{{ $item->price }}">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="Price">Price</label>
-                                        <input class="form-control" id="price" name="price"
-                                            value="{{ $item->price }}">
+                                        <label for="Desc">Desc</label>
+                                        <textarea class="form-control" id="desc" name="desc" value="{{ $item->desc }}"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -185,7 +191,6 @@
                 </form>
             </div>
         </div>
-
 
         <!-- Modal Delete-->
         <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" role="dialog"

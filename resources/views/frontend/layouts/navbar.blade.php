@@ -58,9 +58,13 @@
                                       <li data-value="All Category" class="option"> <a
                                               href="{{ route('professional.dashboard') }}">Dashboard</a></li>
                                   @elseif(auth()->user()->role === 'vendor')
-                                      <a href="{{ route('vendor.dashboard') }}">Dashboard</a>
+                                      <li data-value="All Category" class="option"> <a
+                                              href="{{ route('vendor.dashboard') }}">
+                                              Dashboard</a></li>
                                   @elseif(auth()->user()->role === 'store')
-                                      <a href="{{ route('store.dashboard') }}">Dashboard</a>
+                                      <li data-value="All Category" class="option"> <a
+                                              href="{{ route('store.dashboard') }}">
+                                              Dashboard</a></li>
                                   @endif
                                   <li data-value="watch" class="option">watch</li>
                                   <li data-value="mobile" class="option">mobile</li>

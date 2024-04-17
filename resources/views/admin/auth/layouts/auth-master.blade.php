@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('admin/css/cs-skin-elastic.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/css/style.css') }}">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.4/css/dataTables.dataTables.min.css">
 </head>
 
 <body>
@@ -29,6 +32,15 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
     <script src="{{ asset('admin/js/main.js') }}"></script>
+
+    <!-- DataTable JS -->
+    <script src="https://cdn.datatables.net/2.0.4/js/dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable();
+        });
+    </script>
 
 </body>
 

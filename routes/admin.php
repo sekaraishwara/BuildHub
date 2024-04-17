@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DomisiliController;
+use App\Http\Controllers\Admin\Master\MasterStoreController;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,10 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
 
     /** Data-Domisili Route*/
     Route::get('data-domisili', [DomisiliController::class, 'index'])->name('data.domisili');
+
+    /** Master-Store Route*/
+    Route::get('master-store', [MasterStoreController::class, 'index'])->name('master.store');
+    Route::post('master-store/update/category', [MasterStoreController::class, 'updateCategory'])->name('master.store.update.category');
 
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
