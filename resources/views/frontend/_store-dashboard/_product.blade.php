@@ -79,7 +79,7 @@
     <!-- Modal Create-->
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal" aria-hidden="true">
         <div class="modal-dialog  modal-lg" role="document">
-            <form method="POST" action="{{ route('store.product.store') }}">
+            <form method="POST" action="{{ route('store.product.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -147,6 +147,13 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
+                                <div class="col-12">
+                                    <x-image-preview :height="200" :width="200" :source="$item?->image" />
+                                    <div class="form-group">
+                                        <label for="Name">Product Image</label>
+                                        <input class="form-control" type="file" name="image" id="image">
+                                    </div>
+                                </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="Name">product Name</label>
@@ -161,17 +168,17 @@
                                             value="{{ $item->category }}">
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="Price">Price</label>
                                         <input class="form-control" id="price" name="price"
                                             value="{{ $item->price }}">
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="Desc">Desc</label>
-                                        <textarea class="form-control" id="desc" name="desc" value="{{ $item->desc }}"></textarea>
+                                        <textarea class="form-control" id="desc" name="desc">{{ $item->desc }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">

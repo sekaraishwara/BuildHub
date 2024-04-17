@@ -137,22 +137,22 @@
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
                                                 <label>Provinsi<span>*</span></label>
-                                                <select class="select2-data-array browser-default" name="provinsi"
-                                                    id="select2-provinsi">
+                                                <select class="select2" name="provinsi" id="select2-provinsi">
                                                     <option value="{{ $storeInfo?->provinsi }}">
                                                         {{ $storeInfo?->provinsi }}
                                                     </option>
                                                 </select>
+                                                <div class="nice-select d-none"></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
                                                 <label>Kabupaten/Kota<span>*</span></label>
-                                                <select class="select2-data-array browser-default" name="kota"
-                                                    id="select2-kabupaten">
+                                                <select class="select2" name="kota" id="select2-kabupaten">
                                                     <option value="{{ $storeInfo?->kota }}">{{ $storeInfo?->kota }}
                                                     </option>
                                                 </select>
+                                                <div class="nice-select d-none"></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">

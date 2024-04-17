@@ -17,7 +17,9 @@
         href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
         rel="stylesheet">
 
+
     <!-- StyleSheet -->
+    @notifyCss
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.css') }}">
@@ -60,7 +62,7 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.4/css/dataTables.dataTables.min.css">
 
-    @notifyCss
+    {{-- <link rel="stylesheet" href="{{ asset('frontend/nice-select2/dist/css/nice-select2.css') }}"> --}}
 
 </head>
 
@@ -115,6 +117,9 @@
 
     <!-- DataTable JS -->
     <script src="https://cdn.datatables.net/2.0.4/js/dataTables.min.js"></script>
+
+    {{-- <script src="{{ asset('frontend/nice-select2/dist/js/nice-select2.js') }}"></script> --}}
+
 
     <!-- Laravel Notify Plugin -->
 
