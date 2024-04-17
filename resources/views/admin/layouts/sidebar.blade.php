@@ -12,7 +12,10 @@
                      <a href="index.html"><i class="menu-icon fa fa-group"></i>Data Vendor </a>
                      <a href="index.html"><i class="menu-icon fa fa-home"></i>Data Professional </a>
                      <a href="index.html"><i class="menu-icon fa fa-dropbox"></i>Data Produk </a>
+                     <a href="/admin/data-domisili"><i class="menu-icon fa fa-dropbox"></i>Data Domisili </a>
                  </li>
+
+
                  <li class="menu-title">SETTINGS</li><!-- /.menu-title -->
                  <li class="menu-item-has-children dropdown">
                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"

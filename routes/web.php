@@ -104,7 +104,11 @@ Route::group(
         Route::get('/dashboard', [StoreDashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/profile', [StoreProfileController::class, 'profile'])->name('profile');
-        Route::patch('/profile', [StoreProfileController::class, 'update'])->name('profile.update');
+        // Route::patch('/profile', [StoreProfileController::class, 'update'])->name('profile.update');
+        Route::post('/profile/my-store', [StoreProfileController::class, 'updateMyStore'])->name('profile.my-store');
+        Route::post('/profile/store-info', [StoreProfileController::class, 'updateStoreInfo'])->name('profile.store-info');
+        Route::post('/profile/account-info', [StoreProfileController::class, 'updateAccountInfo'])->name('profile.account-info');
+        Route::post('/profile/password-update', [StoreProfileController::class, 'updatePassword'])->name('profile.password-update');
 
         Route::get('/product', [StoreProductController::class, 'index'])->name('product');
         Route::post('/product/store', [StoreProductController::class, 'store'])->name('product.store');

@@ -63,7 +63,9 @@
                                   @elseif(auth()->user()->role === 'vendor')
                                       <a href="{{ route('vendor.dashboard') }}">Dashboard</a>
                                   @elseif(auth()->user()->role === 'store')
-                                      <a href="{{ route('store.dashboard') }}">Dashboard</a>
+                                      <li data-value="All Category" class="option"> <a
+                                              href="{{ route('store.dashboard') }}">
+                                              Dashboard</a></li>
                                   @endif
                                   <li data-value="logout" class="option text-danger">
                                       <form method="POST" action="{{ route('logout') }}">

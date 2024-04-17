@@ -54,6 +54,11 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/flaticon.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/themify-icons.css') }}">
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    @notifyCss
+
 </head>
 
 <body class="js p-0 m-0">
@@ -104,6 +109,78 @@
     <script src="{{ asset('frontend/js/easing.js') }}"></script>
     <!-- Active JS -->
     <script src="{{ asset('frontend/js/active.js') }}"></script>
+
+    <!-- Laravel Notify Plugin -->
+
+    <x-notify::notify />
+    @notifyJs
+
+    <script>
+        var urlProvinsi = "https://ibnux.github.io/data-indonesia/provinsi.json";
+        var urlKabupaten = "https://ibnux.github.io/data-indonesia/kabupaten/";
+
+        function clearOptions(id) {
+            $('#' + id).empty().trigger('change');
+        }
+
+        console.log('Load Provinsi...');
+        $.getJSON(urlProvinsi, function(res) {
+
+            res = $.map(res, function(obj) {
+                obj.text = obj.nama
+                return obj;
+            });
+
+            data = [{
+                id: "",
+                nama: "- Pilih Provinsi -",
+                text: "- Pilih Provinsi -"
+            }].concat(res);
+
+            // Implement data ke select provinsi
+            $("#select2-provinsi").select2({
+                dropdownAutoWidth: true,
+                width: '100%',
+                data: data
+            })
+        });
+
+        var selectProv = $('#select2-provinsi');
+        $(selectProv).change(function() {
+            var value = $(selectProv).val();
+            clearOptions('select2-kabupaten');
+
+            if (value) {
+                console.log("on change selectProv");
+
+                var text = $('#select2-provinsi :selected').text();
+                console.log("value = " + value + " / " + "text = " + text);
+
+                console.log('Load Kabupaten di ' + text + '...')
+                $.getJSON(urlKabupaten + value + ".json", function(res) {
+
+                    res = $.map(res, function(obj) {
+                        obj.text = obj.nama
+                        return obj;
+                    });
+
+                    data = [{
+                        id: "",
+                        nama: "- Pilih Kabupaten -",
+                        text: "- Pilih Kabupaten -"
+                    }].concat(res);
+
+                    // Implement data ke select kabupaten
+                    $("#select2-kabupaten").select2({
+                        dropdownAutoWidth: true,
+                        width: '100%',
+                        data: data
+                    });
+
+                })
+            }
+        });
+    </script>
 </body>
 
 </html>
