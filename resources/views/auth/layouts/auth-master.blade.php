@@ -64,6 +64,8 @@
 
     {{-- <link rel="stylesheet" href="{{ asset('frontend/nice-select2/dist/css/nice-select2.css') }}"> --}}
 
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css">
 </head>
 
 <body class="js p-0 m-0">
@@ -119,6 +121,9 @@
     <script src="https://cdn.datatables.net/2.0.4/js/dataTables.min.js"></script>
 
     {{-- <script src="{{ asset('frontend/nice-select2/dist/js/nice-select2.js') }}"></script> --}}
+
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
 
 
     <!-- Laravel Notify Plugin -->
@@ -199,6 +204,49 @@
             }
         });
     </script>
+
+
+    <script>
+        $(document).ready(function() {
+            $(".delete-item").on('click', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href'); // Ubah let menjadi var
+                Swal.fire({ // Ubah panggilan swal menjadi Swal.fire
+                    title: 'Are you sure?',
+                    text: 'Once deleted, you will not be able to recover this data!',
+                    icon: 'warning',
+                    showCancelButton: true, // Menggunakan showCancelButton daripada buttons:true
+                    confirmButtonColor: '#d33', // Ubah dangerMode menjadi confirmButtonColor
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!',
+                }).then((result) => { // Mengubah willDelete menjadi result
+                    if (result
+                        .isConfirmed
+                    ) { // Menggunakan isConfirmed untuk mengecek apakah tombol konfirmasi ditekan
+                        $.ajax({
+                            method: 'DELETE',
+                            url: url,
+                            data: {
+                                _token: "{{ csrf_token() }}"
+                            },
+                            success: function(response) {
+                                window.location.reload();
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(xhr);
+                                Swal.fire(xhr.responseJSON
+                                    .message, { // Ubah swal menjadi Swal.fire
+                                        icon: 'error',
+                                    });
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>

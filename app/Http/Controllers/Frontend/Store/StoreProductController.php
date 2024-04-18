@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMyStoreUpdateRequest;
 use App\Models\Store;
+use App\Models\StoreCategory;
 use App\Models\StoreProduct;
 use App\Traits\FileUploadTrait;
 use Illuminate\Http\RedirectResponse;
@@ -25,8 +26,9 @@ class StoreProductController extends Controller
 
     public function create(): View
     {
+        $category = StoreCategory::all();
 
-        return view('frontend._store-dashboard.product.create');
+        return view('frontend._store-dashboard.product.create', compact('category'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -64,43 +66,41 @@ class StoreProductController extends Controller
         return Redirect::route('store.product');
     }
 
-
-    public function delete($id)
+    public function edit(string $id)
     {
-        $data = StoreProduct::find($id);
-        $data->delete();
+        $data = StoreProduct::findOrFail($id);
+        return view('frontend._store-dashboard.product.edit', compact('data'));
+    }
 
-        notify()->success('Deleted Successfully⚡️', 'Success!');
+    public function delete(string $id)
+    {
+        try {
+            StoreProduct::findOrFail($id)->delete();
+            notify()->success('Deleted Successfully⚡️', 'Success!');
 
-        return back();
+            return response(['message' => 'success'], 200);
+        } catch (\Exception $e) {
+            logger($e);
+            return response(['message' => 'Something Went Wrong. Please Try Again!'], 500);
+        }
+    }
+
+    public function update(Request $request, $id): RedirectResponse
+    {
+        $data = StoreProduct::findOrFail($id);
+
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'category' => 'required',
+            'desc' => 'required',
+            'price' => 'required',
+            'status' => 'required'
+        ]);
+
+        $data->update($validatedData);
+
+        notify()->success('Updated Successfully⚡️', 'Success!');
+
+        return redirect()->route('store.product');
     }
 }
-
-
- // public function update(Request $request, $id): RedirectResponse
-    // {
-    //     $data = StoreProduct::find($id);
-
-    //     $rules = ([
-    //         'name' => 'required',
-    //         'category' => 'required',
-    //         'desc' => 'required',
-    //         'price' => 'required',
-    //         'status' => 'required'
-    //     ]);
-
-    //     $validatedData = $request->validate($rules);
-
-
-    //     $data->update([
-    //         'name' => $validatedData['name'],
-    //         'category' => $validatedData['category'],
-    //         'desc' => $validatedData['desc'],
-    //         'price' => $validatedData['price'],
-    //         'status' => $validatedData['status'],
-    //     ]);
-
-    //     $data->save();
-
-    //     return Redirect::route('store.product');
-    // }

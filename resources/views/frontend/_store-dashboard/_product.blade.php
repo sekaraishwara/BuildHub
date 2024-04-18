@@ -55,14 +55,15 @@
                                             <td>{{ $item->status ? 'Aktif' : 'Archive' }}</td>
                                             <td>
 
-                                                <a href="#" data-toggle="modal"
-                                                    data-target="#editModal{{ $item->id }}"><i
+                                                <a href="{{ route('store.product.edit', $item->id) }}"><i
                                                         class="ti-pencil-alt mx-2 text-primary"></i>
                                                 </a>
-                                                <a href="#" data-toggle="modal"
+                                                {{-- <a href="#" data-toggle="modal"
                                                     data-target="#deleteModal{{ $item->id }}">
                                                     <i class="ti-trash text-danger"></i>
-                                                </a>
+                                                </a> --}}
+                                                <a href="{{ route('store.product.delete', $item->id) }}"
+                                                    class="delete-item"><i class="ti-trash text-danger"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -133,72 +134,6 @@
 
     <!-- Modal Edit&Delete-->
     @foreach ($data as $item)
-        <div class="modal  fade" id="editModal{{ $item->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="editModal" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <form method="POST" action="{{ route('store.product.update', ['id' => $item->id]) }}">
-                    @csrf
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Edit product</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-12">
-                                    <x-image-preview :height="200" :width="200" :source="$item?->image" />
-                                    <div class="form-group">
-                                        <label for="Name">Product Image</label>
-                                        <input class="form-control" type="file" name="image" id="image">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="Name">product Name</label>
-                                        <input class="form-control" type="text" name="name" id="name"
-                                            value="{{ $item->name }}">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="Category">Category</label>
-                                        <input class="form-control" type="text" name="category" id="category"
-                                            value="{{ $item->category }}">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="Price">Price</label>
-                                        <input class="form-control" id="price" name="price"
-                                            value="{{ $item->price }}">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="Desc">Desc</label>
-                                        <textarea class="form-control" id="desc" name="desc">{{ $item->desc }}</textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="Status">Status</label>
-                                        <input class="form-control" id="status" name="status"
-                                            value="{{ $item->status }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
         <!-- Modal Delete-->
         <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" role="dialog"
             aria-labelledby="createModal" aria-hidden="true">

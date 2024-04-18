@@ -26,13 +26,15 @@
                 @include('frontend._store-dashboard.sidebar')
                 <div class="col-lg-9 col-md-8 col-sm-12 col-12 mb-50">
                     <div class="content-single mb-5">
-                        <form method="POST" action="{{ route('store.product.store') }}" enctype="multipart/form-data">
+
+                        <form method="POST" action="{{ route('store.product.update', ['id' => $data->id]) }}">
                             @csrf
-                            <div class="row shop checkout">
+                            <div class="row">
                                 <div class="col-12 mb-3">
-                                    <h5>Create Product</h5>
+                                    <h5>Edit Product</h5>
                                 </div>
                                 <div class="col-12">
+                                    <x-image-preview :height="200" :width="200" :source="$data?->image" />
                                     <div class="form-group">
                                         <label for="Name">Product Image</label>
                                         <input class="form-control" type="file" name="image" id="image">
@@ -40,31 +42,33 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="Name">Product Name</label>
-                                        <input class="form-control" type="text" name="name" id="name">
+                                        <label for="Name">product Name</label>
+                                        <input class="form-control" type="text" name="name" id="name"
+                                            value="{{ $data->name }}">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="Category">Category</label>
-                                        {{-- <input class="form-control" type="text" name="category" id="category"> --}}
-                                        <select name="category" class="form-select" id="category">
-                                            @foreach ($category as $item)
-                                                <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input class="form-control" type="text" name="category" id="category"
+                                            value="{{ $data->category }}">
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="Desc">Desc</label>
-                                        <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="Price">Price</label>
-                                        <input class="form-control" id="price" name="price">
+                                        <input class="form-control" id="price" name="price"
+                                            value="{{ $data->price }}">
+
+                                        <label for="Status">Status</label>
+                                        <input class="form-control" id="status" name="status"
+                                            value="{{ $data->status }}">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="Desc">Desc</label>
+                                        <textarea class="form-control" id="desc" name="desc">{{ $data->desc }}</textarea>
                                     </div>
                                 </div>
                             </div>
