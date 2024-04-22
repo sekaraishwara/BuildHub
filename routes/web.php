@@ -7,6 +7,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Frontend\StoreDashboardController;
 use App\Http\Controllers\Frontend\VendorDashboardController;
 use App\Http\Controllers\Frontend\CustomerDashboardController;
+use App\Http\Controllers\Frontend\Home\ProfessionalController;
+use App\Http\Controllers\Frontend\Home\StoreController;
 use App\Http\Controllers\Frontend\ProfessionalDashboardController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalServiceController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
@@ -32,6 +34,8 @@ use App\Http\Controllers\Frontend\Vendor\VendorserviceController;
 // });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/professional', [ProfessionalController::class, 'index'])->name('professional');
+Route::get('/store', [StoreController::class, 'index'])->name('store');
 
 
 Route::group(
@@ -80,7 +84,12 @@ Route::group(
         Route::get('/dashboard', [VendorDashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/profile', [VendorProfileController::class, 'profile'])->name('profile');
-        Route::patch('/profile', [VendorProfileController::class, 'update'])->name('profile.update');
+        Route::post('/profile/vendor-profile', [VendorProfileController::class, 'updateVendorProfile'])->name('vendor.profile');
+        Route::post('/profile/vendor-info', [VendorProfileController::class, 'updateVendorInfo'])->name('profile.vendor-info');
+        Route::post('/profile/account-info', [VendorProfileController::class, 'updateAccountInfo'])->name('profile.account-info');
+        Route::post('/profile/password-update', [VendorProfileController::class, 'updatePassword'])->name('profile.password-update');
+
+
 
         Route::get('/service', [VendorserviceController::class, 'index'])->name('service');
         Route::post('/service/store', [VendorserviceController::class, 'store'])->name('service.store');
@@ -104,7 +113,6 @@ Route::group(
         Route::get('/dashboard', [StoreDashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/profile', [StoreProfileController::class, 'profile'])->name('profile');
-        // Route::patch('/profile', [StoreProfileController::class, 'update'])->name('profile.update');
         Route::post('/profile/my-store', [StoreProfileController::class, 'updateMyStore'])->name('profile.my-store');
         Route::post('/profile/store-info', [StoreProfileController::class, 'updateStoreInfo'])->name('profile.store-info');
         Route::post('/profile/account-info', [StoreProfileController::class, 'updateAccountInfo'])->name('profile.account-info');
@@ -118,11 +126,5 @@ Route::group(
         Route::delete('/product/delete{id}', [StoreProductController::class, 'delete'])->name('product.delete');
     }
 );
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
 
 require __DIR__ . '/auth.php';

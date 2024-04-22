@@ -90,24 +90,29 @@
                                       <div class="nav-inner">
                                           <ul class="nav main-menu menu navbar-nav">
                                               <li class="active"><a href="#">Home</a></li>
-                                              <li><a href="#">Product</a></li>
-                                              <li><a href="#">Service</a></li>
-                                              <li><a href="#">Shop<i class="ti-angle-down"></i><span
+                                              <li><a href="#">Vendor</a></li>
+                                              <li><a href="{{ route('professional') }}">Professional</a></li>
+                                              <li><a href="{{ route('store') }}">Store</a></li>
+                                              <li><a href="#">Inspiration</a></li>
+                                              <li><a href="#">Event</a></li>
+                                              <li><a href="#">Blog</a></li>
+                                              <li><a href="#">Promo</a></li>
+                                              {{-- <li><a href="#">Shop<i class="ti-angle-down"></i><span
                                                           class="new">New</span></a>
                                                   <ul class="dropdown">
                                                       <li><a href="shop-grid.html">Shop Grid</a></li>
                                                       <li><a href="cart.html">Cart</a></li>
                                                       <li><a href="checkout.html">Checkout</a></li>
                                                   </ul>
-                                              </li>
-                                              <li><a href="#">Pages</a></li>
-                                              <li><a href="#">Blog<i class="ti-angle-down"></i></a>
+                                              </li> --}}
+                                              {{-- <li><a href="#">Pages</a></li> --}}
+                                              {{-- <li><a href="#">Blog<i class="ti-angle-down"></i></a>
                                                   <ul class="dropdown">
                                                       <li><a href="blog-single-sidebar.html">Blog Single Sidebar</a>
                                                       </li>
                                                   </ul>
-                                              </li>
-                                              <li><a href="contact.html">Contact Us</a></li>
+                                              </li> --}}
+                                              {{-- <li><a href="contact.html">Contact Us</a></li> --}}
                                           </ul>
                                       </div>
                                   </div>

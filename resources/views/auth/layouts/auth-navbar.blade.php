@@ -49,7 +49,6 @@
                       @auth
                           <div class="nice-select border-0" tabindex="0">
                               <span class="current">
-
                                   {{ auth()->user()->name }}
                               </span>
                               <ul class="list">
@@ -61,7 +60,8 @@
                                       <li data-value="All Category" class="option"> <a
                                               href="{{ route('professional.dashboard') }}">Dashboard</a></li>
                                   @elseif(auth()->user()->role === 'vendor')
-                                      <a href="{{ route('vendor.dashboard') }}">Dashboard</a>
+                                      <li data-value="All Category" class="option"> <a
+                                              href="{{ route('vendor.dashboard') }}">Dashboard</a></li>
                                   @elseif(auth()->user()->role === 'store')
                                       <li data-value="All Category" class="option"> <a
                                               href="{{ route('store.dashboard') }}">
