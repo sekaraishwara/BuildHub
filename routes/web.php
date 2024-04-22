@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\Home\StoreController;
 use App\Http\Controllers\Frontend\ProfessionalDashboardController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalServiceController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
+use App\Http\Controllers\Frontend\Professional\ProfessionalProfileController;
 use App\Http\Controllers\Frontend\Store\StoreProductController;
 use App\Http\Controllers\Frontend\Store\StoreProfileController;
 use App\Http\Controllers\Frontend\Vendor\VendorPortfolioController;
@@ -59,8 +60,12 @@ Route::group(
     ],
     function () {
         Route::get('/dashboard', [ProfessionalDashboardController::class, 'index'])->name('dashboard');
-        Route::get('/profile', [ProfessionalDashboardController::class, 'profile'])->name('profile');
-        Route::patch('/profile', [ProfessionalDashboardController::class, 'update'])->name('profile.update');
+
+        Route::get('/profile', [ProfessionalProfileController::class, 'profile'])->name('profile');
+        Route::post('/profile/professional-profile', [ProfessionalProfileController::class, 'updateProfessionalProfile'])->name('profile.professional.profile');
+        Route::post('/profile/professional-info', [ProfessionalProfileController::class, 'updateProfessionalInfo'])->name('profile.professional-info');
+        Route::post('/profile/account-info', [ProfessionalProfileController::class, 'updateAccountInfo'])->name('profile.account-info');
+        Route::post('/profile/password-update', [ProfessionalProfileController::class, 'updatePassword'])->name('profile.password-update');
 
         Route::get('/service', [ProfessionalServiceController::class, 'index'])->name('service');
         Route::post('/service/store', [ProfessionalServiceController::class, 'store'])->name('service.store');
