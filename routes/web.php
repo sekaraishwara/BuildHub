@@ -48,7 +48,13 @@ Route::group(
     function () {
         Route::get('/dashboard', [CustomerDashboardController::class, 'index'])->name('dashboard');
         Route::get('/profile', [CustomerProfileController::class, 'profile'])->name('profile');
-        Route::patch('/profile', [CustomerProfileController::class, 'update'])->name('profile.update');
+
+        Route::post('/profile/customer-profile', [CustomerProfileController::class, 'updateCustomerProfile'])->name('profile.customer');
+        Route::post('/profile/customer-info', [CustomerProfileController::class, 'updateCustomerInfo'])->name('profile.customer-info');
+        Route::post('/profile/account-info', [ProfessionalProfileController::class, 'updateAccountInfo'])->name('profile.account-info');
+        Route::post('/profile/password-update', [ProfessionalProfileController::class, 'updatePassword'])->name('profile.password-update');
+
+        // Route::patch('/profile', [CustomerProfileController::class, 'update'])->name('profile.update');
     }
 );
 

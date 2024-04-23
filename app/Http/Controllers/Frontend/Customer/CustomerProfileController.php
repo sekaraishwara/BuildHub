@@ -2,32 +2,95 @@
 
 namespace App\Http\Controllers\Frontend\Customer;
 
+use App\Models\Customer;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use App\Traits\FileUploadTrait;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
-use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Validation\Rules;
+use App\Http\Requests\CustomerInfoUpdateRequest;
+use App\Http\Requests\CustomerProfileUpdateRequest;
 
 class CustomerProfileController extends Controller
 {
+    use FileUploadTrait; //inject here
+
     public function profile(Request $request): View
     {
-        return view('frontend._customer-dashboard._profile', [
-            'user' => $request->user(),
-        ]);
+        $customerInfo = Customer::where('user_id', auth()->user()->id)->first();
+        return view('frontend._customer-dashboard._profile', compact('customerInfo'));
     }
 
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function updateCustomerProfile(CustomerProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $logoPath = $this->uploadFile($request, 'logo');
+        $bannerPath = $this->uploadFile($request, 'banner');
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        $data = [];
+        if (!empty($logoPath)) $data['logo'] = $logoPath;
+        if (!empty($bannerPath)) $data['banner'] = $bannerPath;
 
-        $request->user()->save();
+        $data['name'] = $request->name;
+        $data['desc'] = $request->desc;
+        $data['instagram'] = $request->instagram;
+        $data['facebook'] = $request->facebook;
 
-        return Redirect::route('customer.profile')->with('status', 'profile-updated');
+        Customer::updateOrCreate(
+            ['user_id' => auth()->user()->id],
+            $data
+        );
+
+        notify()->success('Updated Successfully⚡️', 'Success!');
+
+        return redirect()->back();
+    }
+
+    function updateCustomerInfo(CustomerInfoUpdateRequest  $request): RedirectResponse
+    {
+        Customer::updateOrCreate(
+            ['user_id' => auth()->user()->id], //if data ada (berdasarkan user_id nya), update. kalau blm ada, create a new.
+            [
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'alamat' => $request->alamat,
+                'kota' => $request->kota,
+                'provinsi' => $request->provinsi,
+                'kodepos' => $request->kodepos
+            ]
+        );
+
+        notify()->success('Updated Successfully⚡️', 'Success!');
+
+        return redirect()->back();
+    }
+
+    function updateAccountInfo(Request $request): RedirectResponse
+    {
+        // we have only 2 input fields data so not gonna make the request separated file
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'email']
+        ]);
+
+        Auth::user()->update($validatedData);
+
+        notify()->success('Updated Successfully⚡️', 'Success!');
+
+        return redirect()->back();
+    }
+
+    function updatePassword(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        Auth::user()->update(['password' => bcrypt($request->password)]);
+
+        notify()->success('Updated Successfully⚡️', 'Success!');
+
+        return redirect()->back();
     }
 }
