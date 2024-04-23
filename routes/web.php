@@ -1,24 +1,25 @@
 <?php
 
-use App\Http\Controllers\Frontend\Customer\CustomerChatController;
-use App\Http\Controllers\Frontend\Customer\CustomerProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Frontend\Home\StoreController;
 use App\Http\Controllers\Frontend\StoreDashboardController;
 use App\Http\Controllers\Frontend\VendorDashboardController;
 use App\Http\Controllers\Frontend\CustomerDashboardController;
 use App\Http\Controllers\Frontend\Home\ProfessionalController;
-use App\Http\Controllers\Frontend\Home\StoreController;
-use App\Http\Controllers\Frontend\ProfessionalDashboardController;
-use App\Http\Controllers\Frontend\Professional\ProfessionalServiceController;
-use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
-use App\Http\Controllers\Frontend\Professional\ProfessionalProfileController;
 use App\Http\Controllers\Frontend\Store\StoreProductController;
 use App\Http\Controllers\Frontend\Store\StoreProfileController;
-use App\Http\Controllers\Frontend\Vendor\VendorPortfolioController;
 use App\Http\Controllers\Frontend\Vendor\VendorProfileController;
 use App\Http\Controllers\Frontend\Vendor\VendorserviceController;
+use App\Http\Controllers\Frontend\Customer\CustomerCartController;
+use App\Http\Controllers\Frontend\Customer\CustomerChatController;
+use App\Http\Controllers\Frontend\ProfessionalDashboardController;
+use App\Http\Controllers\Frontend\Vendor\VendorPortfolioController;
+use App\Http\Controllers\Frontend\Customer\CustomerProfileController;
+use App\Http\Controllers\Frontend\Professional\ProfessionalProfileController;
+use App\Http\Controllers\Frontend\Professional\ProfessionalServiceController;
+use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,9 @@ Route::group(
         Route::post('/profile/password-update', [CustomerProfileController::class, 'updatePassword'])->name('profile.password-update');
 
         Route::get('/chat', [CustomerChatController::class, 'index'])->name('chat');
+
+        Route::get('/cart', [CustomerCartController::class, 'index'])->name('cart');
+        Route::get('/cart/checkout', [CustomerCartController::class, 'customerCheckout'])->name('checkout');
     }
 );
 

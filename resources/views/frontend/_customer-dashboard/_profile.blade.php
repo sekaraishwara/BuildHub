@@ -1,24 +1,19 @@
 @extends('auth.layouts.auth-master')
 @section('contents')
-    <section class="section-box mt-75">
-        <div class="breadcrumbs mb-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="bread-inner">
-                            <ul class="bread-list">
-                                <li><a href="{{ route('home') }}">Home / </a></li>
-                                <li><a href="{{ route('customer.dashboard') }}">Dashboard /</a>
-                                </li>
-                                <li class="active"><a href="{{ route('customer.profile') }}">Profile</a>
-                                </li>
-                            </ul>
-                        </div>
+    <div class="breadcrumbs mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="bread-inner">
+                        <ul class="bread-list">
+                            <li><a href="{{ route('home') }}">Home </a><i class="ti-arrow-right"></i></a></li>
+                            <li class="active"><a href="{{ route('customer.profile') }}">Profile</a>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <section class="section-box mt-120">
         <div class="container">

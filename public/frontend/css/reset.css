@@ -338,6 +338,7 @@ big {
 .breadcrumbs ul li.active a {
     color: #333;
     display: inline-block;
+    font-weight: bold;
 }
 .breadcrumbs ul li a:hover {
     color: #f7941d;

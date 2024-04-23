@@ -9,7 +9,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-between">
-                                <h4>Store Category</h4>
+                                <h4>Vendor Category</h4>
                                 <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#createModal">Add
                                     Category</button>
                             </div>
@@ -28,7 +28,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($store as $item)
+                                            @foreach ($vendor as $item)
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1">{{ $item->name }}</td>
                                                     <td>{{ $item->created_at->format('d-M-Y') }}</td>
@@ -59,7 +59,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.master.store.update.category') }}" method="POST">
+                <form action="{{ route('admin.data-category.vendor.update') }}" method="POST">
                     <div class="modal-body">
                         @csrf
                         <div class="row">

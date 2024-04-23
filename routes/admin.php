@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\Auth\RegisteredUserController;
 use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DomisiliController;
-use App\Http\Controllers\Admin\Master\MasterStoreController;
+use App\Http\Controllers\Admin\Master\DataCategoryController;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 
@@ -41,10 +41,20 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
     /** Data-Domisili Route*/
     Route::get('data-domisili', [DomisiliController::class, 'index'])->name('data.domisili');
 
-    /** Master-Store Route*/
-    Route::get('master-store', [MasterStoreController::class, 'index'])->name('master.store');
-    Route::post('master-store/update/category', [MasterStoreController::class, 'updateCategory'])->name('master.store.update.category');
+    /** Data-Category Route*/
+    Route::get('data-category/store', [DataCategoryController::class, 'storeCategory'])->name('data-category.store');
+    Route::post('data-category/store/update', [DataCategoryController::class, 'storeCategoryUpdate'])->name('data-category.store.update');
 
+    Route::get('data-category/vendor', [DataCategoryController::class, 'vendorCategory'])->name('data-category.vendor');
+    Route::post('data-category/vendor/update', [DataCategoryController::class, 'vendorCategoryUpdate'])->name('data-category.vendor.update');
+
+    Route::get('data-category/professional', [DataCategoryController::class, 'professionalCategory'])->name('data-category.professional');
+    Route::post('data-category/professional/update', [DataCategoryController::class, 'professionalCategoryUpdate'])->name('data-category.professional.update');
+
+
+
+
+    /** Data-Category Route*/
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 

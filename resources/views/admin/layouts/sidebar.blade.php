@@ -4,7 +4,7 @@
          <div id="main-menu" class="main-menu collapse navbar-collapse">
              <ul class="nav navbar-nav">
                  <li class="active">
-                     <a href="index.html"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                     <a href="{{ route('admin.dashboard') }}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                  </li>
                  <li class="menu-title">MASTER</li><!-- /.menu-title -->
                  <li>
@@ -12,9 +12,17 @@
                      <a href="index.html"><i class="menu-icon fa fa-group"></i>Data Vendor </a>
                      <a href="index.html"><i class="menu-icon fa fa-home"></i>Data Professional </a>
                      <a href="index.html"><i class="menu-icon fa fa-dropbox"></i>Data Produk </a>
-                     <a href="{{ route('admin.master.store') }}"><i class="menu-icon fa fa-dropbox"></i>Master Store
-                     </a>
-
+                     {{-- <a href="{{ route('admin.master.store') }}"><i class="menu-icon fa fa-dropbox"></i>Master Store
+                     </a> --}}
+                 <li class="menu-item-has-children dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                         aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Data Category</a>
+                     <ul class="sub-menu children dropdown-menu">
+                         <li><a href="{{ route('admin.data-category.store') }}">Category Store</a></li>
+                         <li><a href="{{ route('admin.data-category.vendor') }}">Category Vendor</a></li>
+                         <li><a href="{{ route('admin.data-category.professional') }}">Category Professional</a></li>
+                     </ul>
+                 </li>
                  </li>
 
 

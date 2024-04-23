@@ -59,7 +59,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ route('admin.master.store.update.category') }}" method="POST">
+                <form action="{{ route('admin.data-category.store.update') }}" method="POST">
                     <div class="modal-body">
                         @csrf
                         <div class="row">

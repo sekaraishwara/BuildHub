@@ -49,7 +49,8 @@
                     <div class="dropdown-menu" aria-labelledby="message">
                         <p class="red">You have 4 Mails</p>
                         <a class="dropdown-item media" href="#">
-                            <span class="photo media-left"><img alt="avatar" src="images/avatar/1.jpg"></span>
+                            <span class="photo media-left"><img alt="avatar"
+                                    src="{{ asset('/admin/images/avatar/1.jpg') }}"></span>
                             <div class="message media-body">
                                 <span class="name float-left">Jonathan Smith</span>
                                 <span class="time float-right">Just now</span>
@@ -87,7 +88,8 @@
             <div class="user-area dropdown float-right">
                 <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
-                    <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                    <img class="user-avatar rounded-circle" src="{{ asset('admin/images/admin.jpg') }}"
+                        alt="User Avatar">
                 </a>
 
                 <div class="user-menu dropdown-menu">

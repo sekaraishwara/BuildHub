@@ -52,8 +52,9 @@
                               <div class="sinlge-bar">
                                   <a href="#" class="single-icon"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
                               </div>
-
-
+                              {{-- <div class="sinlge-bar">
+                                  <a href="#" class="single-icon"><i class="fa fa-wechat" aria-hidden="true"></i></a>
+                              </div> --}}
                               <div class="sinlge-bar shopping" data-toggle="dropdown">
                                   <a href="#" class="single-icon"><i class="fa fa-user-circle-o"
                                           aria-hidden="true"></i></a>
@@ -73,6 +74,7 @@
                                               <hr class="my-2 p-0">
                                               {{-- Menu options based on user role --}}
                                               @if (auth()->user()->role === 'customer')
+                                                  <li> <a href="{{ route('customer.dashboard') }}">Dashboard</a></li>
                                                   <li> <a href="{{ route('customer.chat') }}">Chat</a></li>
                                                   <li> <a href="{{ route('customer.dashboard') }}">Item Saved</a></li>
                                                   <li> <a href="{{ route('customer.dashboard') }}">Payment</a></li>
@@ -103,7 +105,7 @@
                                   <div class="shopping-item">
                                       <div class="dropdown-cart-header">
                                           <span>2 Items</span>
-                                          <a href="#">View Cart</a>
+                                          <a href="{{ route('customer.cart') }}">View Cart</a>
                                       </div>
                                       <ul class="shopping-list">
                                           <li>
@@ -128,7 +130,7 @@
                                               <span>Total</span>
                                               <span class="total-amount">$134.00</span>
                                           </div>
-                                          <a href="checkout.html" class="btn animate">Checkout</a>
+                                          <a href="{{ route('customer.checkout') }}" class="btn animate">Checkout</a>
                                       </div>
                                   </div>
                                   <!--/ End Shopping Item -->

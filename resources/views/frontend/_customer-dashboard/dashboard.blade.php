@@ -1,24 +1,21 @@
 @extends('auth.layouts.auth-master')
 @section('contents')
-    <section class="section-box mt-75">
-        <div class="breadcrumbs mb-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="bread-inner">
-                            <ul class="bread-list">
-                                <li><a href="{{ route('home') }}">Home / </a></li>
-                                <li class="active"><a href="{{ route('professional.dashboard') }}">Dashboard</a>
-                                </li>
-                            </ul>
-                        </div>
+    <div class="breadcrumbs mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="bread-inner">
+                        <ul class="bread-list">
+                            <li><a href="{{ route('home') }}">Home </a><i class="ti-arrow-right"></i></a></li>
+                            <li class="active"><a href="{{ route('professional.dashboard') }}">Dashboard</a>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="section-box mt-120">
+    <section class="section-box">
         <div class="container">
             <div class="row">
                 @include('frontend._customer-dashboard.sidebar')
