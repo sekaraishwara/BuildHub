@@ -7,6 +7,7 @@
                 <li><a href="{{ route('customer.dashboard') }}">Dashboard</a></li>
                 <li><a href="{{ route('customer.profile') }}">Profile</a></li>
                 <li><a href="">Payment</a></li>
+                <li><a href="{{ route('customer.chat') }}">Chat</a></li>
                 <li><a href="">Building Checklist</a></li>
                 <li><a href="">History Transaction</a></li>
                 {{-- <li><a href="#">History</a></li> --}}

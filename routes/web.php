@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\Customer\CustomerChatController;
 use App\Http\Controllers\Frontend\Customer\CustomerProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -51,10 +52,10 @@ Route::group(
 
         Route::post('/profile/customer-profile', [CustomerProfileController::class, 'updateCustomerProfile'])->name('profile.customer');
         Route::post('/profile/customer-info', [CustomerProfileController::class, 'updateCustomerInfo'])->name('profile.customer-info');
-        Route::post('/profile/account-info', [ProfessionalProfileController::class, 'updateAccountInfo'])->name('profile.account-info');
-        Route::post('/profile/password-update', [ProfessionalProfileController::class, 'updatePassword'])->name('profile.password-update');
+        Route::post('/profile/account-info', [CustomerProfileController::class, 'updateAccountInfo'])->name('profile.account-info');
+        Route::post('/profile/password-update', [CustomerProfileController::class, 'updatePassword'])->name('profile.password-update');
 
-        // Route::patch('/profile', [CustomerProfileController::class, 'update'])->name('profile.update');
+        Route::get('/chat', [CustomerChatController::class, 'index'])->name('chat');
     }
 );
 
@@ -99,8 +100,6 @@ Route::group(
         Route::post('/profile/vendor-info', [VendorProfileController::class, 'updateVendorInfo'])->name('profile.vendor-info');
         Route::post('/profile/account-info', [VendorProfileController::class, 'updateAccountInfo'])->name('profile.account-info');
         Route::post('/profile/password-update', [VendorProfileController::class, 'updatePassword'])->name('profile.password-update');
-
-
 
         Route::get('/service', [VendorserviceController::class, 'index'])->name('service');
         Route::post('/service/store', [VendorserviceController::class, 'store'])->name('service.store');

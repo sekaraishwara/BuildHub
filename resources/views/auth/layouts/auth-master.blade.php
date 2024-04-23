@@ -66,6 +66,13 @@
 
     <!-- SweetAlert CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css">
+
+    <!-- Rich Text CSS -->
+    {{-- <link rel="stylesheet" href="{{ asset('frontend/richtext/richtexteditor/rte_theme_default.css') }}"> --}}
+
+    <!-- Trix Editor -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
 </head>
 
 <body class="js p-0 m-0">
@@ -120,11 +127,15 @@
     <!-- DataTable JS -->
     <script src="https://cdn.datatables.net/2.0.4/js/dataTables.min.js"></script>
 
-    {{-- <script src="{{ asset('frontend/nice-select2/dist/js/nice-select2.js') }}"></script> --}}
-
     <!-- SweetAlert JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
 
+    {{-- Rich Text Editor --}}
+    {{-- <script src="{{ asset('frontend/richtext/richtexteditor/rte.js') }}"></script>
+    <script src="{{ asset('frontend/richtext/richtexteditor/plugins/all_plugins.js') }}"></script>
+    <script>
+        var editor = new RichTextEditor("#text_editor");
+    </script> --}}
 
     <!-- Laravel Notify Plugin -->
 

@@ -52,16 +52,37 @@
                                   {{ auth()->user()->name }}
                               </span>
                               <ul class="list">
+                                  {{-- header username --}}
+                                  <div class="row mx-2">
+                                      <a href="{{ route('customer.dashboard') }}">
+                                          {{ auth()->user()->name }} |
+                                          <small>300 xp</small>
+                                      </a>
+                                  </div>
+                                  <hr class="m-0 p-0">
+                                  {{-- customer --}}
                                   @if (auth()->user()->role === 'customer')
-                                      <li data-value="All Category" class="option"> <a
-                                              href="{{ route('customer.dashboard') }}">
-                                              Dashboard</a></li>
+                                      <li data-value="Chat" class="option"> <a href="{{ route('customer.chat') }}">
+                                              Chat</a>
+                                      </li>
+                                      <li data-value="Chat" class="option"> <a href="{{ route('customer.dashboard') }}">
+                                              Item Saved</a>
+                                      </li>
+                                      <li data-value="Chat" class="option"> <a href="{{ route('customer.dashboard') }}">
+                                              Payment</a>
+                                      </li>
+
+                                      {{-- professional --}}
                                   @elseif(auth()->user()->role === 'professional')
                                       <li data-value="All Category" class="option"> <a
                                               href="{{ route('professional.dashboard') }}">Dashboard</a></li>
+
+                                      {{-- vendor --}}
                                   @elseif(auth()->user()->role === 'vendor')
                                       <li data-value="All Category" class="option"> <a
                                               href="{{ route('vendor.dashboard') }}">Dashboard</a></li>
+
+                                      {{-- store --}}
                                   @elseif(auth()->user()->role === 'store')
                                       <li data-value="All Category" class="option"> <a
                                               href="{{ route('store.dashboard') }}">
