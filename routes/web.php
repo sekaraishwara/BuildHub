@@ -17,6 +17,7 @@ use App\Http\Controllers\Frontend\Customer\CustomerChatController;
 use App\Http\Controllers\Frontend\ProfessionalDashboardController;
 use App\Http\Controllers\Frontend\Vendor\VendorPortfolioController;
 use App\Http\Controllers\Frontend\Customer\CustomerProfileController;
+use App\Http\Controllers\Frontend\NotifiactionController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalProfileController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalServiceController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
@@ -39,6 +40,7 @@ use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/professional', [ProfessionalController::class, 'index'])->name('professional');
 Route::get('/store', [StoreController::class, 'index'])->name('store');
+Route::get('/store/show', [StoreController::class, 'show'])->name('store.show');
 
 
 Route::group(
@@ -49,6 +51,8 @@ Route::group(
     ],
     function () {
         Route::get('/dashboard', [CustomerDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/notification', [CustomerDashboardController::class, 'notification'])->name('notification');
+
         Route::get('/profile', [CustomerProfileController::class, 'profile'])->name('profile');
 
         Route::post('/profile/customer-profile', [CustomerProfileController::class, 'updateCustomerProfile'])->name('profile.customer');

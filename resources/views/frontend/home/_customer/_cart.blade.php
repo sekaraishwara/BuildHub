@@ -14,6 +14,7 @@
             </div>
         </div>
     </div>
+
     <div class="shopping-cart section pt-0">
         <div class="container mb-3">
             <h4>My Cart</h4>

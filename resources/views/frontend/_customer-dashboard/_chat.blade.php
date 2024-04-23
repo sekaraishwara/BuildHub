@@ -50,9 +50,7 @@
                                 </form>
 
                             </div>
-                            <div class="card-footer border-0 bg-light">
 
-                            </div>
                         </div>
 
                     </div>

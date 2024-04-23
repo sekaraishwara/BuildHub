@@ -25,15 +25,11 @@
                     <div class="shop-sidebar">
                         <!-- Single Widget -->
                         <div class="single-widget category">
-                            <h3 class="title">Categories</h3>
+                            <h3 class="title">Professional Categories</h3>
                             <ul class="categor-list">
-                                <li><a href="#">T-shirts</a></li>
-                                <li><a href="#">jacket</a></li>
-                                <li><a href="#">jeans</a></li>
-                                <li><a href="#">sweatshirts</a></li>
-                                <li><a href="#">trousers</a></li>
-                                <li><a href="#">kitwears</a></li>
-                                <li><a href="#">accessories</a></li>
+                                @foreach ($professionalCategory as $item)
+                                    <li><a href="#">{{ $item->name }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                         <!--/ End Single Widget -->

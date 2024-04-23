@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Home;
 
 use App\Http\Controllers\Controller;
+use App\Models\StoreCategory;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -13,7 +14,8 @@ class StoreController extends Controller
      */
     public function index(): View
     {
-        return view('frontend.home._store.index');
+        $storeCategory = StoreCategory::all();
+        return view('frontend.home._store.index', compact('storeCategory'));
     }
 
     /**
@@ -35,9 +37,9 @@ class StoreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        return view('frontend.home._store.show');
     }
 
     /**

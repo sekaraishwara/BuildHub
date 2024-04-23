@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Home;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProfessionalCategory;
 use Illuminate\Http\Request;
 
 class ProfessionalController extends Controller
@@ -12,7 +13,8 @@ class ProfessionalController extends Controller
      */
     public function index()
     {
-        return view('frontend.home._professional.index');
+        $professionalCategory = ProfessionalCategory::all();
+        return view('frontend.home._professional.index', compact('professionalCategory'));
     }
 
     /**

@@ -50,7 +50,8 @@
                           <div class="right-bar">
 
                               <div class="sinlge-bar">
-                                  <a href="#" class="single-icon"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
+                                  <a href="{{ route('customer.notification') }}" class="single-icon"><i class="fa fa-bell-o"
+                                          aria-hidden="true"></i></a>
                               </div>
                               {{-- <div class="sinlge-bar">
                                   <a href="#" class="single-icon"><i class="fa fa-wechat" aria-hidden="true"></i></a>
