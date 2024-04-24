@@ -24,4 +24,13 @@ class Customer extends Model
         'provinsi',
         'kodepos',
     ];
+
+    public function cart()
+    {
+        return $this->belongsTo(CustomerCart::class);
+    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 }

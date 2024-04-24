@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\StoreProduct;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Store extends Model
 {
@@ -25,4 +26,9 @@ class Store extends Model
         'provinsi',
         'kodepos',
     ];
+
+    public function products()
+    {
+        return $this->hasMany(StoreProduct::class);
+    }
 }

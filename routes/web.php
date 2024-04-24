@@ -40,7 +40,9 @@ use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/professional', [ProfessionalController::class, 'index'])->name('professional');
 Route::get('/store', [StoreController::class, 'index'])->name('store');
-Route::get('/store/show', [StoreController::class, 'show'])->name('store.show');
+// Route::get('/store/show', [StoreController::class, 'show'])->name('store.show');
+Route::get('{slug}', [StoreController::class, 'singleProduct'])->name('singleItem');
+
 
 
 Route::group(
@@ -63,6 +65,7 @@ Route::group(
         Route::get('/chat', [CustomerChatController::class, 'index'])->name('chat');
 
         Route::get('/cart', [CustomerCartController::class, 'index'])->name('cart');
+        Route::post('/cart/add', [CustomerCartController::class, 'addToCart'])->name('cart.addToCart');
         Route::get('/cart/checkout', [CustomerCartController::class, 'customerCheckout'])->name('checkout');
     }
 );

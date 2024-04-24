@@ -16,10 +16,12 @@ return new class extends Migration
             $table->foreignId('store_id')->constrained('stores');
             $table->string('image')->nullable();
             $table->string('name');
+            $table->string('slug')->nullable();
             $table->string('category');
             $table->string('desc');
             $table->string('price');
             $table->string('ratings')->default('0');
+            $table->string('review')->default('0');
             $table->boolean('status')->default('1');
             $table->timestamps();
         });

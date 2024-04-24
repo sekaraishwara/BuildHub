@@ -82,8 +82,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer border-0 bg-light">
-
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="notification-short">
+                                        <h6>Title</h6>
+                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. </p>
+                                    </div>
+                                    <div class="notification-date">
+                                        <p>{{ date('d M Y') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="notification-short">
+                                        <h6>Title</h6>
+                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. </p>
+                                    </div>
+                                    <div class="notification-date">
+                                        <p>{{ date('d M Y') }}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

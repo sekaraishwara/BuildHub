@@ -8,9 +8,8 @@
                     <div class="bread-inner">
                         <ul class="bread-list">
                             <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="index1.html">Store<i class="ti-arrow-right"></i></a></li>
-                            <li><a href="blog-single.html">Luna Car Humidifier Diffuser Mobil Portable
-                                    Aromatherapy Cute With LED Light Color Design 250 ml</a></li>
+                            <li><a href="{{ route('store') }}">Store<i class="ti-arrow-right"></i></a></li>
+                            <li class="active"><a href="blog-single.html">{{ $storeProduct?->name }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -23,16 +22,16 @@
         <div class="container">
             <div class="shop product single-item">
                 <div class="d-flex justify-content-between">
-                    <div class="product-image">
-                        <img id="uploadedImage" src="{{ asset('uploads/media_6626166640bdb.png') }}" alt="">
+                    <div class="col-md-4 product-image">
+                        <img id="uploadedImage" src="{{ $storeProduct?->image }}" alt="">
                     </div>
-                    <div class="product-text">
-                        <h4>Luna Car Humidifier Diffuser Mobil Portable Aromatherapy Cute With LED Light Color Design 250 ml
+                    <div class="col-md-8 product-text">
+                        <h4>{{ $storeProduct?->name }}
                         </h4>
                         <div class="product-price">
                             <div class="d-flex align-items-center">
                                 <span class="promo-price mr-2">Rp. 28.900</span>
-                                <h3 class="normal-price">Rp. 149.000</h3>
+                                <h3 class="normal-price">Rp. {{ $storeProduct?->price }}</h3>
                             </div>
                             <div class="d-flex">
                                 <div class="product-ratings"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
@@ -50,11 +49,11 @@
                                 <tbody>
                                     <tr>
                                         <td class="text-muted">Category</td>
-                                        <td>Diffuser</td>
+                                        <td>{{ $storeProduct?->category }}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Shipping From</td>
-                                        <td>KOTA BEKASI</td>
+                                        <td>{{ $storeProduct?->store->kota }}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Stock</td>
@@ -64,10 +63,22 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="product-qtyCart">
-                            <button class="btn"><i class="fa fa-shopping-cart mr-2"></i>Add to Cart</button>
-                            <button class="btn"><i class="fa fa-shopping-cart mr-2"></i>Buy Now</button>
+                        <div class="row">
+                            <form action="{{ route('customer.cart.addToCart') }}" method="POST">
+                                @csrf
+                                <div class="d-none">
+                                    <input name="product_id" value="{{ $storeProduct?->id }}">
+                                    <input name="item_qty" value="1">
+                                </div>
+                                <button class="btn btn-cart mr-3"><i class="fa fa-shopping-cart mr-2"></i> Add to
+                                    Cart</button>
+
+                            </form>
+
+                            <a class="btn text-white"><i class="fa fa-shopping-basket mr-2"></i>Buy Now
+                            </a>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -85,8 +96,9 @@
                         </div>
                         <div class="col-md-9">
                             <div class="store-info ml-2">
-                                <span class="store-name">Luna Indonesia Official Shop</span> <br>
-                                <span class="text-muted">Bergabung sejak April 2024</span>
+                                <span class="store-name">{{ $storeProduct?->store->name }}</span> <br>
+                                <span class="text-muted">Bergabung sejak
+                                    {{ $storeProduct?->store->created_at->format('M Y') }}</span>
                             </div>
                         </div>
                     </div>
@@ -404,7 +416,7 @@
     }
 
     .product-image {
-        width: 650px;
+        width: 680px;
         height: auto;
         overflow: hidden;
     }

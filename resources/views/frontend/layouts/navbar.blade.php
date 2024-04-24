@@ -27,18 +27,13 @@
                   <div class="col-lg-8 col-md-7 col-12">
                       <div class="search-bar-top">
                           <div class="search-bar">
-                              <select>
-                                  <option selected="selected">All Category</option>
-                                  <option>watch</option>
-                                  <option>mobile</option>
-                                  <option>kid’s item</option>
-                              </select>
                               <form>
                                   <input name="search" placeholder="Search Products Here....." type="search">
                                   <button class="btnn"><i class="ti-search"></i></button>
                               </form>
                           </div>
                       </div>
+
                   </div>
                   <div class="col-lg-2 col-md-2 col-12 ">
                       @guest
@@ -50,7 +45,8 @@
                           <div class="right-bar">
 
                               <div class="sinlge-bar">
-                                  <a href="#" class="single-icon"><i class="fa fa-bell-o" aria-hidden="true"></i></a>
+                                  <a href="{{ route('customer.notification') }}" class="single-icon"><i class="fa fa-bell-o"
+                                          aria-hidden="true"></i></a>
                               </div>
                               {{-- <div class="sinlge-bar">
                               <a href="#" class="single-icon"><i class="fa fa-wechat" aria-hidden="true"></i></a>
@@ -247,3 +243,18 @@
           });
       </script>
   @endif --}}
+
+  <script>
+      document.querySelector('.sinlge-bar.shopping').addEventListener('click', function(event) {
+          event.stopPropagation();
+          var dropdown = this.querySelector('.shopping-item.dropdown-menu');
+          dropdown.classList.toggle('show'); //
+      });
+
+      document.addEventListener('click', function(event) {
+          var dropdown = document.querySelector('.shopping-item.dropdown-menu');
+          if (dropdown.classList.contains('show') && !event.target.closest('.sinlge-bar.shopping')) {
+              dropdown.classList.remove('show');
+          }
+      });
+  </script>

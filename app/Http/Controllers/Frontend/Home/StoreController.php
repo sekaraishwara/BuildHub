@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\StoreCategory;
+use App\Models\StoreProduct;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -15,7 +16,8 @@ class StoreController extends Controller
     public function index(): View
     {
         $storeCategory = StoreCategory::all();
-        return view('frontend.home._store.index', compact('storeCategory'));
+        $storeProduct = StoreProduct::all();
+        return view('frontend.home._store.index', compact('storeCategory', 'storeProduct'));
     }
 
     /**
@@ -40,6 +42,14 @@ class StoreController extends Controller
     public function show()
     {
         return view('frontend.home._store.show');
+    }
+
+    public function singleProduct($slug)
+    {
+
+        $storeProduct = StoreProduct::where('slug', $slug)->first();
+
+        return view('frontend.home._store.single-product', compact('storeProduct'));
     }
 
     /**
