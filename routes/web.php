@@ -41,7 +41,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/professional', [ProfessionalController::class, 'index'])->name('professional');
 Route::get('/store', [StoreController::class, 'index'])->name('store');
 // Route::get('/store/show', [StoreController::class, 'show'])->name('store.show');
-Route::get('{slug}', [StoreController::class, 'singleProduct'])->name('singleItem');
+// Route::get('{slug}', [StoreController::class, 'singleProduct'])->name('singleItem');
 
 
 

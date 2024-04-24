@@ -14,7 +14,23 @@ class CustomerCartController extends Controller
 {
     public function index(): View
     {
-        return view('frontend.home._customer._cart');
+        $user = Auth::user();
+        $customer = Customer::where('user_id', $user->id)->firstOrFail();
+
+        $cartItem = CustomerCart::where('customer_id', $customer->id)
+            ->get();
+        // dd($cartItem);
+
+        $sumPriceItem = 0;
+
+        // foreach ($cartItem as $item) {
+        //     $productPrice = $item->product->price;
+        //     $itemQty = $item->item_qty;
+        //     $x = $productPrice * $itemQty;
+        //     $sumPriceItem += $x;
+        // }
+
+        return view('frontend.home._customer._cart', compact('cartItem', 'sumPriceItem'));
     }
 
     public function customerCheckout(): View

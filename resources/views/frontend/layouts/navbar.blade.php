@@ -130,8 +130,6 @@
                                                   document.getElementById('total-count').textContent = response.totalItemCount;
                                               }
                                           };
-
-                                          // Kirim permintaan ke server
                                           xhr.send();
                                       }
                                       window.onload = getTotalItemCount;
