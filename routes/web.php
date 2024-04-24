@@ -45,6 +45,7 @@ Route::get('{slug}', [StoreController::class, 'singleProduct'])->name('singleIte
 
 
 
+
 Route::group(
     [
         'middleware' => ['auth', 'verified', 'user.role:customer'],
@@ -67,6 +68,7 @@ Route::group(
         Route::get('/cart', [CustomerCartController::class, 'index'])->name('cart');
         Route::post('/cart/add', [CustomerCartController::class, 'addToCart'])->name('cart.addToCart');
         Route::get('/cart/checkout', [CustomerCartController::class, 'customerCheckout'])->name('checkout');
+        Route::get('/cart/count-items', [CustomerCartController::class, 'getTotalItemCart'])->name('getTotalItemCart');
     }
 );
 

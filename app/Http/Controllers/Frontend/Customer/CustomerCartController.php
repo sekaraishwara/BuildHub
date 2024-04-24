@@ -50,9 +50,19 @@ class CustomerCartController extends Controller
             ]);
         }
 
-
         notify()->success('Added Successfully⚡️', 'Success!');
 
         return redirect()->back();
+    }
+
+    public function getTotalItemCart()
+    {
+        $user = Auth::user();
+        $customer = Customer::where('user_id', $user->id)->firstOrFail();
+
+        $totalCount = CustomerCart::where('customer_id', $customer->id)->sum('item_qty');
+
+
+        return response()->json(['totalItemCount' => $totalCount]);
     }
 }
