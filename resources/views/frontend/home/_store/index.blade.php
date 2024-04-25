@@ -119,7 +119,7 @@
                                     <div class="product-content">
                                         <h3><a href="product-details.html">{{ $item?->name }}</a></h3>
                                         <div class="product-price">
-                                            <span>Rp. {{ $item?->price }}</span>
+                                            <span>Rp{{ number_format($item->price, 0, ',', '.') }}</span>
                                         </div>
                                     </div>
                                 </div>

@@ -125,7 +125,7 @@
                                               <span>Total</span>
                                               <span class="total-amount">$134.00</span>
                                           </div>
-                                          <a href="{{ route('customer.checkout') }}" class="btn animate">Checkout</a>
+                                          {{-- <a href="{{ route('customer.checkout') }}" class="btn animate">Checkout</a> --}}
                                       </div>
                                   </div>
                                   <!--/ End Shopping Item -->

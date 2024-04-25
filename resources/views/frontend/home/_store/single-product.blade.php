@@ -30,8 +30,11 @@
                         </h4>
                         <div class="product-price">
                             <div class="d-flex align-items-center">
-                                <span class="promo-price mr-2">Rp. 28.900</span>
-                                <h3 class="normal-price">Rp. {{ $storeProduct?->price }}</h3>
+                                <span class="promo-price mr-2">Rp. 28.900.000</span>
+
+                                <h3 class="normal-price">
+                                    <span>Rp{{ number_format($storeProduct->price, 0, ',', '.') }}</span>
+                                </h3>
                             </div>
                             <div class="d-flex">
                                 <div class="product-ratings"><i class="fa fa-star"></i><i class="fa fa-star"></i><i
@@ -53,7 +56,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Shipping From</td>
-                                        <td>{{ $storeProduct?->store->kota }}</td>
+                                        <td>KOTA BEKASI</td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Stock</td>
@@ -75,8 +78,8 @@
 
                             </form>
 
-                            <a class="btn text-white"><i class="fa fa-shopping-basket mr-2"></i>Buy Now
-                            </a>
+                            {{-- <a class="btn text-white"><i class="fa fa-shopping-basket mr-2"></i>Buy Now
+                            </a> --}}
                         </div>
 
                     </div>

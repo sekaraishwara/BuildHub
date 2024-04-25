@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Frontend\Customer;
 
-use Illuminate\View\View;
-use App\Models\CustomerCart;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use Illuminate\View\View;
+use Illuminate\Support\Str;
+use App\Models\CustomerCart;
+use App\Models\StoreProduct;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
@@ -21,16 +24,8 @@ class CustomerCartController extends Controller
             ->get();
         // dd($cartItem);
 
-        $sumPriceItem = 0;
 
-        // foreach ($cartItem as $item) {
-        //     $productPrice = $item->product->price;
-        //     $itemQty = $item->item_qty;
-        //     $x = $productPrice * $itemQty;
-        //     $sumPriceItem += $x;
-        // }
-
-        return view('frontend.home._customer._cart', compact('cartItem', 'sumPriceItem'));
+        return view('frontend.home._customer._cart', compact('cartItem'));
     }
 
     public function customerCheckout(): View
@@ -80,5 +75,47 @@ class CustomerCartController extends Controller
 
 
         return response()->json(['totalItemCount' => $totalCount]);
+    }
+
+    public function sessionCheckout(Request $request)
+    {
+
+        $cartIds = $request->input('cart_id', []); // id dari checkbox di cart
+
+        $cartItems = [];
+
+        foreach ($cartIds as $cartId) {
+            $customerCart = CustomerCart::find($cartId);
+
+            if ($customerCart) {
+                $product = $customerCart->product;
+
+                if ($product) {
+                    $customer = Customer::find($customerCart->customer_id);
+                    $cartItems[] = [
+                        'product_id' => $product->id,
+                        'product_name' => $product->name,
+                        'product_price' => $product->price,
+                        'store_id' => $product->store_id,
+                        'store_name' => $product->store->name,
+                        'product_img' => $product->image,
+                        'product_qty' => $customerCart->item_qty,
+
+                        'customer_name' => $customer->name,
+                        'customer_phone' => $customer->phone,
+                        'customer_alamat' => $customer->alamat,
+
+                    ];
+                }
+            }
+        }
+
+        $date = Carbon::now()->format('dm');
+        $randomString = Str::random(6);
+
+        $invTrans = $date  . $randomString;
+        dd($invTrans);
+
+        return view('frontend.home._customer._checkout', compact('cartItems', 'invTrans'));
     }
 }

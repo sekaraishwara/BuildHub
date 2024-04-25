@@ -17,6 +17,7 @@ use App\Http\Controllers\Frontend\Customer\CustomerChatController;
 use App\Http\Controllers\Frontend\ProfessionalDashboardController;
 use App\Http\Controllers\Frontend\Vendor\VendorPortfolioController;
 use App\Http\Controllers\Frontend\Customer\CustomerProfileController;
+use App\Http\Controllers\Frontend\Customer\CustomerTransactionController;
 use App\Http\Controllers\Frontend\NotifiactionController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalProfileController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalServiceController;
@@ -41,7 +42,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/professional', [ProfessionalController::class, 'index'])->name('professional');
 Route::get('/store', [StoreController::class, 'index'])->name('store');
 // Route::get('/store/show', [StoreController::class, 'show'])->name('store.show');
-// Route::get('{slug}', [StoreController::class, 'singleProduct'])->name('singleItem');
+Route::get('{slug}', [StoreController::class, 'singleProduct'])->name('singleItem');
 
 
 
@@ -67,8 +68,11 @@ Route::group(
 
         Route::get('/cart', [CustomerCartController::class, 'index'])->name('cart');
         Route::post('/cart/add', [CustomerCartController::class, 'addToCart'])->name('cart.addToCart');
-        Route::get('/cart/checkout', [CustomerCartController::class, 'customerCheckout'])->name('checkout');
         Route::get('/cart/count-items', [CustomerCartController::class, 'getTotalItemCart'])->name('getTotalItemCart');
+
+        // Route::get('/cart/checkout', [CustomerCartController::class, 'customerCheckout'])->name('checkout');
+        Route::post('/cart/checkout', [CustomerCartController::class, 'sessionCheckout'])->name('sessionCheckout');
+        Route::get('/cart/payment', [CustomerTransactionController::class, 'payment'])->name('payment');
     }
 );
 

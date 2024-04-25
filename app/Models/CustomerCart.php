@@ -20,4 +20,9 @@ class CustomerCart extends Model
     {
         return $this->belongsTo(StoreProduct::class, 'product_id');
     }
+
+    public function transaction()
+    {
+        return $this->hasOne(CustomerTransaction::class, 'cart_id');
+    }
 }
