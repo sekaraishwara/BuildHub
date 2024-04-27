@@ -70,7 +70,9 @@
                                             </td>
                                             <td>{{ number_format($item->total_price, 0, ',', '.') }}</td>
                                             <td>{{ $item->payment_status }}</td>
-                                            <td> <a href="#" class="text-primary">Upload</a></td>
+                                            <td> <a href="#" data-toggle="modal"
+                                                    data-target="#uploadResiModal{{ $item->id }}"
+                                                    class="text-primary">Upload</a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -83,86 +85,52 @@
     </section>
 
 
-    {{-- <!-- Modal Create-->
-    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal" aria-hidden="true">
-        <div class="modal-dialog  modal-lg" role="document">
-            <form method="POST" action="{{ route('store.product.store') }}" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Create Product</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="Name">Product Image</label>
-                                    <input class="form-control" type="file" name="image" id="image">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="Name">Product Name</label>
-                                    <input class="form-control" type="text" name="name" id="name">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="Category">Category</label>
-                                    <input class="form-control" type="text" name="category" id="category">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="Desc">Desc</label>
-                                    <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="Price">Price</label>
-                                    <input class="form-control" id="price" name="price">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal Edit&Delete-->
-    @foreach ($data as $item)
-        <!-- Modal Delete-->
-        <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" role="dialog"
-            aria-labelledby="createModal" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <form method="POST" action="{{ route('store.product.delete', ['id' => $item->id]) }}">
+    <!-- Upload Resi Create-->
+    @foreach ($getTransaction as $item)
+        <div class="modal fade" id="uploadResiModal{{ $item->id }}" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog  " role="document">
+                <form method="POST" action="{{ route('store.resi.upload') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Confirm Delete</h5>
+                        <div class="modal-header align-items-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="text" class="d-none" name="transaction_id" value="{{ $item->id }}">
+                                    <p class="modal-title">Transaction: {{ $item->invoice_no }}</p>
+                                    <!-- Move the product name here -->
+                                    @foreach ($cartIds as $cart)
+                                        @if ($cart['cart_id'] == $item->cart_id)
+                                            <h6 class="mt-2"> {{ $cart['product_name'] }}</h6>
+                                        @endif
+                                    @endforeach
+                                </div>
+                                <!-- Remove the product name from the previous column -->
+                            </div>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+
                         <div class="modal-body">
-                            Are you sure to delete this data?
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="Name">Upload Transaction</label>
+                                        <input class="form-control" type="file" name="shipping_proof">
+                                    </div>
+                                    <div class="alert alert-warning p-0">
+                                        <p class="mx-auto p-2">Uploaded proof must be a clear image. Your
+                                            transaction will be verified by admin maximum of <strong> 8 hours.</strong></p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Yes, Delete</button>
+                            <button type="submit" class="btn btn-primary">Upload</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-    @endforeach --}}
+    @endforeach
 @endsection

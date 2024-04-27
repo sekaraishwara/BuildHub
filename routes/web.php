@@ -23,6 +23,7 @@ use App\Http\Controllers\Frontend\NotifiactionController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalProfileController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalServiceController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
+use App\Http\Controllers\Frontend\Store\StoreChatController;
 use App\Models\CustomerTransaction;
 
 /*
@@ -160,6 +161,10 @@ Route::group(
         Route::delete('/product/delete{id}', [StoreProductController::class, 'delete'])->name('product.delete');
 
         Route::get('/transaction', [StoreDashboardController::class, 'transaction'])->name('transaction');
+        Route::post('/transaction/resi-upload', [StoreDashboardController::class, 'uploadResi'])->name('resi.upload');
+
+        /*Chat Route*/
+        Route::get('/chat', [StoreChatController::class, 'index'])->name('chat');
     }
 );
 

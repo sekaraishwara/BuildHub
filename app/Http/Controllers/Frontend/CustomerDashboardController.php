@@ -40,10 +40,6 @@ class CustomerDashboardController extends Controller
             )
             ->get();
 
-
-
-
-
         return view('frontend._customer-dashboard._transaction', compact('getTransaction'));
     }
 }
