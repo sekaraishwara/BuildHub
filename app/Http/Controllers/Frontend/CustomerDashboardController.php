@@ -32,6 +32,7 @@ class CustomerDashboardController extends Controller
             ->where('customers.user_id', $user->id)
             ->select(
                 'customer_transactions.*',
+                'customer_transactions.id AS transaction_id',
                 'customer_carts.*',
                 'stores.name AS store_name',
                 'store_products.name AS product_name',

@@ -68,7 +68,9 @@
                                         </div>
                                         <div class="d-flex justify-content-start">
 
-                                            <button class="btn mx-2">Upload Payment</button>
+                                            <button data-toggle="modal"
+                                                data-target="#uploadPaymentModal{{ $item->transaction_id }}"
+                                                class="btn mx-2">Upload Payment</button>
                                         </div>
                                     </div>
 
@@ -81,89 +83,63 @@
         </div>
     </section>
 
-
-    {{-- <!-- Modal Create-->
-    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal" aria-hidden="true">
-        <div class="modal-dialog  modal-lg" role="document">
-            <form method="POST" action="{{ route('store.product.store') }}" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Create Product</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="Name">Product Image</label>
-                                    <input class="form-control" type="file" name="image" id="image">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="Name">Product Name</label>
-                                    <input class="form-control" type="text" name="name" id="name">
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="Category">Category</label>
-                                    <input class="form-control" type="text" name="category" id="category">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="Desc">Desc</label>
-                                    <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="Price">Price</label>
-                                    <input class="form-control" id="price" name="price">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal Edit&Delete-->
-    @foreach ($data as $item)
-        <!-- Modal Delete-->
-        <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" role="dialog"
+    <!-- Modal upload payment-proof-->
+    @foreach ($getTransaction as $item)
+        <div class="modal fade" id="uploadPaymentModal{{ $item->transaction_id }}" tabindex="-1" role="dialog"
             aria-labelledby="createModal" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <form method="POST" action="{{ route('store.product.delete', ['id' => $item->id]) }}">
+            <div class="modal-dialog  modal-lg" role="document">
+                <form method="POST" action="{{ route('store.product.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Confirm Delete</h5>
+                            <span class="modal-title">Transaction: {{ $item->invoice_no }}</span>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            Are you sure to delete this data?
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="Name">Product Image</label>
+                                        <input class="form-control" type="file" name="image" id="image">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="Name">Product Name</label>
+                                        <input class="form-control" type="text" name="name" id="name">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="Category">Category</label>
+                                        <input class="form-control" type="text" name="category" id="category">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="Desc">Desc</label>
+                                        <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="Price">Price</label>
+                                        <input class="form-control" id="price" name="price">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Yes, Delete</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-    @endforeach --}}
+    @endforeach
 @endsection
 
 <style>

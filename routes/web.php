@@ -78,6 +78,8 @@ Route::group(
         Route::get('/payment', [CustomerTransactionController::class, 'getPayment'])->name('payment');
 
         Route::get('/transaction', [CustomerDashboardController::class, 'transaction'])->name('order');
+        Route::get('/transaction/payment-upload', [CustomerDashboardController::class, 'transaction'])->name('payment.upload');
+        Route::get('/transaction/payment-upload', [CustomerDashboardController::class, 'transaction'])->name('payment.upload');
     }
 );
 

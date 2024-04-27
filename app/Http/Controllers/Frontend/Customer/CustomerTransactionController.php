@@ -8,6 +8,7 @@ use App\Models\CustomerTransaction;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use App\Models\CustomerCart;
+use App\Models\TransactionProof;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,5 +30,24 @@ class CustomerTransactionController extends Controller
 
             return view('frontend.home._customer._payment', compact('getTransaction'));
         }
+    }
+
+    function uploadPayment(Request $request, $id): RedirectResponse
+    {
+        $payment = $this->uploadFile($request, 'payment_proof');
+
+        $data = [];
+        if (!empty($payment)) $data['payment_proof'] = $payment;
+
+        $id =
+            $data['transaction_id'] = $request->transaction_id;
+
+        TransactionProof::updateOrCreate(
+            $data
+        );
+
+        notify()->success('Updated Successfully⚡️', 'Success!');
+
+        return redirect()->back();
     }
 }
