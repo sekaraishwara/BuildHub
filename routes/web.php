@@ -42,10 +42,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/professional', [ProfessionalController::class, 'index'])->name('professional');
 Route::get('/store', [StoreController::class, 'index'])->name('store');
 // Route::get('/store/show', [StoreController::class, 'show'])->name('store.show');
-Route::get('{slug}', [StoreController::class, 'singleProduct'])->name('singleItem');
 
-
-
+Route::get('/product/{slug}', [StoreController::class, 'singleProduct'])->name('singleItem');
 
 Route::group(
     [
@@ -70,9 +68,12 @@ Route::group(
         Route::post('/cart/add', [CustomerCartController::class, 'addToCart'])->name('cart.addToCart');
         Route::get('/cart/count-items', [CustomerCartController::class, 'getTotalItemCart'])->name('getTotalItemCart');
 
-        // Route::get('/cart/checkout', [CustomerCartController::class, 'customerCheckout'])->name('checkout');
+        Route::get('/cart/checkout', [CustomerCartController::class, 'sessionCheckout'])->name('sessionCheckout');
         Route::post('/cart/checkout', [CustomerCartController::class, 'sessionCheckout'])->name('sessionCheckout');
-        Route::get('/cart/payment', [CustomerTransactionController::class, 'payment'])->name('payment');
+
+        Route::post('/cart/checkout-submit', [CustomerCartController::class, 'sessionTransaction'])->name('sessionTransaction');
+
+        Route::get('/payment', [CustomerTransactionController::class, 'getPayment'])->name('payment');
     }
 );
 

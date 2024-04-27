@@ -73,7 +73,7 @@
                                                   <li> <a href="{{ route('customer.dashboard') }}">Dashboard</a></li>
                                                   <li> <a href="{{ route('customer.chat') }}">Chat</a></li>
                                                   <li> <a href="{{ route('customer.dashboard') }}">Item Saved</a></li>
-                                                  <li> <a href="{{ route('customer.dashboard') }}">Payment</a></li>
+                                                  <li> <a href="{{ route('customer.payment') }}">Payment</a></li>
                                                   <li> <a href="{{ route('customer.profile') }}">Profile</a></li>
                                               @elseif(auth()->user()->role === 'professional')
                                                   <li> <a href="{{ route('professional.dashboard') }}">Dashboard</a></li>

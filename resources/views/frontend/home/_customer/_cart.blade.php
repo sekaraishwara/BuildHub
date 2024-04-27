@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-12">
                     <!-- Shopping Summery -->
-                    <form action="{{ route('customer.sessionCheckout') }}" method="POST">
+                    <form action="{{ route('customer.sessionCheckout') }}" method="get">
                         <table class="table shopping-summery">
                             <thead>
                                 <tr class="main-hading">

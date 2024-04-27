@@ -33,7 +33,7 @@
                                 <span class="promo-price mr-2">Rp. 28.900.000</span>
 
                                 <h3 class="normal-price">
-                                    <span>Rp{{ number_format($storeProduct->price, 0, ',', '.') }}</span>
+                                    <span>Rp{{ number_format($storeProduct?->price, 0, ',', '.') }}</span>
                                 </h3>
                             </div>
                             <div class="d-flex">

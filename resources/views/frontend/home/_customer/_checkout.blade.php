@@ -15,42 +15,53 @@
             </div>
         </div>
     </div>
-    <section class="shop checkout section p-0 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="customer customer-info">
-                                @foreach ($cartItems as $item)
-                                    <div class="col-12">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <strong><i class="fa fa-location-arrow mx-2"></i> Shipping to:
-                                            </strong>
-                                            <span>{{ $item['customer_name'] }}</span>
-                                            <span>{{ $item['customer_phone'] }}</span>
-                                            <span>{{ $item['customer_alamat'] }}, BEKASI, JAWA BARAT, 17520</span>
-                                            <a href="#" class="text-primary"><i
-                                                    class="fa fa-pencil-square-o mx-2"></i>Change Address</a>
+    <form action="{{ route('customer.sessionCheckout') }}" method="post">
+        @csrf
+        <section class="shop checkout section p-0 mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            @foreach ($cartItems as $item)
+                                <div class="d-flex justify-content-start">
+
+                                    <input type="text" class="" name="card_id" value="{{ $item['cart_id'] }}">
+                                    <input type="text" class="" name="invoice_no" value="{{ $transInv }}">
+                                    <input type="text" class="" name="transaction_date"
+                                        value="{{ $transDate }}">
+                                    <input type="text" class="" name="total_price"
+                                        value="{{ $item['product_price'] * $item['product_qty'] }}">
+                                    <input type="text" class="" name="shipping_address"
+                                        value="{{ $item['customer_alamat'] }}">
+                                </div>
+                                <div class="card-body">
+                                    <div class="customer customer-info">
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <strong><i class="fa fa-location-arrow mx-2"></i> Shipping to:
+                                                </strong>
+                                                <span>{{ $item['customer_name'] }}</span>
+                                                <span>{{ $item['customer_phone'] }}</span>
+                                                <span>{{ $item['customer_alamat'] }}, BEKASI, JAWA BARAT, 17520</span>
+                                                <a href="#" class="text-primary"><i
+                                                        class="fa fa-pencil-square-o mx-2"></i>Change Address</a>
+                                            </div>
                                         </div>
                                     </div>
-                                @endforeach
-                            </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section class="shop checkout section p-0">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="checkout-form">
-                        <h2 class="mb-3">Product Order</h2>
-                        {{-- <p>Please register in order to checkout more quickly</p> --}}
-                        <!-- Form -->
-                        <form class="form" method="post" action="#">
+        </section>
+        <section class="shop checkout section p-0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="checkout-form">
+                            <h2 class="mb-3">Product Order</h2>
+                            {{-- <p>Please register in order to checkout more quickly</p> --}}
                             @foreach ($cartItems as $item)
                                 <div class="row">
                                     <div class="col-12">
@@ -115,67 +126,70 @@
                                     </div>
                                 </div>
                             @endforeach
-                        </form>
-                        <!--/ End Form -->
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="shop checkout section p-0 mb-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card border-top-0 rounded-0">
-                        <div class="card-body">
-                            <table class="table-payment table-responsive mb-0 d-flex justify-content-end">
-                                <tr>
-                                    <td>
-                                        Subtotal Product:
-                                    </td>
-                                    <td class="td-value">
-                                        Rp{{ number_format($item['product_price'] * $item['product_qty'], 0, ',', '.') }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Shipping Cost:
-                                    </td>
-                                    <td class="td-value">Rp0 </td>
+        <section class="shop checkout section p-0 mb-5">
+            <div class="container">
+                <div class="row">
+                    @foreach ($cartItems as $item)
+                        <div class="col-12">
+                            <div class="card border-top-0 rounded-0">
+                                <div class="card-body">
+                                    <table class="table-payment table-responsive mb-0 d-flex justify-content-end">
+                                        <tr>
+                                            <td>
+                                                Subtotal Product:
+                                            </td>
+                                            <td class="td-value">
+                                                Rp{{ number_format($item['product_price'] * $item['product_qty'], 0, ',', '.') }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Shipping Cost:
+                                            </td>
+                                            <td class="td-value">Rp0 </td>
 
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Service Fee:
-                                    </td>
-                                    <td class="td-value">Rp0 </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Service Fee:
+                                            </td>
+                                            <td class="td-value">Rp0 </td>
 
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Total Payment:
-                                    </td>
-                                    <td class="td-value">
-                                        <h3 id="totalPayment">
-                                            Rp{{ number_format($item['product_price'] * $item['product_qty'], 0, ',', '.') }}
-                                        </h3>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="card-footer bg-white p-4">
-                            <div class="d-flex justify-content-end">
-                                <a href="{{ route('customer.payment') }}" class="btn text-white" type="submit">Create
-                                    Order</a>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Total Payment:
+                                            </td>
+                                            <td class="td-value">
+                                                <h3 id="totalPayment">
+                                                    Rp{{ number_format($item['product_price'] * $item['product_qty'], 0, ',', '.') }}
+                                                </h3>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="card-footer bg-white p-4">
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn text-white" type="submit">Create
+                                            Order</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </form>
 @endsection
+
+
 
 <style>
     #total-payment {

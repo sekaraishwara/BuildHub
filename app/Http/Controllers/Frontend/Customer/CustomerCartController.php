@@ -9,6 +9,7 @@ use App\Models\CustomerCart;
 use App\Models\StoreProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Models\CustomerTransaction;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -22,17 +23,11 @@ class CustomerCartController extends Controller
 
         $cartItem = CustomerCart::where('customer_id', $customer->id)
             ->get();
-        // dd($cartItem);
 
 
         return view('frontend.home._customer._cart', compact('cartItem'));
     }
 
-    public function customerCheckout(): View
-    {
-        $cart = CustomerCart::all();
-        return view('frontend.home._customer._checkout', compact('cart'));
-    }
 
     public function addToCart(Request $request): RedirectResponse
     {
@@ -80,42 +75,74 @@ class CustomerCartController extends Controller
     public function sessionCheckout(Request $request)
     {
 
-        $cartIds = $request->input('cart_id', []); // id dari checkbox di cart
+        if ($request->isMethod('get')) {
+            $cartIds = $request->input('cart_id', []); // id dari checkbox di cart
 
-        $cartItems = [];
+            $cartItems = [];
+            $totalPrice = 0;
 
-        foreach ($cartIds as $cartId) {
-            $customerCart = CustomerCart::find($cartId);
+            foreach ($cartIds as $cartId) {
+                $customerCart = CustomerCart::find($cartId);
 
-            if ($customerCart) {
-                $product = $customerCart->product;
+                if ($customerCart) {
+                    $product = $customerCart->product;
 
-                if ($product) {
-                    $customer = Customer::find($customerCart->customer_id);
-                    $cartItems[] = [
-                        'product_id' => $product->id,
-                        'product_name' => $product->name,
-                        'product_price' => $product->price,
-                        'store_id' => $product->store_id,
-                        'store_name' => $product->store->name,
-                        'product_img' => $product->image,
-                        'product_qty' => $customerCart->item_qty,
+                    if ($product) {
+                        $customer = Customer::find($customerCart->customer_id);
+                        $cartItems[] = [
+                            'cart_id' => $customerCart->id,
 
-                        'customer_name' => $customer->name,
-                        'customer_phone' => $customer->phone,
-                        'customer_alamat' => $customer->alamat,
+                            'product_id' => $product->id,
+                            'product_name' => $product->name,
+                            'product_price' => $product->price,
+                            'store_id' => $product->store_id,
+                            'store_name' => $product->store->name,
+                            'product_img' => $product->image,
+                            'product_qty' => $customerCart->item_qty,
 
-                    ];
+                            'customer_name' => $customer->name,
+                            'customer_phone' => $customer->phone,
+                            'customer_alamat' => $customer->alamat
+
+                        ];
+                        $totalPrice += $product->price * $customerCart->item_qty;
+                    }
                 }
             }
+
+            $now = Carbon::now();
+
+            $date = $now->format('dmY');
+            $randomString = Str::random(6);
+
+            $transInv = strtoupper($date . $randomString);
+            $transDate = $now->format('Y-m-d H:i:s');
+
+            session(['total_price' => $totalPrice]);
+            session(['invoice_no' => strtoupper($date . $randomString)]);
+            session(['transaction_date' => $now->format('Y-m-d H:i:s')]);
+
+            return view('frontend.home._customer._checkout', compact('cartItems', 'transInv', 'transDate'));
         }
 
-        $date = Carbon::now()->format('dm');
-        $randomString = Str::random(6);
+        if ($request->isMethod('post')) {
+            $totalPrice = session('total_price');
+            $transInv = session('invoice_no');
+            $transDate = session('transaction_date');
 
-        $invTrans = $date  . $randomString;
-        dd($invTrans);
+            $transactionData = [
+                'cart_id' => 9,
+                'invoice_no' => $transInv,
+                'total_price' => $totalPrice,
+                'shipping_address' => "Jakarta",
+                'transaction_date' => $transDate,
+            ];
 
-        return view('frontend.home._customer._checkout', compact('cartItems', 'invTrans'));
+            CustomerTransaction::create($transactionData);
+
+            notify()->success('Order created successfully ⚡️.', 'Success!');
+
+            return redirect()->route('customer.payment');
+        }
     }
 }

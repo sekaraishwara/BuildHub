@@ -31,4 +31,8 @@ class Store extends Model
     {
         return $this->hasMany(StoreProduct::class);
     }
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
 }

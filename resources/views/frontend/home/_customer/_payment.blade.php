@@ -17,7 +17,16 @@
 
     <div class="shopping-cart section pt-0">
         <div class="container mb-3">
-            <h4>Payment</h4>
+            <div class="d-flex justify-content-between">
+                <h4>Payment</h4>
+                <strong class="text-danger"> {{ $getTransaction?->payment_status }}
+                    transaction</strong>
+            </div>
+            <div class="mt-3">
+                <div class="alert alert-success">
+                    <strong>Checkout Success, Transfer Required for Order Confirmation.</strong>
+                </div>
+            </div>
         </div>
         <div class="container">
             <div class="row">
@@ -25,27 +34,32 @@
                     <!-- Shopping Summery -->
                     <div class="card">
                         <div class="card-header bg-white">
-                            Transaction: <h6 class="my-2"> 00091/XYCTSH/00090</h6>
+                            Transaction <h6 class="my-2"> {{ $getTransaction?->invoice_no }}</h6>
                         </div>
                         <div class="card-body">
                             <div class="col-6 mx-auto mb-4">
                                 <div class="d-flex justify-content-between">
                                     <span>Total Payment</span>
-                                    <h6>Rp49.350.000</h6>
+                                    <h6>Rp{{ number_format($getTransaction?->total_price, 0, ',', '.') }}
+                                    </h6>
                                 </div>
                                 <hr>
                             </div>
                             <div class="col-6 mx-auto  mb-4">
                                 <div class="d-flex justify-content-between">
+                                    @php
+                                        $transactionDate = $getTransaction->transaction_date;
+                                        $payBefore = date('d-m-Y H:i:s', strtotime("$transactionDate +1 day"));
+                                    @endphp
                                     <span>Pay Before</span>
-                                    <p>23h 41m 14s</p>
+                                    <h6>{{ $payBefore }}</h6>
                                 </div>
                                 <hr>
                             </div>
                             <div class="col-6 mx-auto  mb-4">
                                 <div class="d-flex justify-content-start">
                                     <strong class="mr-5">Bank BCA</strong>
-                                    <h5>12608953871</h5>
+                                    <h4>12608953871</h4>
                                     <span class="ml-2"><a href="">COPY</a></span>
                                     <strong class="ml-2">A/N BUILDHUB STORE INC</strong>
                                 </div>
