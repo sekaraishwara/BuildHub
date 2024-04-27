@@ -23,6 +23,7 @@ use App\Http\Controllers\Frontend\NotifiactionController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalProfileController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalServiceController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
+use App\Models\CustomerTransaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,8 +79,7 @@ Route::group(
         Route::get('/payment', [CustomerTransactionController::class, 'getPayment'])->name('payment');
 
         Route::get('/transaction', [CustomerDashboardController::class, 'transaction'])->name('order');
-        Route::get('/transaction/payment-upload', [CustomerDashboardController::class, 'transaction'])->name('payment.upload');
-        Route::get('/transaction/payment-upload', [CustomerDashboardController::class, 'transaction'])->name('payment.upload');
+        Route::post('/transaction/payment-upload', [CustomerTransactionController::class, 'uploadPayment'])->name('payment.upload');
     }
 );
 

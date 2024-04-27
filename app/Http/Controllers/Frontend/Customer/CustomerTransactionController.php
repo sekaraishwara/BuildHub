@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers\Frontend\Customer;
 
+use App\Models\Customer;
 use Illuminate\View\View;
+use App\Models\CustomerCart;
 use Illuminate\Http\Request;
+use App\Traits\FileUploadTrait;
+use App\Models\TransactionProof;
 use App\Models\CustomerTransaction;
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Models\CustomerCart;
-use App\Models\TransactionProof;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class CustomerTransactionController extends Controller
 {
+    use FileUploadTrait; //inject here
 
     public function getPayment()
     {
@@ -32,15 +34,14 @@ class CustomerTransactionController extends Controller
         }
     }
 
-    function uploadPayment(Request $request, $id): RedirectResponse
+    function uploadPayment(Request $request): RedirectResponse
     {
         $payment = $this->uploadFile($request, 'payment_proof');
 
         $data = [];
         if (!empty($payment)) $data['payment_proof'] = $payment;
 
-        $id =
-            $data['transaction_id'] = $request->transaction_id;
+        $data['transaction_id'] = $request->transaction_id;
 
         TransactionProof::updateOrCreate(
             $data

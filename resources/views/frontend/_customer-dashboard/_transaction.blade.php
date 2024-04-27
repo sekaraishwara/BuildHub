@@ -87,53 +87,42 @@
     @foreach ($getTransaction as $item)
         <div class="modal fade" id="uploadPaymentModal{{ $item->transaction_id }}" tabindex="-1" role="dialog"
             aria-labelledby="createModal" aria-hidden="true">
-            <div class="modal-dialog  modal-lg" role="document">
-                <form method="POST" action="{{ route('store.product.store') }}" enctype="multipart/form-data">
+            <div class="modal-dialog  " role="document">
+                <form method="POST" action="{{ route('customer.payment.upload') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <span class="modal-title">Transaction: {{ $item->invoice_no }}</span>
+                        <div class="modal-header align-items-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="text" class="d-none" name="transaction_id"
+                                        value="{{ $item->transaction_id }}">
+                                    <p class="modal-title">Transaction: {{ $item->invoice_no }}</p>
+                                    <!-- Move the product name here -->
+                                    <h6 class="mt-2">{{ $item->product_name }}</h6>
+                                </div>
+                                <!-- Remove the product name from the previous column -->
+                            </div>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
+
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="Name">Product Image</label>
-                                        <input class="form-control" type="file" name="image" id="image">
+                                        <label for="Name">Upload Transaction</label>
+                                        <input class="form-control" type="file" name="payment_proof">
                                     </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="Name">Product Name</label>
-                                        <input class="form-control" type="text" name="name" id="name">
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label for="Category">Category</label>
-                                        <input class="form-control" type="text" name="category" id="category">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="Desc">Desc</label>
-                                        <textarea class="form-control" id="desc" name="desc" rows="3"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="Price">Price</label>
-                                        <input class="form-control" id="price" name="price">
+                                    <div class="alert alert-warning p-0">
+                                        <p class="mx-auto p-2">Uploaded proof must be a clear image. Your
+                                            transaction will be verified by admin maximum of <strong> 8 hours.</strong></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="submit" class="btn btn-primary">Upload</button>
                         </div>
                     </div>
                 </form>
