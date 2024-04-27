@@ -45,7 +45,7 @@
                           <div class="right-bar">
 
                               <div class="sinlge-bar">
-                                  <a href="{{ route('customer.notification') }}" class="single-icon"><i class="fa fa-bell-o"
+                                  <a href="{{ route('notification') }}" class="single-icon"><i class="fa fa-bell-o"
                                           aria-hidden="true"></i></a>
                               </div>
                               {{-- <div class="sinlge-bar">

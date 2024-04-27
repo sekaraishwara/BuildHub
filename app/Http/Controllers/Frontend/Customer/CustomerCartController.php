@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Frontend\Customer;
 
+use App\Models\User;
 use App\Models\Customer;
 use Illuminate\View\View;
 use Illuminate\Support\Str;
 use App\Models\CustomerCart;
+use App\Models\Notification;
 use App\Models\StoreProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Models\CustomerTransaction;
 use App\Http\Controllers\Controller;
+use App\Models\Store;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
@@ -89,6 +92,8 @@ class CustomerCartController extends Controller
 
                     if ($product) {
                         $customer = Customer::find($customerCart->customer_id);
+                        $store_id = $product->store_id;
+
                         $cartItems[] = [
                             'cart_id' => $customerCart->id,
 
@@ -105,6 +110,7 @@ class CustomerCartController extends Controller
                             'customer_alamat' => $customer->alamat
 
                         ];
+                        $cartId = $customerCart->id;
                         $totalPrice += $product->price * $customerCart->item_qty;
                     }
                 }
@@ -118,9 +124,11 @@ class CustomerCartController extends Controller
             $transInv = strtoupper($date . $randomString);
             $transDate = $now->format('Y-m-d H:i:s');
 
+            session(['cart_id' => $cartId]);
             session(['total_price' => $totalPrice]);
             session(['invoice_no' => strtoupper($date . $randomString)]);
             session(['transaction_date' => $now->format('Y-m-d H:i:s')]);
+            session(['store_id' => $store_id]);
 
             return view('frontend.home._customer._checkout', compact('cartItems', 'transInv', 'transDate'));
         }
@@ -129,9 +137,9 @@ class CustomerCartController extends Controller
             $totalPrice = session('total_price');
             $transInv = session('invoice_no');
             $transDate = session('transaction_date');
-
+            $cartId = session('cart_id');
             $transactionData = [
-                'cart_id' => 9,
+                'cart_id' => $cartId,
                 'invoice_no' => $transInv,
                 'total_price' => $totalPrice,
                 'shipping_address' => "Jakarta",
@@ -139,6 +147,29 @@ class CustomerCartController extends Controller
             ];
 
             CustomerTransaction::create($transactionData);
+
+            // Notify both customer & store
+            $notify = new Notification();
+            $notify->user_id = Auth::id();
+            $notify->title = 'Order created successfully!';
+            $notify->message = 'Your order ' . $transInv . ' has been successfully placed. To complete the order, please
+             proceed with the transfer to account number 1281929129 (A/N BUILDHUB STORE INC) before ' . $transDate . '. After
+             completing the transfer, kindly confirm it by uploading the transaction proof on your transaction dashboard. In case the transfer is not fulfilled,the order status will be canceled. Thank you';
+            $notify->save();
+
+            $storeId = session('store_id');
+
+            if ($storeId) {
+                $storeOwner = Store::where('id', $storeId)->first();
+                if ($storeOwner) {
+                    $ownerId = $storeOwner->user_id;
+                    $notificationStoreOwner = new Notification();
+                    $notificationStoreOwner->user_id = $ownerId;
+                    $notificationStoreOwner->title = 'New Order Received!';
+                    $notificationStoreOwner->message = 'You have received a new order. Check your dashboard for details.';
+                    $notificationStoreOwner->save();
+                }
+            }
 
             notify()->success('Order created successfully ⚡️.', 'Success!');
 

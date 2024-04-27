@@ -13,10 +13,4 @@ class CustomerDashboardController extends Controller
 
         return view('frontend._customer-dashboard.dashboard');
     }
-
-    function notification(): View
-    {
-
-        return view('frontend._customer-dashboard._notification');
-    }
 }
