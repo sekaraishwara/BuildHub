@@ -33,4 +33,9 @@ class Customer extends Model
     // {
     //     return $this->belongsTo(User::class);
     // }
+
+    public function transactions()
+    {
+        return $this->hasMany(CustomerTransaction::class, 'customer_id');
+    }
 }

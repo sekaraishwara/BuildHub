@@ -76,6 +76,8 @@ Route::group(
         Route::post('/cart/checkout-submit', [CustomerCartController::class, 'sessionTransaction'])->name('sessionTransaction');
 
         Route::get('/payment', [CustomerTransactionController::class, 'getPayment'])->name('payment');
+
+        Route::get('/transaction', [CustomerDashboardController::class, 'transaction'])->name('order');
     }
 );
 
@@ -154,6 +156,8 @@ Route::group(
         Route::get('/product/edit{id}', [StoreProductController::class, 'edit'])->name('product.edit');
         Route::post('/product/update{id}', [StoreProductController::class, 'update'])->name('product.update');
         Route::delete('/product/delete{id}', [StoreProductController::class, 'delete'])->name('product.delete');
+
+        Route::get('/transaction', [StoreDashboardController::class, 'transaction'])->name('transaction');
     }
 );
 
