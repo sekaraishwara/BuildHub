@@ -48,8 +48,10 @@ class StoreController extends Controller
     {
 
         $storeProduct = StoreProduct::where('slug', $slug)->first();
+        $items = StoreProduct::where('store_id',  $storeProduct->store_id)->get();
 
-        return view('frontend.home._store.single-product', compact('storeProduct'));
+
+        return view('frontend.home._store.single-product', compact('storeProduct', 'items'));
     }
 
     /**

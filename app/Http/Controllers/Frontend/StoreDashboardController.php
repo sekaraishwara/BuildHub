@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\TransactionProofUpdateRequest;
+use App\Models\Store;
 
 class StoreDashboardController extends Controller
 {
@@ -20,7 +21,11 @@ class StoreDashboardController extends Controller
 
     function index(): View
     {
-        $product = StoreProduct::all()->count();
+        $userId = Auth::id();
+        $store = Store::where('user_id', $userId)->first();
+
+        $product = StoreProduct::where('store_id', $store->id)->count();
+
 
         return view('frontend._store-dashboard.dashboard', compact('product'));
     }

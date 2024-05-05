@@ -28,7 +28,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             My Points
-                                            <h2 class="">300 <i class="ti-money"></i></h2>
+                                            <h2 class="">300 xp</h2>
                                         </div>
                                     </div>
                                 </div>

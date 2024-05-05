@@ -7,8 +7,8 @@
                     <div class="col-12">
                         <div class="bread-inner">
                             <ul class="bread-list">
-                                <li><a href="{{ route('home') }}">Home / </a></li>
-                                <li><a href="{{ route('store.dashboard') }}">Dashboard /</a>
+                                <li><a href="{{ route('home') }}">Home <i class="ti-arrow-right"></i> </a></li>
+                                <li><a href="{{ route('store.dashboard') }}">Dashboard <i class="ti-arrow-right"></i></a>
                                 </li>
                                 <li class="active"><a href="{{ route('store.profile') }}">Profile</a>
                                 </li>
@@ -100,8 +100,9 @@
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
                                                 <label>Facebook<span>*</span></label>
-                                                <input type="text" class="form-control" name="facebook" placeholder=""
-                                                    required="required" value="{{ $storeInfo?->facebook }}">
+                                                <input type="text" class="form-control" name="facebook"
+                                                    placeholder="" required="required"
+                                                    value="{{ $storeInfo?->facebook }}">
                                             </div>
                                         </div>
                                     </div>

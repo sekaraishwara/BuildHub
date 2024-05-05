@@ -64,7 +64,7 @@
                         @foreach ($serviceProfessional as $item)
                             <div class="single-product">
                                 <div class="product-img">
-                                    <a href="product-details.html">
+                                    <a href="{{ route('serviceItemProfessional', $item?->slug) }}">
                                         <img class="default-img" src="{{ $item->image }}" alt="#">
                                         <span class="out-of-stock">Hot</span>
                                     </a>
@@ -131,7 +131,7 @@
                             <!-- Start Single Product -->
                             <div class="single-product">
                                 <div class="product-img">
-                                    <a href="product-details.html">
+                                    <a href="{{ route('serviceItemVendor', $item?->id) }}">
                                         <img class="default-img" src="{{ $item->image }}" alt="#">
                                     </a>
                                     <div class="button-head">
@@ -238,17 +238,18 @@
     <!-- Start Shop Home List  -->
     <section class="shop-home-list section">
         <div class="container">
+            <h3 class="mt-5 p-0">Product Available</h3>
             <div class="row">
                 @foreach ($storeProduct as $item)
-                    <div class="col-lg-4 col-md-6 col-12 mt-lg-5">
-
+                    <div class="col-lg-4 col-md-6 col-12">
                         <!-- Start Single List  -->
                         <div class="single-list">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="list-image overlay">
                                         <img src="{{ $item->image }}" alt="#">
-                                        <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                                        <a href="{{ route('singleItem', $item?->slug) }}" class="buy"><i
+                                                class="fa fa-shopping-bag"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12 no-padding">

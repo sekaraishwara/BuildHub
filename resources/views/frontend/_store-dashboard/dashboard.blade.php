@@ -7,7 +7,7 @@
                     <div class="col-12">
                         <div class="bread-inner">
                             <ul class="bread-list">
-                                <li><a href="{{ route('home') }}">Home / </a></li>
+                                <li><a href="{{ route('home') }}">Home <i class="ti-arrow-right"></i> </a></li>
                                 <li class="active"><a href="{{ route('professional.dashboard') }}">Dashboard</a>
                                 </li>
                             </ul>
@@ -31,7 +31,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             My Product
-                                            <h2 class=""></h2>
+                                            <h2 class="">{{ $product }}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             My Transaction
-                                            <h2 class=""></h2>
+                                            <h2 class="">1</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -47,7 +47,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             History
-                                            <h2 class=""></h2>
+                                            <h2 class="">0</h2>
                                         </div>
                                     </div>
                                 </div>

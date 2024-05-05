@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <div class="bread-inner">
                         <ul class="bread-list">
-                            <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+                            <li><a href="{{ url('/') }}">Home<i class="ti-arrow-right"></i></a></li>
                             <li class="active"><a href="{{ route('store.chat') }}">Chat</a></li>
                         </ul>
                     </div>
