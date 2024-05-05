@@ -97,25 +97,10 @@
                               </div>
                               @if (auth()->user()->role === 'customer')
                                   <div class="sinlge-bar shopping">
-                                      <a href="#" class="single-icon"><i class="ti-bag"></i> <span id="total-count"
-                                              class="total-count font-weight-bold"></span></a>
+                                      <a href="{{ route('customer.cart') }}" class="single-icon"><i class="ti-bag"></i>
+                                          <span id="total-count" class="total-count font-weight-bold"></span></a>
                                       <!-- Shopping Item -->
-                                      <div class="shopping-item">
-                                          <div class="dropdown-cart-header">
-                                              <span>2 Items</span>
-                                              <a href="{{ route('customer.cart') }}">View Cart</a>
-                                          </div>
-                                          <ul class="shopping-list">
-                                              <!-- List items in cart -->
-                                          </ul>
-                                          <div class="bottom">
-                                              <div class="total">
-                                                  <span>Total</span>
-                                                  <span class="total-amount">$134.00</span>
-                                              </div>
-                                              {{-- <a href="{{ route('customer.checkout') }}" class="btn animate">Checkout</a> --}}
-                                          </div>
-                                      </div>
+
                                       <!--/ End Shopping Item -->
                                   </div>
                                   <script>
@@ -156,8 +141,8 @@
                                   <div class="navbar-collapse ">
                                       <div class="nav-inner">
                                           <ul class="nav main-menu menu navbar-nav">
-                                              <li class="active"><a href="#">Home</a></li>
-                                              <li><a href="#">Vendor</a></li>
+                                              <li><a href="{{ url('/') }}">Home</a></li>
+                                              <li><a href="{{ route('vendor') }}">Vendor</a></li>
                                               <li><a href="{{ route('professional') }}">Professional</a></li>
                                               <li><a href="{{ route('store') }}">Store</a></li>
                                               <li><a href="#">Inspiration</a></li>

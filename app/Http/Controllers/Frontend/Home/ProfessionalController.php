@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProfessionalCategory;
+use App\Models\ProfessionalService;
 use Illuminate\Http\Request;
 
 class ProfessionalController extends Controller
@@ -14,7 +15,16 @@ class ProfessionalController extends Controller
     public function index()
     {
         $professionalCategory = ProfessionalCategory::all();
-        return view('frontend.home._professional.index', compact('professionalCategory'));
+        $professionalService = ProfessionalService::all();
+        return view('frontend.home._professional.index', compact('professionalCategory', 'professionalService'));
+    }
+
+    public function singleService($slug)
+    {
+
+        $serviceProfessional = ProfessionalService::where('slug', $slug)->first();
+
+        return view('frontend.home._professional.single-product', compact('serviceProfessional'));
     }
 
     /**

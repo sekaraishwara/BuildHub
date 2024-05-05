@@ -31,7 +31,7 @@
                         </h4>
                         <div class="product-price">
                             <div class="d-flex align-items-center">
-                                <span class="promo-price mr-2">Rp. 28.900</span>
+                                <span class="promo-price mr-2">Rp. 28.900.000</span>
                                 <h3 class="normal-price">Rp. 149.000</h3>
                             </div>
                             <div class="d-flex">

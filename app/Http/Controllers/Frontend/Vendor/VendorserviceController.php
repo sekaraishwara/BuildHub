@@ -5,12 +5,17 @@ namespace App\Http\Controllers\Frontend\Vendor;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\VendorService;
+use App\Traits\FileUploadTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\VendorServiceUpdateRequest;
+use App\Models\Vendor;
 
 class VendorserviceController extends Controller
 {
+    use FileUploadTrait;
+
     public function index(): View
     {
         $data = VendorService::all();
@@ -20,20 +25,38 @@ class VendorserviceController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $userId = auth()->user()->id;
+        $vendor = Vendor::where('user_id', $userId)->first();
+
+
         $request->validate([
+            'image' => ['image', 'max:1500'],
             'name' => ['required', 'string', 'max:255'],
-            'category' => ['required', 'string', 'max:150'],
+            'category' => ['string', 'max:100'],
             'desc' => ['required', 'string', 'max:150'],
+            'price' => ['required', 'string', 'max:250'],
 
         ]);
 
-        $data = VendorService::create([
+
+        $imagePath = $this->uploadFile($request, 'image');
+
+        $data = [
+            'vendor_id' => $vendor->id,
             'name' => $request->name,
             'category' => $request->category,
             'desc' => $request->desc,
-        ]);
+            'price' => $request->price,
 
-        $data->save();
+        ];
+
+        if (!empty($imagePath)) {
+            $data['image'] = $imagePath;
+        }
+
+        VendorService::create($data);
+
+        notify()->success('Created Successfully⚡️', 'Success!');
 
         return Redirect::route('vendor.service');
     }
@@ -45,8 +68,8 @@ class VendorserviceController extends Controller
         $rules = ([
             'name' => 'required',
             'category' => 'required',
-            'desc' => 'required',
-            'status' => 'required'
+            'price' => 'required',
+            'desc' => 'required'
         ]);
 
         $validatedData = $request->validate($rules);
@@ -55,11 +78,14 @@ class VendorserviceController extends Controller
         $data->update([
             'name' => $validatedData['name'],
             'category' => $validatedData['category'],
-            'desc' => $validatedData['desc'],
-            'status' => $validatedData['status'],
+            'price' => $validatedData['price'],
+            'desc' => $validatedData['desc']
         ]);
 
         $data->save();
+
+        notify()->success('Updated Successfully⚡️', 'Success!');
+
 
         return Redirect::route('vendor.service');
     }

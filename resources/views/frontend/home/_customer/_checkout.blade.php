@@ -25,13 +25,13 @@
                             @foreach ($cartItems as $item)
                                 <div class="d-flex justify-content-start">
 
-                                    <input type="text" class="" name="card_id" value="{{ $item['cart_id'] }}">
-                                    <input type="text" class="" name="invoice_no" value="{{ $transInv }}">
-                                    <input type="text" class="" name="transaction_date"
+                                    <input type="text" class="d-none" name="card_id" value="{{ $item['cart_id'] }}">
+                                    <input type="text" class="d-none" name="invoice_no" value="{{ $transInv }}">
+                                    <input type="text" class="d-none" name="transaction_date"
                                         value="{{ $transDate }}">
-                                    <input type="text" class="" name="total_price"
+                                    <input type="text" class="d-none" name="total_price"
                                         value="{{ $item['product_price'] * $item['product_qty'] }}">
-                                    <input type="text" class="" name="shipping_address"
+                                    <input type="text" class="d-none" name="shipping_address"
                                         value="{{ $item['customer_alamat'] }}">
                                 </div>
                                 <div class="card-body">

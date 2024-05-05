@@ -29,7 +29,7 @@
 
                         <div class="d-flex justify-content-between align-items-center">
                             <h3>My product</h3>
-                            <a href="{{ route('store.product.create') }}" class="btn">Create product</a>
+                            <a href="{{ route('store.product.create') }}" class="btn text-white">Create product</a>
                         </div>
 
                         <div class="my-4">

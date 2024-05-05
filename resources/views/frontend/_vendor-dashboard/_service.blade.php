@@ -79,7 +79,7 @@
     <!-- Modal Create-->
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form method="POST" action="{{ route('vendor.service.store') }}">
+            <form method="POST" action="{{ route('vendor.service.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -92,14 +92,26 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="Name">Service Name</label>
-                                    <input class="form-control" type="text" name="name" id="name">
+                                    <label for="image">Image</label>
+                                    <input class="form-control" type="file" name="image">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
+                                    <label for="Name">Service Name</label>
+                                    <input class="form-control" type="text" name="name" id="name">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
                                     <label for="Category">Category</label>
                                     <input class="form-control" type="text" name="category" id="category">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="Category">Price Range</label>
+                                    <input class="form-control" type="text" name="price" id="price">
                                 </div>
                             </div>
                             <div class="col-12">
@@ -121,9 +133,9 @@
 
     <!-- Modal Edit&Delete-->
     @foreach ($data as $item)
-        <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="editModal"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
+        <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" role="dialog"
+            aria-labelledby="editModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
                 <form method="POST" action="{{ route('vendor.service.update', ['id' => $item->id]) }}">
                     @csrf
                     <div class="modal-content">
@@ -135,18 +147,34 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-6">
+                                    <x-image-preview :height="200" :width="200" :source="$item?->image" />
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="image">Image</label>
+                                        <input class="form-control" type="file" name="image">
+                                    </div>
+                                </div>
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label for="Name">Service Name</label>
                                         <input class="form-control" type="text" name="name" id="name"
                                             value="{{ $item->name }}">
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-3">
                                     <div class="form-group">
                                         <label for="Category">Category</label>
                                         <input class="form-control" type="text" name="category" id="category"
                                             value="{{ $item->category }}">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label for="Category">Price Range</label>
+                                        <input class="form-control" type="text" name="price" id="price"
+                                            value="{{ $item->price }}">
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -155,13 +183,13 @@
                                         <textarea class="form-control" id="desc" name="desc" rows="3">{{ $item->desc }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <div class="form-group">
                                         <label for="Status">Status</label>
                                         <input class="form-control" id="status" name="status"
                                             value="{{ $item->status }}">
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="modal-footer">

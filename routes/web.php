@@ -24,6 +24,7 @@ use App\Http\Controllers\Frontend\Professional\ProfessionalProfileController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalServiceController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
 use App\Http\Controllers\Frontend\Store\StoreChatController;
+use App\Http\Controllers\VendorController;
 use App\Models\CustomerTransaction;
 
 /*
@@ -44,9 +45,11 @@ use App\Models\CustomerTransaction;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/professional', [ProfessionalController::class, 'index'])->name('professional');
 Route::get('/store', [StoreController::class, 'index'])->name('store');
-// Route::get('/store/show', [StoreController::class, 'show'])->name('store.show');
+Route::get('/vendorr', [VendorController::class, 'index'])->name('vendor');
 
 Route::get('/product/{slug}', [StoreController::class, 'singleProduct'])->name('singleItem');
+Route::get('/service/by-professional/{slug}', [ProfessionalController::class, 'singleService'])->name('serviceItemProfessional');
+Route::get('/service/by-vendor/{id}', [VendorController::class, 'singleService'])->name('serviceItemVendor');
 
 Route::get('/notification', [NotificationController::class, 'index'])->name('notification');
 
@@ -66,7 +69,6 @@ Route::group(
         Route::post('/profile/account-info', [CustomerProfileController::class, 'updateAccountInfo'])->name('profile.account-info');
         Route::post('/profile/password-update', [CustomerProfileController::class, 'updatePassword'])->name('profile.password-update');
 
-        Route::get('/chat', [CustomerChatController::class, 'index'])->name('chat');
 
         Route::get('/cart', [CustomerCartController::class, 'index'])->name('cart');
         Route::post('/cart/add', [CustomerCartController::class, 'addToCart'])->name('cart.addToCart');
@@ -81,6 +83,10 @@ Route::group(
 
         Route::get('/transaction', [CustomerDashboardController::class, 'transaction'])->name('order');
         Route::post('/transaction/payment-upload', [CustomerTransactionController::class, 'uploadPayment'])->name('payment.upload');
+
+        Route::get('/chat', [CustomerChatController::class, 'index'])->name('chat');
+        Route::get('/chat/sendMessage', [CustomerChatController::class, 'sendMessage'])->name('send.sendMessage');
+        Route::post('/chat/sendMessage', [CustomerChatController::class, 'sendMessage'])->name('send.sendMessage');
     }
 );
 
@@ -142,7 +148,7 @@ Route::group(
     [
         'middleware' => ['auth', 'verified', 'user.role:store'],
         'prefix' => 'store',
-        'as' => 'store.' //for name
+        'as' => 'store.'
     ],
     function () {
         Route::get('/dashboard', [StoreDashboardController::class, 'index'])->name('dashboard');

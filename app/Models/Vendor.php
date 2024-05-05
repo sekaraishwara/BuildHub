@@ -25,4 +25,9 @@ class Vendor extends Model
         'provinsi',
         'kodepos',
     ];
+
+    public function services()
+    {
+        return $this->hasMany(VendorService::class);
+    }
 }

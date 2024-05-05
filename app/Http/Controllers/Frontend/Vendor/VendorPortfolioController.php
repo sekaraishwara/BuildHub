@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Frontend\Vendor;
 
+use App\Models\Vendor;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\VendorPortfolio;
+use App\Traits\FileUploadTrait;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 
 class VendorPortfolioController extends Controller
 {
+    use FileUploadTrait;
+
     public function index(): View
     {
 
@@ -21,18 +25,31 @@ class VendorPortfolioController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $userId = auth()->user()->id;
+        $vendor = Vendor::where('user_id', $userId)->first();
+
         $request->validate([
+            'image' => ['image', 'max:1500'],
             'name' => ['required', 'string', 'max:255'],
             'year' => ['required', 'string', 'max:150']
 
         ]);
 
+        $imagePath = $this->uploadFile($request, 'image');
+
         $data = vendorPortfolio::create([
+            'vendor_id' => $vendor->id,
             'name' => $request->name,
             'year' => $request->year,
         ]);
 
+        if (!empty($imagePath)) {
+            $data['image'] = $imagePath;
+        }
+
         $data->save();
+
+        notify()->success('Created Successfully⚡️', 'Success!');
 
         return Redirect::route('vendor.portfolio');
     }

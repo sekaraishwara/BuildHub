@@ -57,7 +57,7 @@ class DataCategoryController extends Controller
     function professionalCategory(): View
     {
         $professional = ProfessionalCategory::all();
-        return view('admin.da', compact('professional'));
+        return view('admin.dashboard.data-category.professional-category', compact('professional'));
     }
 
     function professionalCategoryUpdate(Request $request): RedirectResponse

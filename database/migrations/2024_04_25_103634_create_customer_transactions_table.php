@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('shipping_address');
             $table->timestamp('transaction_date');
             $table->boolean('isActive')->default('1');
+            $table->boolean('isApprove')->default('0');
             $table->string('payment')->default('bank_transfer');
             $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending');
             $table->timestamp('paid_at')->nullable();

@@ -77,7 +77,7 @@
     <!-- Modal -->
     <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form method="POST" action="{{ route('professional.portfolio.store') }}">
+            <form method="POST" action="{{ route('professional.portfolio.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-content">
                     <div class="modal-header">
@@ -88,6 +88,12 @@
                     </div>
                     <div class="modal-body">
                         <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="Name">Image</label>
+                                    <input class="form-control" type="file" name="image" id="image">
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="Name">Portfolio Name</label>
@@ -128,6 +134,16 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
+                                <div class="col-6">
+                                    <x-image-preview :height="200" :width="200" :source="$item?->image" />
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="image">Image</label>
+                                        <input class="form-control" type="file" name="image"
+                                            value="{{ $item->image }}">
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="Name">Service Name</label>

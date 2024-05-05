@@ -95,42 +95,29 @@
                                   </div>
                               </div>
                               <div class="sinlge-bar shopping">
-                                  <a href="#" class="single-icon"><i class="ti-bag"></i> <span
-                                          class="total-count">2</span></a>
+                                  <a href="{{ route('customer.cart') }}" class="single-icon"><i class="ti-bag"></i> <span
+                                          id="total-count" class="total-count font-weight-bold"></span></a>
                                   <!-- Shopping Item -->
-                                  <div class="shopping-item">
-                                      <div class="dropdown-cart-header">
-                                          <span>2 Items</span>
-                                          <a href="{{ route('customer.cart') }}">View Cart</a>
-                                      </div>
-                                      <ul class="shopping-list">
-                                          <li>
-                                              <a href="#" class="remove" title="Remove this item"><i
-                                                      class="fa fa-remove"></i></a>
-                                              <a class="cart-img" href="#"><img
-                                                      src="https://via.placeholder.com/70x70" alt="#"></a>
-                                              <h4><a href="#">Woman Ring</a></h4>
-                                              <p class="quantity">1x - <span class="amount">$99.00</span></p>
-                                          </li>
-                                          <li>
-                                              <a href="#" class="remove" title="Remove this item"><i
-                                                      class="fa fa-remove"></i></a>
-                                              <a class="cart-img" href="#"><img
-                                                      src="https://via.placeholder.com/70x70" alt="#"></a>
-                                              <h4><a href="#">Woman Necklace</a></h4>
-                                              <p class="quantity">1x - <span class="amount">$35.00</span></p>
-                                          </li>
-                                      </ul>
-                                      <div class="bottom">
-                                          <div class="total">
-                                              <span>Total</span>
-                                              <span class="total-amount">$134.00</span>
-                                          </div>
-                                          {{-- <a href="{{ route('customer.checkout') }}" class="btn animate">Checkout</a> --}}
-                                      </div>
-                                  </div>
+
                                   <!--/ End Shopping Item -->
                               </div>
+                              <script>
+                                  function getTotalItemCount() {
+                                      var xhr = new XMLHttpRequest();
+                                      var url = '/customer/cart/count-items';
+
+                                      xhr.open('GET', url, true);
+
+                                      xhr.onreadystatechange = function() {
+                                          if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                                              var response = JSON.parse(xhr.responseText);
+                                              document.getElementById('total-count').textContent = response.totalItemCount;
+                                          }
+                                      };
+                                      xhr.send();
+                                  }
+                                  window.onload = getTotalItemCount;
+                              </script>
                           </div>
                       @endauth
                   </div>

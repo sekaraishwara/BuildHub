@@ -1,19 +1,24 @@
 <?php
 
-use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
-use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
-use App\Http\Controllers\Admin\Auth\NewPasswordController;
-use App\Http\Controllers\Admin\Auth\PasswordController;
-use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Admin\Auth\RegisteredUserController;
-use App\Http\Controllers\Admin\Auth\VerifyEmailController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\DomisiliController;
-use App\Http\Controllers\Admin\Master\DataCategoryController;
 use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DomisiliController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\Auth\PasswordController;
+use App\Http\Controllers\Admin\Master\DataUserController;
+use App\Http\Controllers\Admin\Auth\NewPasswordController;
+use App\Http\Controllers\Admin\Auth\VerifyEmailController;
+use App\Http\Controllers\Admin\Master\DataVendorController;
+use App\Http\Controllers\Admin\Auth\RegisteredUserController;
+use App\Http\Controllers\Admin\Master\DataCategoryController;
+use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Admin\Master\StoreTransactionController;
+use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
+use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Admin\Master\DataProfessionalController;
+use App\Http\Controllers\Admin\Master\DataStoreController;
 
 Route::group(['middleware' => ['guest:admin'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
@@ -40,6 +45,16 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
 
     /** Data-Domisili Route*/
     Route::get('data-domisili', [DomisiliController::class, 'index'])->name('data.domisili');
+
+    /** Data-User Route*/
+    Route::get('data-user', [DataUserController::class, 'index'])->name('data.user');
+    Route::get('data-vendor', [DataVendorController::class, 'index'])->name('data.vendor');
+    Route::get('data-professional', [DataProfessionalController::class, 'index'])->name('data.professional');
+    Route::get('data-store', [DataStoreController::class, 'index'])->name('data.store');
+
+    /** Data-Transaction Route*/
+    Route::get('store-transaction/need-approve', [StoreTransactionController::class, 'needApprove'])->name('transaction.approval');
+    Route::post('store-transaction/approve-transaction/{id}', [StoreTransactionController::class, 'approveTransaction'])->name('transaction.approveTransaction');
 
     /** Data-Category Route*/
     Route::get('data-category/store', [DataCategoryController::class, 'storeCategory'])->name('data-category.store');

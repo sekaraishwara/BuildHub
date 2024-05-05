@@ -29,28 +29,32 @@
                                     <small class="ml-2 text-muted">Active 5 min ago</small>
                                 </div>
                             </div>
-                            <div class="card-body">
-
+                            <div class="card-body pt-5">
                                 <div class="alert alert-warning small" role="alert">
-                                    Demi keamanan & kenyamanan Anda, mohon untuk tidak bertransaksi di luar
-                                    platform
+                                    Demi keamanan & kenyamanan Anda, mohon untuk tidak bertransaksi di luar platform
                                     BuildHub.
                                 </div>
                                 <div class="text-center pb-3">Today</div>
-                                <section class="border px-3">
-                                    <p>Selamat Datang di BuildHub.com 👋</p>
-                                    <p>Yuk kenalan dengan fitur-fitur yang bisa Anda nikmati untuk mewujudkan Rumah impian
-                                        di Buildhub.com 😊 </p>
-                                    <small class="text-muted">{{ date('l, h:m:s') }}</small>
-                                </section>
+                                <div class="d-flex justify-content-start">
+                                    <!-- Bagian Gambar -->
+                                    <section class="col-1">
+                                        <img id="avatarProfileImg" src="{{ asset('default-uploads/avatar.jpg') }}"
+                                            alt="" width="50">
+                                    </section>
+                                    <!-- Bagian Konten Pesan -->
+                                    <section class="col-8 border p-3">
+                                        <p>Selamat Datang di BuildHub.com 👋</p>
+                                        <p>Yuk kenalan dengan fitur-fitur yang bisa Anda nikmati untuk mewujudkan Rumah
+                                            impian di Buildhub.com 😊 </p>
+                                        <small class="text-muted">{{ date('l, h:m:s') }}</small>
+                                    </section>
+                                </div>
                                 <div class="mb-5"></div>
                                 <form>
-                                    <input id="x" value="Write a message..." type="hidden" name="content">
-                                    <trix-editor input="x"></trix-editor>
+                                    <input id="x" name="content" class="d-none">
+                                    <trix-editor input="x" class="py-3"></trix-editor>
                                 </form>
-
                             </div>
-
                         </div>
 
                     </div>

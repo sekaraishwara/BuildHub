@@ -31,7 +31,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             My Product
-                                            <h2 class="">{{ $product }}</h2>
+                                            <h2 class=""></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             My Transaction
-                                            <h2 class="">20</h2>
+                                            <h2 class=""></h2>
                                         </div>
                                     </div>
                                 </div>
@@ -47,7 +47,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             History
-                                            <h2 class="">15</h2>
+                                            <h2 class=""></h2>
                                         </div>
                                     </div>
                                 </div>

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Frontend\Professional;
 
+use App\Models\Professional;
 use Illuminate\Http\Request;
+use App\Traits\FileUploadTrait;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\ProfessionalPortfolio;
@@ -11,6 +13,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class ProfessionalPortfolioController extends Controller
 {
+    use FileUploadTrait;
+
     public function index(): View
     {
 
@@ -21,18 +25,32 @@ class ProfessionalPortfolioController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $userId = auth()->user()->id;
+        // $professional = Professional::where('user_id', $userId)->first();
+
         $request->validate([
+            'image' => ['image', 'max:1500'],
             'name' => ['required', 'string', 'max:255'],
             'year' => ['required', 'string', 'max:150']
 
         ]);
 
+        $imagePath = $this->uploadFile($request, 'image');
+
         $data = ProfessionalPortfolio::create([
+            'professional_id' => 1,
             'name' => $request->name,
             'year' => $request->year,
         ]);
 
+        if (!empty($imagePath)) {
+            $data['image'] = $imagePath;
+        }
+
         $data->save();
+
+        notify()->success('Created Successfully⚡️', 'Success!');
+
 
         return Redirect::route('professional.portfolio');
     }
@@ -55,6 +73,8 @@ class ProfessionalPortfolioController extends Controller
         ]);
 
         $data->save();
+
+        notify()->success('Updated Successfully⚡️', 'Success!');
 
         return Redirect::route('professional.portfolio');
     }

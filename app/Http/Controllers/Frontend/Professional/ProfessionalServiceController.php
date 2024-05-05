@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Frontend\Professional;
 
+use App\Models\Professional;
 use Illuminate\Http\Request;
+use App\Traits\FileUploadTrait;
 use App\Models\ProfessionalService;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
@@ -11,6 +13,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class ProfessionalServiceController extends Controller
 {
+    use FileUploadTrait;
+
     public function index(): View
     {
         $data = ProfessionalService::all();
@@ -20,20 +24,39 @@ class ProfessionalServiceController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $userId = auth()->user()->id;
+        $professional = Professional::where('user_id', $userId)->first();
+
         $request->validate([
+            'image' => ['image', 'max:1500'],
             'name' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:150'],
             'desc' => ['required', 'string', 'max:150'],
+            'price' => ['required', 'string', 'max:250'],
+
 
         ]);
 
+        $imagePath = $this->uploadFile($request, 'image');
+
+
         $data = ProfessionalService::create([
+            'professional_id' => $professional->id,
             'name' => $request->name,
             'category' => $request->category,
             'desc' => $request->desc,
+            'price' => $request->price,
         ]);
 
+        if (!empty($imagePath)) {
+            $data['image'] = $imagePath;
+        }
+
+
         $data->save();
+
+        notify()->success('Created Successfully⚡️', 'Success!');
+
 
         return Redirect::route('professional.service');
     }
@@ -46,7 +69,7 @@ class ProfessionalServiceController extends Controller
             'name' => 'required',
             'category' => 'required',
             'desc' => 'required',
-            'status' => 'required'
+            'price' => 'required'
         ]);
 
         $validatedData = $request->validate($rules);
@@ -56,7 +79,7 @@ class ProfessionalServiceController extends Controller
             'name' => $validatedData['name'],
             'category' => $validatedData['category'],
             'desc' => $validatedData['desc'],
-            'status' => $validatedData['status'],
+            'price' => $validatedData['price']
         ]);
 
         $data->save();

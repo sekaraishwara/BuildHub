@@ -25,4 +25,9 @@ class Professional extends Model
         'provinsi',
         'kodepos',
     ];
+
+    public function services()
+    {
+        return $this->hasMany(ProfessionalService::class);
+    }
 }

@@ -39,13 +39,25 @@ class CustomerTransactionController extends Controller
         $payment = $this->uploadFile($request, 'payment_proof');
 
         $data = [];
-        if (!empty($payment)) $data['payment_proof'] = $payment;
+        if (!empty($payment)) {
+            $data['payment_proof'] = $payment;
+        }
 
         $data['transaction_id'] = $request->transaction_id;
 
-        TransactionProof::updateOrCreate(
+
+        $isExist = TransactionProof::updateOrCreate(
+            ['transaction_id' => $data['transaction_id']],
             $data
         );
+
+        if ($isExist->exists()) {
+            $customerTransaction = CustomerTransaction::where('id', $isExist->transaction_id)->first();
+            if ($customerTransaction) {
+                $customerTransaction->update(['payment_status' => 'paid']);
+                $customerTransaction->update(['paid_at' => now()]);
+            }
+        }
 
         notify()->success('Updated Successfully⚡️', 'Success!');
 
