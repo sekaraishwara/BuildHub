@@ -94,13 +94,13 @@
                                       </div>
                                   </div>
                               </div>
-                              <div class="sinlge-bar shopping">
-                                  <a href="{{ route('customer.cart') }}" class="single-icon"><i class="ti-bag"></i> <span
-                                          id="total-count" class="total-count font-weight-bold"></span></a>
-                                  <!-- Shopping Item -->
+                              @if (auth()->user()->role === 'customer')
+                                  <div class="sinlge-bar shopping">
+                                      <a href="{{ route('customer.cart') }}" class="single-icon"><i class="ti-bag"></i>
+                                          <span id="total-count" class="total-count font-weight-bold"></span></a>
 
-                                  <!--/ End Shopping Item -->
-                              </div>
+                                  </div>
+                              @endif
                               <script>
                                   function getTotalItemCount() {
                                       var xhr = new XMLHttpRequest();

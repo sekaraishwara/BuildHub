@@ -73,6 +73,9 @@ class VendorPortfolioController extends Controller
 
         $data->save();
 
+        notify()->success('Updated Successfully⚡️', 'Success!');
+
+
         return Redirect::route('vendor.portfolio');
     }
 

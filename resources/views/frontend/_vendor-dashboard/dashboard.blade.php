@@ -7,10 +7,9 @@
                     <div class="col-12">
                         <div class="bread-inner">
                             <ul class="bread-list">
-                                <li><a href="{{ route('home') }}">Home / </a></li>
-                                <li class="active"><a href="{{ route('professional.dashboard') }}">Dashboard</a>
+                                <li><a href="{{ route('home') }}">Home </a><i class="ti-arrow-right"></i></a></li>
+                                <li class="active"><a href="{{ route('professional.dashboard') }}">Dashboard </a></a>
                                 </li>
-                                <li><a href=""></a>Vendor</li>
                             </ul>
                         </div>
                     </div>
@@ -31,16 +30,16 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="card">
                                         <div class="card-body">
-                                            My Product
-                                            <h2 class="">50</h2>
+                                            My Servies
+                                            <h2 class="">{{ $myServicesCount }}</h2>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-6">
                                     <div class="card">
                                         <div class="card-body">
-                                            My Transaction
-                                            <h2 class="">20</h2>
+                                            My Portfolios
+                                            <h2 class="">{{ $myPortoCount }}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -48,7 +47,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             History
-                                            <h2 class="">15</h2>
+                                            <h2 class="">0</h2>
                                         </div>
                                     </div>
                                 </div>

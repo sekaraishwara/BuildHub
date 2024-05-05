@@ -8,7 +8,6 @@
                 <li><a href="{{ route('vendor.profile') }}">Profile</a></li>
                 <li><a href="{{ route('vendor.service') }}">Service</a></li>
                 <li><a href="{{ route('vendor.portfolio') }}">Portfolio</a></li>
-                <li><a href="{{ route('vendor.dashboard') }}">Transaction</a></li>
                 {{-- <li><a href="#">History</a></li> --}}
                 <li>
                     <form method="POST" action="{{ route('logout') }}">

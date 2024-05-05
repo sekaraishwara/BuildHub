@@ -84,6 +84,8 @@ class ProfessionalPortfolioController extends Controller
         $data = ProfessionalPortfolio::find($id);
         $data->delete();
 
+        notify()->success('Deleted Successfully⚡️', 'Success!');
+
         return back();
     }
 }

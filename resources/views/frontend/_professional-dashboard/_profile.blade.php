@@ -7,8 +7,9 @@
                     <div class="col-12">
                         <div class="bread-inner">
                             <ul class="bread-list">
-                                <li><a href="{{ route('home') }}">Home / </a></li>
-                                <li><a href="{{ route('professional.dashboard') }}">Dashboard /</a>
+                                <li><a href="{{ route('home') }}">Home </a><i class="ti-arrow-right"></i> </a></li>
+                                <li><a href="{{ route('professional.dashboard') }}">Dashboard </a><i
+                                        class="ti-arrow-right"></i></a>
                                 </li>
                                 <li class="active"><a href="{{ route('professional.profile') }}">Profile</a>
                                 </li>
@@ -23,7 +24,7 @@
     <section class="section-box mt-120">
         <div class="container">
             <div class="row">
-                @include('frontend._store-dashboard.sidebar')
+                @include('frontend._professional-dashboard.sidebar')
                 <div class="col-lg-9 col-md-8 col-sm-12 col-12 mb-50">
                     <div class="content-single">
                         <nav>
@@ -101,8 +102,9 @@
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
                                                 <label>Facebook<span>*</span></label>
-                                                <input type="text" class="form-control" name="facebook" placeholder=""
-                                                    required="required" value="{{ $professionalInfo?->facebook }}">
+                                                <input type="text" class="form-control" name="facebook"
+                                                    placeholder="" required="required"
+                                                    value="{{ $professionalInfo?->facebook }}">
                                             </div>
                                         </div>
                                     </div>

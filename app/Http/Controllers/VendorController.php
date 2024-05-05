@@ -25,6 +25,10 @@ class VendorController extends Controller
 
         $serviceVendor = VendorService::where('id', $id)->first();
 
-        return view('frontend.home._vendor.single-product', compact('serviceVendor'));
+        $items = VendorService::where('vendor_id',  $serviceVendor->vendor_id)->get();
+
+        // dd($items);
+
+        return view('frontend.home._vendor.single-product', compact('serviceVendor', 'items'));
     }
 }

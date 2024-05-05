@@ -84,6 +84,8 @@ class ProfessionalServiceController extends Controller
 
         $data->save();
 
+        notify()->success('Updated Successfully⚡️', 'Success!');
+
         return Redirect::route('professional.service');
     }
 
@@ -91,6 +93,9 @@ class ProfessionalServiceController extends Controller
     {
         $data = ProfessionalService::find($id);
         $data->delete();
+
+        notify()->success('Deleted Successfully⚡️', 'Success!');
+
 
         return back();
     }

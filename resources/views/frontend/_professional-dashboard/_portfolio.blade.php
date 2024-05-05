@@ -7,8 +7,9 @@
                     <div class="col-12">
                         <div class="bread-inner">
                             <ul class="bread-list">
-                                <li><a href="{{ route('home') }}">Home / </a></li>
-                                <li><a href="{{ route('professional.dashboard') }}">Dashboard /</a>
+                                <li><a href="{{ route('home') }}">Home </a><i class="ti-arrow-right"></i> </a></li>
+                                <li><a href="{{ route('professional.dashboard') }}">Dashboard </a><i
+                                        class="ti-arrow-right"></i></a>
                                 </li>
                                 <li class="active"><a href="{{ route('professional.portfolio') }}">Portfolio</a>
                                 </li>
@@ -174,7 +175,7 @@
         <div class="modal fade" id="deleteModal{{ $item->id }}" tabindex="-1" role="dialog"
             aria-labelledby="createModal" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <form method="POST" action="{{ route('professional.service.delete', ['id' => $item->id]) }}">
+                <form method="POST" action="{{ route('professional.portfolio.delete', ['id' => $item->id]) }}">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">

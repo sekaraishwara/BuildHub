@@ -241,21 +241,6 @@
                             </div>
                             <!-- End Single Comment -->
 
-                            <!-- Single Comment -->
-                            <div class="single-comment">
-                                <img src="https://via.placeholder.com/80x80" alt="#">
-                                <div class="content">
-                                    <h4>megan mart <span>Feb 28, 2018 at 8:59 pm</span></h4>
-                                    <p>Enthusiastically leverage existing premium quality vectors with
-                                        enterprise-wide innovation collaboration Phosfluorescently leverage others
-                                        enterprisee Phosfluorescently leverage.</p>
-                                    <div class="button">
-                                        <a href="#" class="btn"><i class="fa fa-reply"
-                                                aria-hidden="true"></i>Reply</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Comment -->
                         </div>
                     </div>
                 </div>
@@ -271,144 +256,28 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-12">
-
-                    <!-- Start Single List  -->
-                    <div class="single-list">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-12">
-                                <div class="list-image overlay">
-                                    <img src="https://via.placeholder.com/115x140" alt="#">
-                                    <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                @foreach ($items as $item)
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="single-list">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="list-image overlay">
+                                        <img src="{{ $item->image }}" width="115" alt="#">
+                                        <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-12 no-padding">
-                                <div class="content">
-                                    <h4 class="title">
-                                        <a href="#">Licity jelly leg flat
-                                            Sandals</a>
-                                    </h4>
-                                    <p class="price with-discount">$59</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single List  -->
-                    <!-- Start Single List  -->
-                    <div class="single-list">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-12">
-                                <div class="list-image overlay">
-                                    <img src="https://via.placeholder.com/115x140" alt="#">
-                                    <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-12 no-padding">
-                                <div class="content">
-                                    <h5 class="title">
-                                        <a href="#">Licity jelly leg flat
-                                            Sandals</a>
-                                    </h5>
-                                    <p class="price with-discount">$44</p>
+                                <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                    <div class="content">
+                                        <h4 class="title">
+                                            <a href="#">{{ $item->name }}</a>
+                                        </h4>
+                                        <p class="price with-discount">Rp.{{ $item->price }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- End Single List  -->
-
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-
-                    <!-- Start Single List  -->
-                    <div class="single-list">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-12">
-                                <div class="list-image overlay">
-                                    <img src="https://via.placeholder.com/115x140" alt="#">
-                                    <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-12 no-padding">
-                                <div class="content">
-                                    <h5 class="title">
-                                        <a href="#">Licity jelly leg flat
-                                            Sandals</a>
-                                    </h5>
-                                    <p class="price with-discount">$65</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single List  -->
-                    <!-- Start Single List  -->
-                    <div class="single-list">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-12">
-                                <div class="list-image overlay">
-                                    <img src="https://via.placeholder.com/115x140" alt="#">
-                                    <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-12 no-padding">
-                                <div class="content">
-                                    <h5 class="title">
-                                        <a href="#">Licity jelly leg flat
-                                            Sandals</a>
-                                    </h5>
-                                    <p class="price with-discount">$33</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single List  -->
-
-                    <!-- End Single List  -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-
-                    <!-- Start Single List  -->
-                    <div class="single-list">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-12">
-                                <div class="list-image overlay">
-                                    <img src="https://via.placeholder.com/115x140" alt="#">
-                                    <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-12 no-padding">
-                                <div class="content">
-                                    <h5 class="title">
-                                        <a href="#">Licity jelly leg flat
-                                            Sandals</a>
-                                    </h5>
-                                    <p class="price with-discount">$22</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single List  -->
-                    <!-- Start Single List  -->
-                    <div class="single-list">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-6 col-12">
-                                <div class="list-image overlay">
-                                    <img src="https://via.placeholder.com/115x140" alt="#">
-                                    <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 col-12 no-padding">
-                                <div class="content">
-                                    <h5 class="title">
-                                        <a href="#">Licity jelly leg flat
-                                            Sandals</a>
-                                    </h5>
-                                    <p class="price with-discount">$35</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Single List  -->
-                </div>
+                @endforeach
             </div>
         </div>
     </section>
