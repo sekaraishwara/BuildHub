@@ -274,7 +274,8 @@
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="list-image overlay">
                                         <img src="{{ $item->image }}" alt="#">
-                                        <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                                        <a href="{{ route('singleItem', $item->slug) }}" class="buy"><i
+                                                class="fa fa-shopping-bag"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12 no-padding">

@@ -93,6 +93,8 @@
                                 <div class="form-group">
                                     <label for="Name">Image</label>
                                     <input class="form-control" type="file" name="image" id="image">
+                                    <small class="text-danger">*Max image size 1000mb.</small>
+
                                 </div>
                             </div>
                             <div class="col-12">
@@ -135,7 +137,7 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-6 mb-3">
                                     <x-image-preview :height="200" :width="200" :source="$item?->image" />
                                 </div>
                                 <div class="col-6">
@@ -143,6 +145,8 @@
                                         <label for="image">Image</label>
                                         <input class="form-control" type="file" name="image"
                                             value="{{ $item->image }}">
+                                        <small class="text-danger">*Max image size 1000mb.</small>
+
                                     </div>
                                 </div>
                                 <div class="col-12">

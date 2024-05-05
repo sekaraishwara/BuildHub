@@ -8,7 +8,7 @@
                     <div class="bread-inner">
                         <ul class="bread-list">
                             <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-                            <li><a href="{{ route('store') }}">Store<i class="ti-arrow-right"></i></a></li>
+                            <li><a href="{{ route('vendor') }}">Vendor<i class="ti-arrow-right"></i></a></li>
                             <li class="active"><a href="blog-single.html">{{ $serviceVendor?->name }}</a></li>
                         </ul>
                     </div>
@@ -33,7 +33,7 @@
                                 <span class="promo-price mr-2">Rp. 28.900.000</span>
 
                                 <h3 class="normal-price">
-                                    <span>Rp{{ number_format($serviceVendor?->price, 0, ',', '.') }}</span>
+                                    <span>Rp{{ $serviceVendor?->price }}</span>
                                 </h3>
                             </div>
                             <div class="d-flex">
@@ -252,6 +252,42 @@
         <div class="container">
             <div class="col-12">
                 <div class="shop-section-title">
+                    <h1>PROFESSIONAL GALLERY</h1>
+                </div>
+            </div>
+            <div class="row">
+                @foreach ($portfolio as $item)
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <!-- Start Single List  -->
+                        <div class="single-list">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="list-image overlay">
+                                        <img src="{{ $item->image }}" alt="#">
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                    <div class="content">
+                                        <h4 class="title">
+                                            <a href="#">{{ $item->name }}</a>
+                                        </h4>
+                                        <p class="price with-discount">{{ $item->year }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+            </div>
+        </div>
+    </section>
+
+    <section class="shop-home-list section">
+        <div class="container">
+            <div class="col-12">
+                <div class="shop-section-title">
                     <h1>MORE PRODUCTS</h1>
                 </div>
             </div>
@@ -263,7 +299,8 @@
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="list-image overlay">
                                         <img src="{{ $item->image }}" width="115" alt="#">
-                                        <a href="#" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                                        <a href="{{ route('serviceItemVendor', $item->id) }}" class="buy"><i
+                                                class="fa fa-shopping-bag"></i></a>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12 no-padding">

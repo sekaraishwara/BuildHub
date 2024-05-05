@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend\Home;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProfessionalCategory;
+use App\Models\ProfessionalPortfolio;
 use App\Models\ProfessionalService;
 use Illuminate\Http\Request;
 
@@ -25,8 +26,10 @@ class ProfessionalController extends Controller
         $serviceProfessional = ProfessionalService::where('slug', $slug)->first();
         $items = ProfessionalService::where('professional_id',  $serviceProfessional->professional_id)->get();
 
+        $portfolio = ProfessionalPortfolio::where('professional_id',  $serviceProfessional->professional_id)->get();
 
-        return view('frontend.home._professional.single-product', compact('serviceProfessional', 'items'));
+
+        return view('frontend.home._professional.single-product', compact('serviceProfessional', 'items', 'portfolio'));
     }
 
     /**

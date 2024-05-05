@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\VendorCategory;
+use App\Models\VendorPortfolio;
 use App\Models\VendorService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,9 +27,11 @@ class VendorController extends Controller
         $serviceVendor = VendorService::where('id', $id)->first();
 
         $items = VendorService::where('vendor_id',  $serviceVendor->vendor_id)->get();
+        $portfolio = VendorPortfolio::where('vendor_id',  $serviceVendor->vendor_id)->get();
+
 
         // dd($items);
 
-        return view('frontend.home._vendor.single-product', compact('serviceVendor', 'items'));
+        return view('frontend.home._vendor.single-product', compact('serviceVendor', 'items', 'portfolio'));
     }
 }

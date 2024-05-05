@@ -95,6 +95,7 @@
                                 <div class="form-group">
                                     <label for="image">Image</label>
                                     <input class="form-control" type="file" name="image">
+                                    <small class="text-danger">*Max image size 1000mb.</small>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -105,14 +106,24 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="Category">Category</label>
-                                    <input class="form-control" type="text" name="category" id="category">
+                                    <label>Service Category<span>*</span></label>
+                                    <select name="category" id="category">
+                                        <option class="text-muted">--Select Category--</option>
+                                        @foreach ($category as $item)
+                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label for="Category">Price Range</label>
-                                    <input class="form-control" type="text" name="price" id="price">
+                                    <select name="price" id="price">
+                                        <option class="text-muted">--Select Price Range--</option>
+                                        @foreach ($price as $item)
+                                            <option value="{{ $item->price_ranges }}">{{ $item->price_ranges }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -148,16 +159,18 @@
                         </div>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-6 mb-3">
                                     <x-image-preview :height="200" :width="200" :source="$item?->image" />
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="image">Image</label>
                                         <input class="form-control" type="file" name="image">
+                                        <small class="text-danger">*Max image size 1000mb.</small>
+
                                     </div>
                                 </div>
-                                <div class="col-6">
+                                <div class="col-5">
                                     <div class="form-group">
                                         <label for="Name">Service Name</label>
                                         <input class="form-control" type="text" name="name" id="name"
@@ -167,15 +180,26 @@
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="Category">Category</label>
-                                        <input class="form-control" type="text" name="category" id="category"
-                                            value="{{ $item->category }}">
+                                        <select name="category" id="category">
+                                            <option value="{{ $item->category }}">{{ $item->category }}</option>
+                                            @foreach ($category as $categoryItem)
+                                                <option value="{{ $categoryItem->name }}">{{ $categoryItem->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
                                         <label for="Category">Price Range</label>
-                                        <input class="form-control" type="text" name="price" id="price"
-                                            value="{{ $item->price }}">
+                                        <select name="price" id="price">
+                                            <option value="{{ $item->price }}">{{ $item->price }}</option>
+                                            @foreach ($price as $priceItem)
+                                                <option value="{{ $priceItem->price_ranges }}">
+                                                    {{ $priceItem->price_ranges }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-12">

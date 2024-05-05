@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Frontend\Vendor;
 
+use App\Models\Vendor;
 use Illuminate\View\View;
+use App\Models\PriceRange;
 use Illuminate\Http\Request;
 use App\Models\VendorService;
+use App\Models\VendorCategory;
 use App\Traits\FileUploadTrait;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\VendorServiceUpdateRequest;
-use App\Models\Vendor;
 
 class VendorserviceController extends Controller
 {
@@ -18,9 +21,14 @@ class VendorserviceController extends Controller
 
     public function index(): View
     {
-        $data = VendorService::all();
+        $userId = Auth::id();
+        $vendor = Vendor::where('user_id', $userId)->first();
 
-        return view('frontend._vendor-dashboard._service', compact('data'));
+        $data = VendorService::where('vendor_id', $vendor->id)->get();
+        $category = VendorCategory::all();
+        $price = PriceRange::all();
+
+        return view('frontend._vendor-dashboard._service', compact('data', 'category', 'price'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -94,6 +102,9 @@ class VendorserviceController extends Controller
     {
         $data = VendorService::find($id);
         $data->delete();
+
+
+        notify()->success('Deleted Successfully⚡️', 'Success!');
 
         return back();
     }

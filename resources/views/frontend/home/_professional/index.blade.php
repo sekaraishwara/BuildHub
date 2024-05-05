@@ -28,7 +28,7 @@
                             <h3 class="title">Categories</h3>
                             <ul class="categor-list">
                                 @foreach ($professionalCategory as $item)
-                                    <li><a href="#">{{ $item->name }}</a></li>
+                                    <li><a href="#">{{ $item?->name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>
@@ -118,7 +118,7 @@
                                     <div class="product-content">
                                         <h3><a href="product-details.html">{{ $item?->name }}</a></h3>
                                         <div class="product-price">
-                                            <span>Rp{{ number_format($item->price, 0, ',', '.') }}</span>
+                                            <span>Rp{{ $item?->price }}</span>
                                         </div>
                                     </div>
                                 </div>

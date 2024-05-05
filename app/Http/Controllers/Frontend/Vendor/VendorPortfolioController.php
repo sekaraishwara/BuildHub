@@ -84,6 +84,9 @@ class VendorPortfolioController extends Controller
         $data = VendorPortfolio::find($id);
         $data->delete();
 
+        notify()->success('Deleted Successfully⚡️', 'Success!');
+
+
         return back();
     }
 }
