@@ -224,25 +224,31 @@
                 <div class="card">
                     <div class="col-12">
                         <div class="comments">
-                            <h3 class="comment-title">Product Review (2)</h3>
+                            <h3 class="comment-title">Product Review ({{ $reviewCount }})</h3>
                             <!-- Single Comment -->
-                            <div class="single-comment">
-                                <img src="https://via.placeholder.com/80x80" alt="#">
-                                <div class="content">
-                                    <h4>Alisa harm <span>At 8:59 pm On Feb 28, 2018</span></h4>
-                                    <p>Enthusiastically leverage existing premium quality vectors with
-                                        enterprise-wide innovation collaboration Phosfluorescently leverage others
-                                        enterprisee Phosfluorescently leverage.</p>
-                                    <div class="button">
-                                        <a href="#" class="btn"><i class="fa fa-reply"
-                                                aria-hidden="true"></i>Reply</a>
+                            @foreach ($review as $item)
+                                <div class="single-comment">
+                                    <img src="{{ asset('default-uploads/avatar.jpg') }}" width="80" alt="#">
+                                    <div class="content">
+                                        <div class="d-flex justify-content-between align-item-center">
+                                            <h4>{{ $item->customer->name }} <span>At
+                                                    {{ $item->created_at->format('h:i A \O\n M d, Y') }}</span></h4>
+                                            <div class="col-3">
+                                                {{-- Tampilkan bintang berdasarkan rating --}}
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    <i class="ti-star star-icon"
+                                                        data-value="{{ $i <= $item->rating ? 1 : 0 }}"></i>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                        <p>{{ $item->comment }}</p>
+                                        <div class="button">
+                                            <a href="#" class="btn"><i class="fa fa-reply"
+                                                    aria-hidden="true"></i>Reply</a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- End Single Comment -->
-
-
-                            <!-- End Single Comment -->
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -292,6 +298,12 @@
 <style>
     .single-item {
         margin: 50px 0;
+    }
+
+    .star-icon {
+        font-size: 24px;
+        color: #ea9103;
+        cursor: pointer;
     }
 
     .product-image {

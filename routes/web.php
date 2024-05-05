@@ -87,6 +87,9 @@ Route::group(
         Route::get('/chat', [CustomerChatController::class, 'index'])->name('chat');
         Route::get('/chat/sendMessage', [CustomerChatController::class, 'sendMessage'])->name('send.sendMessage');
         Route::post('/chat/sendMessage', [CustomerChatController::class, 'sendMessage'])->name('send.sendMessage');
+
+        Route::get('/history-transaction', [CustomerDashboardController::class, 'historyTransaction'])->name('history-transaction');
+        Route::post('/history-transaction/send-rate', [CustomerTransactionController::class, 'sessionRate'])->name('sessionRate');
     }
 );
 

@@ -38,4 +38,9 @@ class Customer extends Model
     {
         return $this->hasMany(CustomerTransaction::class, 'customer_id');
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(CustomerReview::class, 'customer_id');
+    }
 }

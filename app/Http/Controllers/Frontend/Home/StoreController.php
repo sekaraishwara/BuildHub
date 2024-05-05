@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Home;
 
 use App\Http\Controllers\Controller;
+use App\Models\CustomerReview;
 use App\Models\StoreCategory;
 use App\Models\StoreProduct;
 use Illuminate\Http\Request;
@@ -50,8 +51,10 @@ class StoreController extends Controller
         $storeProduct = StoreProduct::where('slug', $slug)->first();
         $items = StoreProduct::where('store_id',  $storeProduct->store_id)->get();
 
+        $reviewCount = CustomerReview::where('product_id', $storeProduct->id)->count();
+        $review = CustomerReview::where('product_id', $storeProduct->id)->get();
 
-        return view('frontend.home._store.single-product', compact('storeProduct', 'items'));
+        return view('frontend.home._store.single-product', compact('storeProduct', 'items', 'reviewCount', 'review'));
     }
 
     /**

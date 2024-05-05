@@ -9,6 +9,7 @@
                 <li><a href="{{ route('notification') }}">Notification</a></li>
                 <li><a href="{{ route('customer.order') }}">My Order</a></li>
                 <li><a href="{{ route('customer.chat') }}">Chat</a></li>
+                <li><a href="{{ route('customer.history-transaction') }}">History Transaction</a></li>
                 {{-- <li><a href="#">History</a></li> --}}
                 <li>
                     <form method="POST" action="{{ route('logout') }}">

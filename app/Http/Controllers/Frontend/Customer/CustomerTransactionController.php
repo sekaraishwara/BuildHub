@@ -6,6 +6,7 @@ use App\Models\Customer;
 use Illuminate\View\View;
 use App\Models\CustomerCart;
 use Illuminate\Http\Request;
+use App\Models\CustomerReview;
 use App\Traits\FileUploadTrait;
 use App\Models\TransactionProof;
 use App\Models\CustomerTransaction;
@@ -60,6 +61,30 @@ class CustomerTransactionController extends Controller
         }
 
         notify()->success('Updated Successfully⚡️', 'Success!');
+
+        return redirect()->back();
+    }
+
+    function sessionRate(Request $request): RedirectResponse
+    {
+
+        $request->validate([
+            'rating' => 'required|integer|between:1,5',
+            'comment' => 'nullable|string|max:255',
+        ]);
+
+        $productId = $request->input('product_id');
+
+        $review = new CustomerReview([
+            'customer_id' => $request->input('customer_id'),
+            'product_id' => $productId,
+            'rating' => $request->input('rating'),
+            'comment' => $request->input('comment'),
+        ]);
+
+        $review->save();
+
+        notify()->success('Rated Successfully Send⚡️', 'Thank You!');
 
         return redirect()->back();
     }
