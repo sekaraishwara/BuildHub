@@ -23,8 +23,10 @@ class ProfessionalController extends Controller
     {
 
         $serviceProfessional = ProfessionalService::where('slug', $slug)->first();
+        $items = ProfessionalService::where('professional_id',  $serviceProfessional->professional_id)->get();
 
-        return view('frontend.home._professional.single-product', compact('serviceProfessional'));
+
+        return view('frontend.home._professional.single-product', compact('serviceProfessional', 'items'));
     }
 
     /**

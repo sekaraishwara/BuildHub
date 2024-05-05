@@ -8,6 +8,7 @@ use App\Traits\FileUploadTrait;
 use App\Models\ProfessionalService;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 
@@ -17,7 +18,10 @@ class ProfessionalServiceController extends Controller
 
     public function index(): View
     {
-        $data = ProfessionalService::all();
+        $userId = Auth::id();
+        $professional = Professional::where('user_id', $userId)->first();
+
+        $data = ProfessionalService::where('professional_id', $professional->id)->get();
 
         return view('frontend._professional-dashboard._service', compact('data'));
     }

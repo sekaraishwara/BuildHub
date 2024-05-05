@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Traits\FileUploadTrait;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Models\ProfessionalPortfolio;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
@@ -17,8 +18,10 @@ class ProfessionalPortfolioController extends Controller
 
     public function index(): View
     {
+        $userId = Auth::id();
+        $professional = Professional::where('user_id', $userId)->first();
 
-        $data = ProfessionalPortfolio::all();
+        $data = ProfessionalPortfolio::where('professional_id', $professional->id)->get();
 
         return view('frontend._professional-dashboard._portfolio', compact('data'));
     }

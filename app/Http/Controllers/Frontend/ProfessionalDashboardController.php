@@ -2,21 +2,27 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\ProfessionalPortfolio;
-use App\Models\ProfessionalService;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use App\Models\ProfessionalService;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ProfessionalPortfolio;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Professional;
+use App\Models\ProfessionalCategory;
 
 class ProfessionalDashboardController extends Controller
 {
     function index(): View
     {
-        $services = ProfessionalService::all()->count();
-        $portfolio = ProfessionalPortfolio::all()->count();
+        $userId = Auth::id();
+        $professional = Professional::where('user_id', $userId)->first();
+
+        $services = ProfessionalService::where('professional_id', $professional->id)->count();
+        $portfolio = ProfessionalPortfolio::where('professional_id', $professional->id)->count();
 
         return view('frontend._professional-dashboard.dashboard', compact('services', 'portfolio'));
     }
