@@ -43,7 +43,7 @@
                                                 <span>{{ $item['customer_name'] }}</span>
                                                 <span>{{ $item['customer_phone'] }}</span>
                                                 <span>{{ $item['customer_alamat'] }}, BEKASI, JAWA BARAT, 17520</span>
-                                                <a href="#" class="text-primary"><i
+                                                <a href="{{ route('customer.profile') }}" class="text-primary"><i
                                                         class="fa fa-pencil-square-o mx-2"></i>Change Address</a>
                                             </div>
                                         </div>

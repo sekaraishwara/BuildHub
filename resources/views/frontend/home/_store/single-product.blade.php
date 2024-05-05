@@ -234,18 +234,21 @@
                                             <h4>{{ $item->customer->name }} <span>At
                                                     {{ $item->created_at->format('h:i A \O\n M d, Y') }}</span></h4>
                                             <div class="col-3">
-                                                {{-- Tampilkan bintang berdasarkan rating --}}
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    <i class="ti-star star-icon"
-                                                        data-value="{{ $i <= $item->rating ? 1 : 0 }}"></i>
+                                                @php
+                                                    $full_stars = $item->rating;
+                                                    $empty_stars = 5 - $item->rating;
+                                                @endphp
+
+                                                @for ($i = 1; $i <= $full_stars; $i++)
+                                                    <span class="rating-star">★</span>
+                                                @endfor
+
+                                                @for ($i = 1; $i <= $empty_stars; $i++)
+                                                    <span class="rating-star">☆</span>
                                                 @endfor
                                             </div>
                                         </div>
                                         <p>{{ $item->comment }}</p>
-                                        <div class="button">
-                                            <a href="#" class="btn"><i class="fa fa-reply"
-                                                    aria-hidden="true"></i>Reply</a>
-                                        </div>
                                     </div>
                                 </div>
                             @endforeach
@@ -314,6 +317,11 @@
 
     .product-text {
         margin-left: 60px;
+    }
+
+    .rating-star {
+        font-size: 25px;
+        color: #ffc700;
     }
 
     .product-text h4 {

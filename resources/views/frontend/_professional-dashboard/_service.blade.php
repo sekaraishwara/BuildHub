@@ -105,14 +105,24 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="Category">Category</label>
-                                    <input class="form-control" type="text" name="category" id="category">
+                                    <label>Service Category<span>*</span></label>
+                                    <select name="category" id="category">
+                                        <option class="text-muted">--Select Category--</option>
+                                        @foreach ($category as $item)
+                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="Category">Price Range</label>
-                                    <input class="form-control" type="text" name="price" id="price">
+                                    <label for="price">Price Range</label>
+                                    <select name="price" id="price">
+                                        <option class="text-muted">--Select Price--</option>
+                                        @foreach ($price as $item)
+                                            <option value="{{ $item->price_ranges }}">{{ $item->price_ranges }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12">
@@ -166,31 +176,36 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
-                                        <label for="Category">Category</label>
-                                        <input class="form-control" type="text" name="category" id="category"
-                                            value="{{ $item->category }}">
+                                        <label for="Category">Service Category</label>
+                                        <select name="category" id="category">
+                                            <option value="{{ $item->category }}">{{ $item->category }}</option>
+                                            @foreach ($category as $categoryItem)
+                                                <option value="{{ $categoryItem->name }}">{{ $categoryItem->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="Category">Price Range</label>
-                                        <input class="form-control" type="text" name="price" id="price"
-                                            value="{{ $item->price }}">
+                                        <select name="price" id="price">
+                                            <option value="{{ $item->price }}">{{ $item->price }}</option>
+                                            @foreach ($price as $priceItem)
+                                                <option value="{{ $priceItem->price_ranges }}">
+                                                    {{ $priceItem->price_ranges }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
+
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="Desc">Desc</label>
                                         <textarea class="form-control" id="desc" name="desc" rows="3">{{ $item->desc }}</textarea>
                                     </div>
                                 </div>
-                                {{-- <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="Status">Status</label>
-                                        <input class="form-control" id="status" name="status"
-                                            value="{{ $item->status }}">
-                                    </div>
-                                </div> --}}
                             </div>
                         </div>
                         <div class="modal-footer">

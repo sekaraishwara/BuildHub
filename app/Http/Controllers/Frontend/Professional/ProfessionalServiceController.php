@@ -8,6 +8,8 @@ use App\Traits\FileUploadTrait;
 use App\Models\ProfessionalService;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use App\Models\PriceRange;
+use App\Models\ProfessionalCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
@@ -22,8 +24,10 @@ class ProfessionalServiceController extends Controller
         $professional = Professional::where('user_id', $userId)->first();
 
         $data = ProfessionalService::where('professional_id', $professional->id)->get();
+        $category = ProfessionalCategory::all();
+        $price = PriceRange::all();
 
-        return view('frontend._professional-dashboard._service', compact('data'));
+        return view('frontend._professional-dashboard._service', compact('data', 'category', 'price'));
     }
 
     public function store(Request $request): RedirectResponse

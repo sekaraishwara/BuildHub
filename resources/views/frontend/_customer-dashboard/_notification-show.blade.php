@@ -49,11 +49,8 @@
     <style>
         .card-notification .card-body:hover {
             background-color: #f0f0f0;
-            /* Warna latar belakang ketika dihover */
             cursor: pointer;
-            /* Mengubah kursor menjadi tanda tangan ketika dihover */
             transition: background-color 0.3s ease;
-            /* Animasi transisi ketika dihover */
         }
     </style>
 @endsection

@@ -14,6 +14,8 @@
                      <a href="{{ route('admin.data.professional') }}"><i class="menu-icon fa fa-home"></i>Data
                          Professional </a>
                      <a href="{{ route('admin.data.store') }}"><i class="menu-icon fa fa-dropbox"></i>Data Store </a>
+                     {{-- <a href="{{ route('admin.data.store') }}"><i class="menu-icon fa fa-money"></i>Data Price Range --}}
+                     </a>
                      {{-- <a href="{{ route('admin.master.store') }}"><i class="menu-icon fa fa-dropbox"></i>Master Store
                      </a> --}}
                  <li class="menu-item-has-children dropdown">

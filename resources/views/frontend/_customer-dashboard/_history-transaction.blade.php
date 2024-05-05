@@ -81,7 +81,7 @@
                                             </div>
                                         </div>
                                         <div class="mt-3 text-right">
-                                            <button class="btn btn-sm  btn-info w-100">Send Feedback</button>
+                                            <button class="btn btn-sm btn-info w-100" type="submit">Send Feedback</button>
                                         </div>
                                     </form>
                                 </div>
@@ -98,10 +98,6 @@
         font-size: 32px;
         color: #ccc;
         cursor: pointer;
-    }
-
-    .star-icon[data-value="1"] {
-        color: #FFD700;
     }
 
 
@@ -218,23 +214,3 @@
         color: #c59b08;
     }
 </style>
-
-
-
-
-
-<script>
-    function submitRating() {
-        const selectedRating = document.querySelector('input[name="rating"]:checked');
-        const comment = document.getElementById('comment').value;
-
-        if (!selectedRating) {
-            alert('Please select a rating!');
-            return;
-        }
-
-        document.getElementById('ratingForm').rating.value = selectedRating.value;
-
-        document.getElementById('ratingForm').submit();
-    }
-</script>

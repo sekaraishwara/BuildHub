@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Frontend\Customer\CustomerBuildingChecklistController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -90,6 +91,8 @@ Route::group(
 
         Route::get('/history-transaction', [CustomerDashboardController::class, 'historyTransaction'])->name('history-transaction');
         Route::post('/history-transaction/send-rate', [CustomerTransactionController::class, 'sessionRate'])->name('sessionRate');
+
+        Route::get('/building-checklist', [CustomerBuildingChecklistController::class, 'index'])->name('building-checklist');
     }
 );
 
