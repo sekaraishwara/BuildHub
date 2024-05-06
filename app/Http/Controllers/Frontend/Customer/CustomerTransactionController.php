@@ -69,6 +69,7 @@ class CustomerTransactionController extends Controller
     {
 
         $request->validate([
+            'invoice_no' => 'required|string|max:255',
             'rating' => 'required|integer|between:1,5',
             'comment' => 'nullable|string|max:255',
         ]);
@@ -76,6 +77,7 @@ class CustomerTransactionController extends Controller
         $productId = $request->input('product_id');
 
         $review = new CustomerReview([
+            'invoice_no' => $request->input('invoice_no'),
             'customer_id' => $request->input('customer_id'),
             'product_id' => $productId,
             'rating' => $request->input('rating'),

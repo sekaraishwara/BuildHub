@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('customer_reviews', function (Blueprint $table) {
             $table->id();
+            $table->string('invoice_no');
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('store_products')->onDelete('cascade');
             $table->integer('rating');

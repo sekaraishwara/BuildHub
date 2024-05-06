@@ -49,42 +49,60 @@
                                     @endfor
                                 </div>
                             @else
-                                <div class="card-footer">
-                                    <form action="{{ route('customer.sessionRate') }}" method="POST" autocomplete="off">
-                                        @csrf
-                                        <input type="hidden" name="product_id" value="{{ $item->product_id }}">
-                                        <input type="hidden" name="customer_id" value="{{ $item->customer_id }}">
-                                        <p class="font-weight-bold">Product Rate</p>
-                                        <div class="form-group row mb-0 pb-0">
-                                            <div class="rate">
-                                                <input type="radio" id="star5" class="rate" name="rating"
-                                                    value="5" />
-                                                <label for="star5" title="text">5 stars</label>
-                                                <input type="radio" checked id="star4" class="rate" name="rating"
-                                                    value="4" />
-                                                <label for="star4" title="text">4 stars</label>
-                                                <input type="radio" id="star3" class="rate" name="rating"
-                                                    value="3" />
-                                                <label for="star3" title="text">3 stars</label>
-                                                <input type="radio" id="star2" class="rate" name="rating"
-                                                    value="2" />
-                                                <label for="star2" title="text">2 stars</label>
-                                                <input type="radio" id="star1" class="rate" name="rating"
-                                                    value="1" />
-                                                <label for="star1" title="text">1 star</label>
+                                @php
+                                    // cek CustomerReview udh ada untuk invoice_no ini apa blm
+                                    $existingReview = App\Models\CustomerReview::where(
+                                        'invoice_no',
+                                        $item->invoice_no,
+                                    )->first();
+                                    $hasReview = !is_null($existingReview);
+                                @endphp
+
+                                <!-- Form untuk mengirim feedback (show if belum ada ulasan) -->
+                                @if (!$hasReview)
+                                    <div class="card-footer">
+                                        <form action="{{ route('customer.sessionRate') }}" method="POST"
+                                            autocomplete="off">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $item->product_id }}">
+                                            <input type="hidden" name="invoice_no" value="{{ $item->invoice_no }}">
+                                            <input type="hidden" name="customer_id" value="{{ $item->customer_id }}">
+                                            <p class="font-weight-bold">Product Rate</p>
+                                            <div class="form-group row mb-0 pb-0">
+                                                <!-- Input untuk rating -->
+                                                <div class="rate">
+                                                    <input type="radio" id="star5" class="rate" name="rating"
+                                                        value="5" />
+                                                    <label for="star5" title="text">5 stars</label>
+                                                    <input type="radio" checked id="star4" class="rate"
+                                                        name="rating" value="4" />
+                                                    <label for="star4" title="text">4 stars</label>
+                                                    <input type="radio" id="star3" class="rate" name="rating"
+                                                        value="3" />
+                                                    <label for="star3" title="text">3 stars</label>
+                                                    <input type="radio" id="star2" class="rate" name="rating"
+                                                        value="2" />
+                                                    <label for="star2" title="text">2 stars</label>
+                                                    <input type="radio" id="star1" class="rate" name="rating"
+                                                        value="1" />
+                                                    <label for="star1" title="text">1 star</label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col">
-                                                <textarea class="form-control" name="comment" rows="4" placeholder="Give the store some feedback..."
-                                                    maxlength="200"></textarea>
+                                            <div class="form-group row">
+                                                <!-- Textarea untuk feedback -->
+                                                <div class="col">
+                                                    <textarea class="form-control" name="comment" rows="4" placeholder="Give the store some feedback..."
+                                                        maxlength="200"></textarea>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="mt-3 text-right">
-                                            <button class="btn btn-sm btn-info w-100" type="submit">Send Feedback</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                            <div class="mt-3 text-right">
+                                                <!-- Tombol Submit -->
+                                                <button class="btn btn-sm btn-info w-100" type="submit">Send
+                                                    Feedback</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                @endif
                             @endif
                         </div>
                     </div>

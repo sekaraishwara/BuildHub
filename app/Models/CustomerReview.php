@@ -9,11 +9,16 @@ class CustomerReview extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['customer_id', 'product_id', 'rating', 'comment'];
+    protected $fillable = ['invoice_no', 'customer_id', 'product_id', 'rating', 'comment'];
 
     public function customer()
     {
         return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function transaction()
+    {
+        return $this->belongsTo(CustomerTransaction::class, 'inovice_no');
     }
 
     public function product()
