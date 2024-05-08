@@ -31,8 +31,6 @@
                         </h4>
                         <div class="product-price">
                             <div class="d-flex align-items-center">
-                                <span class="promo-price mr-2">Rp. 28.900.000</span>
-
                                 <h3 class="normal-price">
                                     <span>Rp{{ $serviceProfessional?->price }}</span>
                                 </h3>
@@ -56,12 +54,8 @@
                                         <td>{{ $serviceProfessional?->category }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-muted">Shipping From</td>
+                                        <td class="text-muted">Professional From</td>
                                         <td>KOTA BEKASI</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-muted">Stock</td>
-                                        <td>210</td>
                                     </tr>
 
                                 </tbody>

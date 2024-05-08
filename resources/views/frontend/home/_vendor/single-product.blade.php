@@ -30,7 +30,7 @@
                         </h4>
                         <div class="product-price">
                             <div class="d-flex align-items-center">
-                                <span class="promo-price mr-2">Rp. 28.900.000</span>
+
 
                                 <h3 class="normal-price">
                                     <span>Rp{{ $serviceVendor?->price }}</span>
@@ -55,31 +55,11 @@
                                         <td>{{ $serviceVendor?->category }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-muted">Shipping From</td>
+                                        <td class="text-muted">Vendor From</td>
                                         <td>KOTA BEKASI</td>
                                     </tr>
-                                    <tr>
-                                        <td class="text-muted">Stock</td>
-                                        <td>210</td>
-                                    </tr>
-
                                 </tbody>
                             </table>
-                        </div>
-                        <div class="row">
-                            <form action="{{ route('customer.cart.addToCart') }}" method="POST">
-                                @csrf
-                                <div class="d-none">
-                                    <input name="product_id" value="{{ $serviceVendor?->id }}">
-                                    <input name="item_qty" value="1">
-                                </div>
-                                <button class="btn btn-cart mr-3"><i class="fa fa-shopping-cart mr-2"></i> Add to
-                                    Cart</button>
-
-                            </form>
-
-                            {{-- <a class="btn text-white"><i class="fa fa-shopping-basket mr-2"></i>Buy Now
-                            </a> --}}
                         </div>
 
                     </div>

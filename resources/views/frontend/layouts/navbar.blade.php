@@ -76,7 +76,6 @@
                                                           Transaction</a></li>
                                                   <li> <a href="{{ route('customer.building-checklist') }}">Building
                                                           Checklist</a></li>
-                                                  <li> <a href="{{ route('customer.payment') }}">Payment</a></li>
                                                   <li> <a href="{{ route('customer.profile') }}">Profile</a></li>
                                               @elseif(auth()->user()->role === 'professional')
                                                   <li> <a href="{{ route('professional.dashboard') }}">Dashboard</a></li>

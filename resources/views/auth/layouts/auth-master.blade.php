@@ -150,72 +150,35 @@
     </script>
 
     <script>
-        var urlProvinsi = "https://ibnux.github.io/data-indonesia/provinsi.json";
-        var urlKabupaten = "https://ibnux.github.io/data-indonesia/kabupaten/";
+        $(document).ready(function() {
+            $('.province').on('change', function() {
+                let province_id = $(this).val();
 
-        function clearOptions(id) {
-            $('#' + id).empty().trigger('change');
-        }
+                $.ajax({
+                    method: 'GET',
+                    url: '{{ route('customer.get-regency', ':id') }}'.replace(":id", province_id),
+                    data: {},
+                    success: function(response) {
+                        let html = '';
+                        $.each(response, function(index, value) {
+                            html +=
+                                `<option value="${value.id}">${value.name}</option>`;
+                        });
 
-        console.log('Load Provinsi...');
-        $.getJSON(urlProvinsi, function(res) {
+                        // Empty and append new options to the dropdown
+                        $('.regency').empty().append(html);
 
-            res = $.map(res, function(obj) {
-                obj.text = obj.nama
-                return obj;
+                        // Reinitialize nice-select after updating options
+                        $('.regency').niceSelect('update');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
             });
 
-            data = [{
-                id: "",
-                nama: "- Pilih Provinsi -",
-                text: "- Pilih Provinsi -"
-            }].concat(res);
-
-            // Implement data ke select provinsi
-            $("#select2-provinsi").select2({
-                dropdownAutoWidth: true,
-                width: '100%',
-                data: data
-            })
-        });
-
-        var selectProv = $('#select2-provinsi');
-        $(selectProv).change(function() {
-            var value = $(selectProv).val();
-            clearOptions('select2-kabupaten');
-
-            if (value) {
-                console.log("on change selectProv");
-
-                var text = $('#select2-provinsi :selected').text();
-                console.log("value = " + value + " / " + "text = " + text);
-
-                console.log('Load Kabupaten di ' + text + '...')
-                $.getJSON(urlKabupaten + value + ".json", function(res) {
-
-                    res = $.map(res, function(obj) {
-                        obj.text = obj.nama
-                        return obj;
-                    });
-
-                    data = [{
-                        id: "",
-                        nama: "- Pilih Kabupaten -",
-                        text: "- Pilih Kabupaten -"
-                    }].concat(res);
-
-                    // Implement data ke select kabupaten
-                    $("#select2-kabupaten").select2({
-                        dropdownAutoWidth: true,
-                        width: '100%',
-                        data: data
-                    });
-
-                })
-            }
         });
     </script>
-
 
     <script>
         $(document).ready(function() {

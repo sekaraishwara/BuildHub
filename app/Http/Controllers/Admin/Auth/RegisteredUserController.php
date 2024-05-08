@@ -46,6 +46,8 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        notify()->success('Account Created Successfully🥳', 'Success!');
+
         return redirect(RouteServiceProvider::HOME);
     }
 }

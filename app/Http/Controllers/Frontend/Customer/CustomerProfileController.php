@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Frontend\Customer;
 
 use App\Models\Customer;
+use App\Models\Province;
+use App\Models\Regencie;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Traits\FileUploadTrait;
+use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Validation\Rules;
 use App\Http\Requests\CustomerInfoUpdateRequest;
 use App\Http\Requests\CustomerProfileUpdateRequest;
 
@@ -20,7 +23,12 @@ class CustomerProfileController extends Controller
     public function profile(Request $request): View
     {
         $customerInfo = Customer::where('user_id', auth()->user()->id)->first();
-        return view('frontend._customer-dashboard._profile', compact('customerInfo'));
+
+        $provinces = Province::all();
+        $regencies = Regencie::all();
+
+
+        return view('frontend._customer-dashboard._profile', compact('customerInfo', 'provinces', 'regencies'));
     }
 
     public function updateCustomerProfile(CustomerProfileUpdateRequest $request): RedirectResponse
@@ -45,6 +53,13 @@ class CustomerProfileController extends Controller
         notify()->success('Updated Successfully⚡️', 'Success!');
 
         return redirect()->back();
+    }
+
+    function getRegencyOfprovince(string $provinceId)
+    {
+
+        $regencies = Regencie::select(['id', 'name', 'province_id'])->where('province_id', $provinceId)->get();
+        return response($regencies);
     }
 
     function updateCustomerInfo(CustomerInfoUpdateRequest  $request): RedirectResponse

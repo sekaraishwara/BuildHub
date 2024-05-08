@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Frontend\Store;
 
+use App\Models\City;
+use App\Models\Store;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Traits\FileUploadTrait;
+use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreInfoUpdateRequest;
 use App\Http\Requests\StoreMyStoreUpdateRequest;
-use App\Models\Store;
-use Illuminate\Validation\Rules;
+use App\Models\Regencie;
 
 class StoreProfileController extends Controller
 {
@@ -21,6 +24,7 @@ class StoreProfileController extends Controller
     public function profile(Request $request): View
     {
         $storeInfo = Store::where('user_id', auth()->user()->id)->first();
+
         return view('frontend._store-dashboard._profile', compact('storeInfo'));
     }
 
@@ -68,6 +72,13 @@ class StoreProfileController extends Controller
 
         return redirect()->back();
     }
+
+    // function getRegencyOfprovince(string $provinceId): Response
+    // {
+
+    //     $regencies = Regencie::select(['id', 'province_id', 'name'])->where('province_id', $provinceId)->get();
+    //     return response($regencies);
+    // }
 
 
     function updateAccountInfo(Request $request): RedirectResponse

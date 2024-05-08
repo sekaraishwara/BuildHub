@@ -69,6 +69,8 @@ Route::group(
         Route::post('/profile/customer-info', [CustomerProfileController::class, 'updateCustomerInfo'])->name('profile.customer-info');
         Route::post('/profile/account-info', [CustomerProfileController::class, 'updateAccountInfo'])->name('profile.account-info');
         Route::post('/profile/password-update', [CustomerProfileController::class, 'updatePassword'])->name('profile.password-update');
+        Route::get('/get-regency/{provinceId}', [CustomerProfileController::class, 'getRegencyOfprovince'])->name('get-regency');
+
 
 
         Route::get('/cart', [CustomerCartController::class, 'index'])->name('cart');
