@@ -93,6 +93,8 @@ Route::group(
         Route::post('/history-transaction/send-rate', [CustomerTransactionController::class, 'sessionRate'])->name('sessionRate');
 
         Route::get('/building-checklist', [CustomerBuildingChecklistController::class, 'index'])->name('building-checklist');
+        Route::post('/building-checklist', [CustomerBuildingChecklistController::class, 'create'])->name('building-checklist.create');
+        Route::post('/building-checklist/items-store', [CustomerBuildingChecklistController::class, 'addItem'])->name('building-checklist.items-store');
     }
 );
 

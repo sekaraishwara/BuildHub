@@ -37,6 +37,7 @@
 
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
+
                                 </div>
                             </div>
                             <div class="form-group">

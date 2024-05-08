@@ -20,6 +20,7 @@ class PriceRangeSeeder extends Seeder
             '2000.000 - 2.999.999',
             '3000.000 - 3.999.999',
             '4000.000 - 5.999.999',
+            '5000.000 - 5.999.999',
         ];
 
         foreach ($priceRanges as $priceRange) {
