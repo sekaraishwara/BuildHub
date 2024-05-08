@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('customer_checklist_id')->constrained('customer_checklists')->onDelete('cascade');
             $table->string('list')->nullable();
             $table->text('notes')->nullable();
+            $table->boolean('isComplete')->default(false);
             $table->timestamps();
         });
     }

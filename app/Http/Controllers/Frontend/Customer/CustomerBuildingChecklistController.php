@@ -7,6 +7,7 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\CustomerChecklist;
+use App\Models\CustomerChecklistItems;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 
@@ -81,6 +82,33 @@ class CustomerBuildingChecklistController extends Controller
 
         notify()->success('Added Items Successfully⚡️', 'Success!');
 
+
+        return redirect()->back();
+    }
+
+    public function deleteItem(string $id)
+    {
+        try {
+            CustomerChecklistItems::findOrFail($id)->delete();
+            // $data = CustomerChecklistItems::findOrFail($id);
+            //dd($data);
+            notify()->success('Deleted Successfully⚡️', 'Success!');
+
+            return response(['message' => 'success'], 200);
+        } catch (\Exception $e) {
+            logger($e);
+            return response(['message' => 'Something Went Wrong. Please Try Again!'], 500);
+        }
+    }
+
+    public function doneItem(string $id)
+    {
+        $item = CustomerChecklistItems::findOrFail($id);
+
+        $item->isComplete = true;
+        $item->save();
+
+        notify()->success('Updated Items Successfully⚡️', 'Success!');
 
         return redirect()->back();
     }

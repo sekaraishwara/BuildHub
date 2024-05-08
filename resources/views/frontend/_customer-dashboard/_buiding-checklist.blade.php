@@ -60,25 +60,30 @@
 
                             <div class="card-footer bg-white">
                                 @if ($data && $data->title)
-                                    <form action="{{ route('customer.building-checklist.items-store') }}" method="POST">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <h5>Checklist Items</h5>
-                                            @foreach ($data->items as $item)
-                                                <div class="d-flex justify-content-between align-items-center my-3">
-                                                    <input type="text" class="form-control" name="list[]"
-                                                        value="{{ $item->list }}" placeholder="My item here...">
-                                                    <input type="text" class="form-control mx-3" name="notes[]"
-                                                        value="{{ $item->notes }}" placeholder="Notes...">
-                                                    <button type="button" class="btn-sm btn-danger"><i
-                                                            class="ti-trash"></i></button>
-                                                    <button type="button" class="btn-sm btn-warning mx-1"><i
-                                                            class="ti-pencil-alt"></i></button>
-                                                    <button type="button" class="btn-sm btn-success"><i
-                                                            class="ti-check"></i></button>
-                                                </div>
-                                            @endforeach
-                                            <hr>
+                                    <div class="mb-3">
+                                        <h5>Checklist Items</h5>
+                                        @foreach ($data->items as $item)
+                                            <div
+                                                class="d-flex justify-content-between align-items-center my-3 @if ($item->isComplete) completed @endif"">
+                                                <input type="text" class="form-control" name="list[]"
+                                                    value="{{ $item->list }}" placeholder="My item here...">
+                                                <input type="text" class="form-control mx-3" name="notes[]"
+                                                    value="{{ $item->notes }}" placeholder="Notes...">
+                                                <a href="{{ route('customer.building-checklist.items-delete', $item->id) }}"
+                                                    type="button" class="btn-sm btn-danger delete-item"><i
+                                                        class="ti-trash"></i></a>
+                                                <form method="POST"
+                                                    action="{{ route('customer.building-checklist.items-done', ['id' => $item->id]) }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn-sm btn-success mx-2"><i
+                                                            class="ti-check"></i> </button>
+                                                </form>
+                                            </div>
+                                        @endforeach
+                                        <hr>
+                                        <form action="{{ route('customer.building-checklist.items-store') }}"
+                                            method="POST">
+                                            @csrf
                                             <div class="d-flex align-items-center my-4">
                                                 <input type="text" name="list" class="form-control" id="itemInput"
                                                     placeholder="Add item here...">
@@ -92,8 +97,8 @@
                                                         Item</button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 @else
                                     <p>Please fill in the input <strong>Building Project For</strong> first.</p>
                                 @endif
@@ -112,5 +117,10 @@
 <style>
     .icon-user {
         font-size: 30px;
+    }
+
+    .completed input[type="text"] {
+        text-decoration: line-through;
+        background-color: #d0d0d0;
     }
 </style>

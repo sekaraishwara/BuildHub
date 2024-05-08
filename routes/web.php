@@ -95,6 +95,8 @@ Route::group(
         Route::get('/building-checklist', [CustomerBuildingChecklistController::class, 'index'])->name('building-checklist');
         Route::post('/building-checklist', [CustomerBuildingChecklistController::class, 'create'])->name('building-checklist.create');
         Route::post('/building-checklist/items-store', [CustomerBuildingChecklistController::class, 'addItem'])->name('building-checklist.items-store');
+        Route::delete('/building-checklist/items-delete{id}', [CustomerBuildingChecklistController::class, 'deleteItem'])->name('building-checklist.items-delete');
+        Route::post('/building-checklist/items-done{id}', [CustomerBuildingChecklistController::class, 'doneItem'])->name('building-checklist.items-done');
     }
 );
 
