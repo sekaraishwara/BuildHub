@@ -31,6 +31,7 @@ class VendorPortfolioController extends Controller
         $request->validate([
             'image' => ['image', 'max:1500'],
             'name' => ['required', 'string', 'max:255'],
+            'desc' => ['required', 'string', 'max:500'],
             'year' => ['required', 'string', 'max:150']
 
         ]);
@@ -40,6 +41,7 @@ class VendorPortfolioController extends Controller
         $data = vendorPortfolio::create([
             'vendor_id' => $vendor->id,
             'name' => $request->name,
+            'desc' => $request->desc,
             'year' => $request->year,
         ]);
 
@@ -60,6 +62,7 @@ class VendorPortfolioController extends Controller
 
         $rules = ([
             'name' => 'required',
+            'desc' => 'required',
             'year' => 'required'
         ]);
 
@@ -68,6 +71,7 @@ class VendorPortfolioController extends Controller
 
         $data->update([
             'name' => $validatedData['name'],
+            'desc' => $validatedData['desc'],
             'year' => $validatedData['year'],
         ]);
 

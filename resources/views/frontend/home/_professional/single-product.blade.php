@@ -244,7 +244,7 @@
         <div class="container">
             <div class="col-12">
                 <div class="shop-section-title">
-                    <h1>PROFESSIONAL GALLERY</h1>
+                    <h1>OUR PORTFOLIO</h1>
                 </div>
             </div>
             <div class="row">
@@ -254,10 +254,12 @@
                         <div class="single-list">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
-                                    <div class="list-image overlay">
-                                        <img src="{{ $item->image }}" alt="#">
-
-                                    </div>
+                                    <a href="" data-toggle="modal"
+                                        data-target="#showPortfolio{{ $item->id }}">
+                                        <div class="list-image overlay">
+                                            <img src="{{ $item->image }}" alt="#">
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-12 no-padding">
                                     <div class="content">
@@ -266,6 +268,45 @@
                                         </h4>
                                         <p class="price with-discount">{{ $item->year }}</p>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="showPortfolio{{ $item->id }}" tabindex="-1"
+                        aria-labelledby="showPortfolio" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">{{ $item->name }}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body m-0 p-0">
+                                    <div class="col-12 my-3 text-center">
+                                        <x-image-preview :height="200" :width="200" :source="$item?->image" />
+                                    </div>
+                                    <div class="col-12 mb-3 text-center">
+                                        <span>Project held by
+                                            <strong>{{ $serviceProfessional?->professional->name }}</strong>
+                                        </span>
+                                        <hr>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <strong>Project Details</strong>
+                                        <p> {{ $item->desc }}
+                                        </p>
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <strong>Release/Year</strong>
+                                        <p>{{ $item->year }}
+                                        </p>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('professional_id')->constrained('vendors');
             $table->string('image')->nullable();
             $table->string('name');
+            $table->string('desc');
             $table->string('year');
             $table->timestamps();
         });

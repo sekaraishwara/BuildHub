@@ -165,10 +165,8 @@
                                 `<option value="${value.id}">${value.name}</option>`;
                         });
 
-                        // Empty and append new options to the dropdown
                         $('.regency').empty().append(html);
 
-                        // Reinitialize nice-select after updating options
                         $('.regency').niceSelect('update');
                     },
                     error: function(xhr, status, error) {

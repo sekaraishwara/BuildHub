@@ -133,7 +133,7 @@
                                             <div class="form-group">
                                                 <label>Regency/City<span>*</span></label>
                                                 <select class="nice-select regency" name="kota">
-                                                    <option value="">Select</option>
+                                                    <option class="text-muted">--Select Regency/City--</option>
                                                     @foreach ($regencies as $item)
                                                         <option @selected($item->id == $customerInfo?->kota) value="{{ $item->id }}">
                                                             {{ $item->name }}</option>

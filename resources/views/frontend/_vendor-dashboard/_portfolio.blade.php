@@ -91,21 +91,27 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="Name">Image</label>
+                                    <label for="Name">Image <span class="text-danger">*</span></label>
                                     <input class="form-control" type="file" name="image" id="image">
-                                    <small class="text-danger">*Max image size 1000mb.</small>
+                                    <small class="text-danger">Max image size 1000kb (1Mb).</small>
 
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="Name">Portfolio Name</label>
+                                    <label for="Name">Portfolio Name <span class="text-danger">*</span></label>
                                     <input class="form-control" type="text" name="name" id="name">
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="Year">Year</label>
+                                    <label for="Year">Description <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" type="text" name="desc" id="desc"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="Year">Year <span class="text-danger">*</span></label>
                                     <input class="form-control" type="text" name="year" id="year">
                                 </div>
                             </div>
@@ -130,7 +136,7 @@
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Edit Service</h5>
+                            <h5 class="modal-title">Edit Portfolio</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -138,22 +144,28 @@
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-6 mb-3">
-                                    <x-image-preview :height="200" :width="200" :source="$item?->image" />
+                                    <x-image-preview :height="120" :width="120" :source="$item?->image" />
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="image">Image</label>
                                         <input class="form-control" type="file" name="image"
                                             value="{{ $item->image }}">
-                                        <small class="text-danger">*Max image size 1000mb.</small>
+                                        <small class="text-danger">Max image size 1000kb (1Mb).</small>
 
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="Name">Service Name</label>
+                                        <label for="Name">Portfolio Name</label>
                                         <input class="form-control" type="text" name="name" id="name"
                                             value="{{ $item->name }}">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="Year">Description <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" type="text" name="desc" id="desc">{{ $item->desc }}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">

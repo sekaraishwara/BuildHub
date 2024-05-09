@@ -34,6 +34,7 @@ class ProfessionalPortfolioController extends Controller
         $request->validate([
             'image' => ['image', 'max:1500'],
             'name' => ['required', 'string', 'max:255'],
+            'desc' => ['required', 'string', 'max:500'],
             'year' => ['required', 'string', 'max:150']
 
         ]);
@@ -43,6 +44,7 @@ class ProfessionalPortfolioController extends Controller
         $data = ProfessionalPortfolio::create([
             'professional_id' => 1,
             'name' => $request->name,
+            'desc' => $request->desc,
             'year' => $request->year,
         ]);
 
@@ -64,6 +66,7 @@ class ProfessionalPortfolioController extends Controller
 
         $rules = ([
             'name' => 'required',
+            'desc' => 'required',
             'year' => 'required'
         ]);
 
@@ -72,6 +75,7 @@ class ProfessionalPortfolioController extends Controller
 
         $data->update([
             'name' => $validatedData['name'],
+            'desc' => $validatedData['desc'],
             'year' => $validatedData['year'],
         ]);
 
