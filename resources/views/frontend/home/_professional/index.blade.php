@@ -25,10 +25,14 @@
                     <div class="shop-sidebar">
                         <!-- Single Widget -->
                         <div class="single-widget category">
-                            <h3 class="title">Categories</h3>
+                            <h3 class="title">Professional Categories</h3>
                             <ul class="categor-list">
-                                @foreach ($professionalCategory as $item)
-                                    <li><a href="#">{{ $item?->name }}</a></li>
+                                <li><a href="{{ route('professional') }}">All Category Services</a>
+                                </li>
+                                @foreach ($professionalCategory as $category)
+                                    <li><a
+                                            href="{{ route('professional', ['category' => $category->name]) }}">{{ $category->name }}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>

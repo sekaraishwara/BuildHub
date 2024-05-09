@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ProfessionalService extends Model
@@ -25,5 +26,11 @@ class ProfessionalService extends Model
     public function professional()
     {
         return $this->belongsTo(Professional::class, 'professional_id');
+    }
+
+    //added 9/5/24
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(ProfessionalCategory::class);
     }
 }

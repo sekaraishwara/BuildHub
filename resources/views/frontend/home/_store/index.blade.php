@@ -27,8 +27,12 @@
                         <div class="single-widget category">
                             <h3 class="title">Store Categories</h3>
                             <ul class="categor-list">
-                                @foreach ($storeCategory as $item)
-                                    <li><a href="#">{{ $item->name }}</a></li>
+                                <li><a href="{{ route('store') }}">All Category Services</a>
+                                </li>
+                                @foreach ($storeCategory as $category)
+                                    <li><a
+                                            href="{{ route('store', ['category' => $category->name]) }}">{{ $category->name }}</a>
+                                    </li>
                                 @endforeach
                             </ul>
                         </div>

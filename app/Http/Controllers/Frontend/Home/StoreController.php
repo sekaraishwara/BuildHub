@@ -16,10 +16,24 @@ class StoreController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
+
+        $storeProduct = StoreProduct::query();
+
+        if ($request->has('category')) {
+            $categoryName = $request->category;
+            $category = StoreCategory::where('name', $categoryName)->first();
+
+            if ($category) {
+                $storeProduct->where('category', $category->name);
+            }
+        }
+
+        $storeProduct = $storeProduct->get();
+
         $storeCategory = StoreCategory::all();
-        $storeProduct = StoreProduct::all();
+
         return view('frontend.home._store.index', compact('storeCategory', 'storeProduct'));
     }
 

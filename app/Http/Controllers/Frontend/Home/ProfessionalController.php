@@ -16,10 +16,23 @@ class ProfessionalController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        $professionalService = ProfessionalService::query();
+
+        if ($request->has('category')) {
+            $categoryName = $request->category;
+            $category = ProfessionalCategory::where('name', $categoryName)->first();
+
+            if ($category) {
+                $professionalService->where('category', $category->name);
+            }
+        }
+
+        $professionalService = $professionalService->get();
+
         $professionalCategory = ProfessionalCategory::all();
-        $professionalService = ProfessionalService::all();
         $priceRanges = PriceRange::all();
 
         return view('frontend.home._professional.index', compact('professionalCategory', 'professionalService', 'priceRanges'));
