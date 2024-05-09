@@ -53,6 +53,8 @@ Route::get('/service/by-professional/{slug}', [ProfessionalController::class, 's
 Route::get('/service/by-vendor/{id}', [VendorController::class, 'singleService'])->name('serviceItemVendor');
 
 Route::get('/notification', [NotificationController::class, 'index'])->name('notification');
+Route::get('/get-regency/{provinceId}', [CustomerProfileController::class, 'getRegencyOfprovince'])->name('get-regency');
+
 
 
 Route::group(
@@ -69,8 +71,6 @@ Route::group(
         Route::post('/profile/customer-info', [CustomerProfileController::class, 'updateCustomerInfo'])->name('profile.customer-info');
         Route::post('/profile/account-info', [CustomerProfileController::class, 'updateAccountInfo'])->name('profile.account-info');
         Route::post('/profile/password-update', [CustomerProfileController::class, 'updatePassword'])->name('profile.password-update');
-        Route::get('/get-regency/{provinceId}', [CustomerProfileController::class, 'getRegencyOfprovince'])->name('get-regency');
-
 
 
         Route::get('/cart', [CustomerCartController::class, 'index'])->name('cart');

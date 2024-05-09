@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\Frontend\Vendor;
 
 use App\Models\Vendor;
+use App\Models\Province;
+use App\Models\Regencie;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Traits\FileUploadTrait;
+use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Validation\Rules;
 use App\Http\Requests\VendorInfoUpdateRequest;
 use App\Http\Requests\VendorProfileUpdateRequest;
+use App\Models\VendorCategory;
 
 class VendorProfileController extends Controller
 {
@@ -20,7 +23,13 @@ class VendorProfileController extends Controller
     public function profile(Request $request): View
     {
         $vendorInfo = Vendor::where('user_id', auth()->user()->id)->first();
-        return view('frontend._vendor-dashboard._profile', compact('vendorInfo'));
+        $provinces = Province::all();
+        $regencies = Regencie::all();
+
+        $vendorCategory = VendorCategory::all();
+
+
+        return view('frontend._vendor-dashboard._profile', compact('vendorInfo', 'provinces', 'regencies', 'vendorCategory'));
     }
 
 
@@ -67,6 +76,13 @@ class VendorProfileController extends Controller
         notify()->success('Updated Successfully⚡️', 'Success!');
 
         return redirect()->back();
+    }
+
+    function getRegencyOfprovince(string $provinceId)
+    {
+
+        $regencies = Regencie::select(['id', 'name', 'province_id'])->where('province_id', $provinceId)->get();
+        return response($regencies);
     }
 
     function updateAccountInfo(Request $request): RedirectResponse

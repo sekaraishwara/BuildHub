@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class VendorService extends Model
 {
@@ -14,5 +15,10 @@ class VendorService extends Model
     public function vendor()
     {
         return $this->belongsTo(Vendor::class, 'vendor_id');
+    }
+    //added 9/5/24
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(VendorCategory::class);
     }
 }

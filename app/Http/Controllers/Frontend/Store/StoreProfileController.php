@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend\Store;
 
 use App\Models\City;
 use App\Models\Store;
+use App\Models\Province;
+use App\Models\Regencie;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,7 +17,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreInfoUpdateRequest;
 use App\Http\Requests\StoreMyStoreUpdateRequest;
-use App\Models\Regencie;
 
 class StoreProfileController extends Controller
 {
@@ -24,8 +25,10 @@ class StoreProfileController extends Controller
     public function profile(Request $request): View
     {
         $storeInfo = Store::where('user_id', auth()->user()->id)->first();
+        $provinces = Province::all();
+        $regencies = Regencie::all();
 
-        return view('frontend._store-dashboard._profile', compact('storeInfo'));
+        return view('frontend._store-dashboard._profile', compact('storeInfo', 'provinces', 'regencies'));
     }
 
     function updateMyStore(StoreMyStoreUpdateRequest $request): RedirectResponse
@@ -73,12 +76,13 @@ class StoreProfileController extends Controller
         return redirect()->back();
     }
 
-    // function getRegencyOfprovince(string $provinceId): Response
-    // {
+    function getRegencyOfprovince(string $provinceId)
+    {
 
-    //     $regencies = Regencie::select(['id', 'province_id', 'name'])->where('province_id', $provinceId)->get();
-    //     return response($regencies);
-    // }
+        $regencies = Regencie::select(['id', 'name', 'province_id'])->where('province_id', $provinceId)->get();
+        return response($regencies);
+    }
+
 
 
     function updateAccountInfo(Request $request): RedirectResponse

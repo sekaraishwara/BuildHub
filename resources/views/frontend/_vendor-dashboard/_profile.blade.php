@@ -73,14 +73,12 @@
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
                                                 <label>Vendor Category<span>*</span></label>
-                                                <select name="category_store_id" id="category_store_id">
-                                                    <option readonly>--Pilih Kategori Vendor--</option>
-                                                    <option value="0">Los Angeles</option>
-                                                    <option>Chicago</option>
-                                                    <option>Houston</option>
-                                                    <option>San Diego</option>
-                                                    <option>Dallas</option>
-                                                    <option>Charlotte</option>
+                                                <select name="category_vendor_id" id="category_vendor_id">
+                                                    <option class="text-muted">--Pilih Kategori Vendor--</option>
+                                                    @foreach ($vendorCategory as $item)
+                                                        <option @selected($item->id == $vendorInfo?->category_vendor_id) value="{{ $item->id }}">
+                                                            {{ $item->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -138,23 +136,26 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
-                                                <label>Provinsi<span>*</span></label>
-                                                <select class="select2" name="provinsi" id="select2-provinsi">
-                                                    <option value="{{ $vendorInfo?->provinsi }}">
-                                                        {{ $vendorInfo?->provinsi }}
-                                                    </option>
+                                                <label>Province<span>*</span></label>
+                                                <select class="nice-select province" name="provinsi">
+                                                    <option class="text-muted">--Select Province--</option>
+                                                    @foreach ($provinces as $item)
+                                                        <option @selected($item->id == $vendorInfo?->provinsi) value="{{ $item->id }}">
+                                                            {{ $item->name }}</option>
+                                                    @endforeach
                                                 </select>
-                                                <div class="nice-select d-none"></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
-                                                <label>Kabupaten/Kota<span>*</span></label>
-                                                <select class="select2" name="kota" id="select2-kabupaten">
-                                                    <option value="{{ $vendorInfo?->kota }}">{{ $vendorInfo?->kota }}
-                                                    </option>
+                                                <label>Regency/City<span>*</span></label>
+                                                <select class="nice-select regency" name="kota">
+                                                    <option class="text-muted">--Select Regency/City--</option>
+                                                    @foreach ($regencies as $item)
+                                                        <option @selected($item->id == $vendorInfo?->kota) value="{{ $item->id }}">
+                                                            {{ $item->name }}</option>
+                                                    @endforeach
                                                 </select>
-                                                <div class="nice-select d-none"></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">

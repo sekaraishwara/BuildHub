@@ -9,7 +9,7 @@
                         <ul class="bread-list">
                             <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
                             <li><a href="{{ route('vendor') }}">Vendor<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="blog-single.html">{{ $serviceVendor?->name }}</a></li>
+                            <li class="active"><a href="blog-single.html">{{ $serviceVendor?->vendor->name }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -55,8 +55,8 @@
                                         <td>{{ $serviceVendor?->category }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-muted">Vendor From</td>
-                                        <td>KOTA BEKASI</td>
+                                        <td class="text-muted">Location</td>
+                                        <td>{{ $vendorRegency->name }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -87,11 +87,9 @@
                     </div>
                     <div class="align-items-center">
                         <form action="{{ route('customer.send.sendMessage') }}" method="get">
-                            {{-- <input type="hidden" name="store_id" value="{{ $serviceVendor->store->id }}"> --}}
                             <button class="btn mx-2 chat-now" type="submit"><i class="fa fa-wechat mr-2"></i>Chat
                                 now</button>
                         </form>
-                        {{-- <button class="btn mx-2"><i class="fa fa-home mr-2"></i>Store</button> --}}
                     </div>
                 </div>
             </div>
@@ -232,7 +230,7 @@
         <div class="container">
             <div class="col-12">
                 <div class="shop-section-title">
-                    <h1>PROFESSIONAL PORTFOLIO</h1>
+                    <h1>VENDOR PORTFOLIO</h1>
                 </div>
             </div>
             <div class="row">
@@ -308,7 +306,7 @@
         <div class="container">
             <div class="col-12">
                 <div class="shop-section-title">
-                    <h1>MORE PRODUCTS</h1>
+                    <h1>MORE SERVICE</h1>
                 </div>
             </div>
             <div class="row">
@@ -328,7 +326,16 @@
                                         <h4 class="title">
                                             <a href="#">{{ $item->name }}</a>
                                         </h4>
-                                        <p class="price with-discount">Rp.{{ $item->price }}</p>
+                                        @php
+                                            $priceParts = explode('-', $item->price);
+                                            $formattedPrice = trim($priceParts[0]);
+
+                                            if (count($priceParts) > 1) {
+                                                $formattedPrice .= '...';
+                                            }
+                                        @endphp
+
+                                        <p class="price with-discount">Rp.{{ $formattedPrice }}</p>
                                     </div>
                                 </div>
                             </div>

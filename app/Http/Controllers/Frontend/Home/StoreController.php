@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Frontend\Home;
 
-use App\Http\Controllers\Controller;
-use App\Models\CustomerReview;
-use App\Models\StoreCategory;
+use App\Models\Store;
+use App\Models\Regencie;
+use Illuminate\View\View;
 use App\Models\StoreProduct;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
+use App\Models\StoreCategory;
+use App\Models\CustomerReview;
+use App\Http\Controllers\Controller;
 
 class StoreController extends Controller
 {
@@ -51,10 +53,15 @@ class StoreController extends Controller
         $storeProduct = StoreProduct::where('slug', $slug)->first();
         $items = StoreProduct::where('store_id',  $storeProduct->store_id)->get();
 
+        $store = Store::where('id', $storeProduct->store_id)->first();
+        $storeRegency = Regencie::find($store->kota);
+
+
+
         $reviewCount = CustomerReview::where('product_id', $storeProduct->id)->count();
         $review = CustomerReview::where('product_id', $storeProduct->id)->get();
 
-        return view('frontend.home._store.single-product', compact('storeProduct', 'items', 'reviewCount', 'review'));
+        return view('frontend.home._store.single-product', compact('storeProduct', 'items', 'storeRegency', 'reviewCount', 'review'));
     }
 
     /**

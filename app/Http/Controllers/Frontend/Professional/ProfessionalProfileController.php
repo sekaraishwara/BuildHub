@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Frontend\Professional;
 
+use App\Models\Province;
+use App\Models\Regencie;
 use App\Models\Professional;
 use Illuminate\Http\Request;
 use App\Traits\FileUploadTrait;
+use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Validation\Rules;
 use App\Http\Requests\ProfessionalInfoUpdateRequest;
 use App\Http\Requests\ProfessionalProfileUpdateRequest;
 
@@ -22,7 +24,11 @@ class ProfessionalProfileController extends Controller
     public function profile()
     {
         $professionalInfo = Professional::where('user_id', auth()->user()->id)->first();
-        return view('frontend._professional-dashboard._profile', compact('professionalInfo'));
+
+        $provinces = Province::all();
+        $regencies = Regencie::all();
+
+        return view('frontend._professional-dashboard._profile', compact('professionalInfo', 'provinces', 'regencies'));
     }
 
     /**
@@ -52,6 +58,13 @@ class ProfessionalProfileController extends Controller
         notify()->success('Updated Successfully⚡️', 'Success!');
 
         return redirect()->back();
+    }
+
+    function getRegencyOfprovince(string $provinceId)
+    {
+
+        $regencies = Regencie::select(['id', 'name', 'province_id'])->where('province_id', $provinceId)->get();
+        return response($regencies);
     }
 
     function updateProfessionalInfo(ProfessionalInfoUpdateRequest  $request): RedirectResponse

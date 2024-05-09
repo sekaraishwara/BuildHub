@@ -143,6 +143,11 @@
     @notifyJs
 
 
+    <style>
+        .trix-content {
+            height: 300px;
+        }
+    </style>
     <script>
         $(document).ready(function() {
             $('#table').DataTable();
@@ -156,7 +161,7 @@
 
                 $.ajax({
                     method: 'GET',
-                    url: '{{ route('customer.get-regency', ':id') }}'.replace(":id", province_id),
+                    url: '{{ route('get-regency', ':id') }}'.replace(":id", province_id),
                     data: {},
                     success: function(response) {
                         let html = '';

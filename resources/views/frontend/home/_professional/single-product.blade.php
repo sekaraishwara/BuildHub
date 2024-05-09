@@ -54,8 +54,8 @@
                                         <td>{{ $serviceProfessional?->category }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-muted">Professional From</td>
-                                        <td>KOTA BEKASI</td>
+                                        <td class="text-muted">Location</td>
+                                        <td>{{ $professionalRegency->name }}</td>
                                     </tr>
 
                                 </tbody>
@@ -332,7 +332,7 @@
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-12">
                                     <div class="list-image overlay">
-                                        <img src="{{ $item->image }}" alt="#">
+                                        <img src="{{ $item->image }}" width="115" alt="#">
                                         <a href="{{ route('serviceItemProfessional', $item->slug) }}" class="buy"><i
                                                 class="fa fa-shopping-bag"></i></a>
                                     </div>
@@ -342,7 +342,16 @@
                                         <h4 class="title">
                                             <a href="#">{{ $item->name }}</a>
                                         </h4>
-                                        <p class="price with-discount">Rp.{{ $item->price }}</p>
+                                        @php
+                                            $priceParts = explode('-', $item->price);
+                                            $formattedPrice = trim($priceParts[0]);
+
+                                            if (count($priceParts) > 1) {
+                                                $formattedPrice .= '...';
+                                            }
+                                        @endphp
+
+                                        <p class="price with-discount">Rp.{{ $formattedPrice }}</p>
                                     </div>
                                 </div>
                             </div>

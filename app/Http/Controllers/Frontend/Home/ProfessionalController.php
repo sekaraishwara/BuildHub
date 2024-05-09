@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Frontend\Home;
 
+use App\Models\Regencie;
+use App\Models\Professional;
+use Illuminate\Http\Request;
+use App\Models\ProfessionalService;
 use App\Http\Controllers\Controller;
+use App\Models\PriceRange;
 use App\Models\ProfessionalCategory;
 use App\Models\ProfessionalPortfolio;
-use App\Models\ProfessionalService;
-use Illuminate\Http\Request;
 
 class ProfessionalController extends Controller
 {
@@ -17,19 +20,28 @@ class ProfessionalController extends Controller
     {
         $professionalCategory = ProfessionalCategory::all();
         $professionalService = ProfessionalService::all();
-        return view('frontend.home._professional.index', compact('professionalCategory', 'professionalService'));
+        $priceRanges = PriceRange::all();
+
+        return view('frontend.home._professional.index', compact('professionalCategory', 'professionalService', 'priceRanges'));
     }
 
     public function singleService($slug)
     {
 
         $serviceProfessional = ProfessionalService::where('slug', $slug)->first();
+        $professional = Professional::where('id', $serviceProfessional->professional_id)->first();
+
         $items = ProfessionalService::where('professional_id',  $serviceProfessional->professional_id)->get();
 
         $portfolio = ProfessionalPortfolio::where('professional_id',  $serviceProfessional->professional_id)->get();
 
 
-        return view('frontend.home._professional.single-product', compact('serviceProfessional', 'items', 'portfolio'));
+
+        $professionalRegency = Regencie::find($professional->kota);
+
+
+
+        return view('frontend.home._professional.single-product', compact('serviceProfessional', 'items', 'portfolio', 'professionalRegency'));
     }
 
     /**

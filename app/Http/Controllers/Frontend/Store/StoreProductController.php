@@ -40,20 +40,31 @@ class StoreProductController extends Controller
             'image' => ['image', 'max:1500'],
             'name' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:150'],
-            'desc' => ['required', 'string', 'max:150'],
-            'price' => ['required', 'string', 'max:150'],
+            'desc' => ['required', 'string'],
+            'stock' => ['required', 'max:150'],
+            'normal_price' => ['required', 'max:150'],
+            'discount_price' => ['required', 'max:150'],
         ]);
 
 
         $imagePath = $this->uploadFile($request, 'image');
+
+        //final price with/without discount calc (kalo misalnya ada)
+        $display_price =  $request->normal_price - $request->discount_price;
 
         $data = [
             'store_id' => $store->id,
             'name' => $request->name,
             'category' => $request->category,
             'desc' => $request->desc,
-            'price' => $request->price,
+            'stock' => $request->stock,
+            'normal_price' => $request->normal_price,
+            'discount_price' => $request->discount_price,
+            'display_price' => $display_price,
         ];
+
+
+
 
         if (!empty($imagePath)) {
             $data['image'] = $imagePath;

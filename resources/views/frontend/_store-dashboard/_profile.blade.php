@@ -137,23 +137,26 @@
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
-                                                <label>Provinsi<span>*</span></label>
-                                                <select class="select2" name="provinsi" id="select2-provinsi">
-                                                    <option value="{{ $storeInfo?->provinsi }}">
-                                                        {{ $storeInfo?->provinsi }}
-                                                    </option>
+                                                <label>Province<span>*</span></label>
+                                                <select class="nice-select province" name="provinsi">
+                                                    <option class="text-muted">--Select Province--</option>
+                                                    @foreach ($provinces as $item)
+                                                        <option @selected($item->id == $storeInfo?->provinsi) value="{{ $item->id }}">
+                                                            {{ $item->name }}</option>
+                                                    @endforeach
                                                 </select>
-                                                <div class="nice-select d-none"></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
-                                                <label>Kabupaten/Kota<span>*</span></label>
-                                                <select class="select2" name="kota" id="select2-kabupaten">
-                                                    <option value="{{ $storeInfo?->kota }}">{{ $storeInfo?->kota }}
-                                                    </option>
+                                                <label>Regency/City<span>*</span></label>
+                                                <select class="nice-select regency" name="kota">
+                                                    <option class="text-muted">--Select Regency/City--</option>
+                                                    @foreach ($regencies as $item)
+                                                        <option @selected($item->id == $storeInfo?->kota) value="{{ $item->id }}">
+                                                            {{ $item->name }}</option>
+                                                    @endforeach
                                                 </select>
-                                                <div class="nice-select d-none"></div>
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">

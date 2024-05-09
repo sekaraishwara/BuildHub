@@ -9,7 +9,7 @@
                         <ul class="bread-list">
                             <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
                             <li><a href="{{ route('store') }}">Store<i class="ti-arrow-right"></i></a></li>
-                            <li class="active"><a href="blog-single.html">{{ $storeProduct?->name }}</a></li>
+                            <li class="active"><a href="blog-single.html">{{ $storeProduct?->store->name }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -30,10 +30,11 @@
                         </h4>
                         <div class="product-price">
                             <div class="d-flex align-items-center">
-                                <span class="promo-price mr-2">Rp. 28.900.000</span>
+                                <span
+                                    class="promo-price mr-2">Rp{{ number_format($storeProduct?->normal_price, 0, ',', '.') }}</span>
 
                                 <h3 class="normal-price">
-                                    <span>Rp{{ number_format($storeProduct?->price, 0, ',', '.') }}</span>
+                                    <span>Rp{{ number_format($storeProduct?->display_price, 0, ',', '.') }}</span>
                                 </h3>
                             </div>
                             <div class="d-flex">
@@ -56,11 +57,11 @@
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Shipping From</td>
-                                        <td>KOTA BEKASI</td>
+                                        <td>{{ $storeRegency?->name }}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Stock</td>
-                                        <td>210</td>
+                                        <td>{{ $storeProduct?->stock }}</td>
                                     </tr>
 
                                 </tbody>
@@ -168,49 +169,13 @@
                     <div class="card-body">
                         <div class="product-description">
                             <h6 class="mb-3">Product Description</h6>
+                            <hr>
                             <P>
-                                Features:
-                                <br>
-                                1. Working quietly. It would not be disruptive while you nap and sleep <br>
-                                2. 250ml large capacity <br>
-                                3. Automatic power failure protection, anti-dry <br>
-                                4. Mini size, easy to carry <br>
-                                5. For home and car use
-                            </P>
-                            <br>
-                            <P>
-                                Cara Penggunaan :
-                                <br>
-                                1. Working quietly. It would not be disruptive while you nap and sleep <br>
-                                2. 250ml large capacity <br>
-                                3. Automatic power failure protection, anti-dry <br>
-                                4. Mini size, easy to carry <br>
-                                5. For home and car use
-                            </P>
+                                {!! $storeProduct->desc !!}
+                            </p>
                         </div>
                         <div class="my-5"></div>
-                        <div class="product-description">
-                            <h6 class="mb-3">Product Details</h6>
-                            <P>
-                                Features:
-                                <br>
-                                1. Working quietly. It would not be disruptive while you nap and sleep <br>
-                                2. 250ml large capacity <br>
-                                3. Automatic power failure protection, anti-dry <br>
-                                4. Mini size, easy to carry <br>
-                                5. For home and car use
-                            </P>
-                            <br>
-                            <P>
-                                Cara Penggunaan :
-                                <br>
-                                1. Working quietly. It would not be disruptive while you nap and sleep <br>
-                                2. 250ml large capacity <br>
-                                3. Automatic power failure protection, anti-dry <br>
-                                4. Mini size, easy to carry <br>
-                                5. For home and car use
-                            </P>
-                        </div>
+
                     </div>
 
                 </div>
@@ -283,7 +248,8 @@
                                         <h4 class="title">
                                             <a href="#">{{ $item->name }}</a>
                                         </h4>
-                                        <p class="price with-discount">Rp.{{ $item->price }}</p>
+                                        <p class="price with-discount">
+                                            Rp{{ number_format($storeProduct?->display_price, 0, ',', '.') }}</p>
                                     </div>
                                 </div>
 

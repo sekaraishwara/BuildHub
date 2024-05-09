@@ -254,7 +254,8 @@
                                 <div class="col-lg-6 col-md-6 col-12 no-padding">
                                     <div class="content">
                                         <h4 class="title"><a href="#">{{ $item->name }}</a></h4>
-                                        <p class="price with-discount">Rp{{ number_format($item?->price, 0, ',', '.') }}
+                                        <p class="price with-discount">
+                                            Rp{{ number_format($item?->display_price, 0, ',', '.') }}
                                         </p>
                                     </div>
                                 </div>

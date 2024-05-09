@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->nullable();
             $table->string('category');
-            $table->string('desc');
+            $table->int('stock');
+            $table->int('discount_price');
+            $table->longText('desc');
             $table->int('price');
             $table->string('ratings')->default('0');
             $table->string('review')->default('0');
