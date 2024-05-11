@@ -33,4 +33,9 @@ class ProfessionalService extends Model
     {
         return $this->belongsTo(ProfessionalCategory::class);
     }
+    //added 9/5/24
+    public function price(): BelongsTo
+    {
+        return $this->belongsTo(PriceRange::class);
+    }
 }

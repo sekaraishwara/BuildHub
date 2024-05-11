@@ -40,13 +40,13 @@
                         <!-- Shop By Price -->
                         <div class="single-widget range">
                             <h3 class="title">Service by Price</h3>
+                            <ul class="categor-list">
+                                <li><a href="{{ route('professional') }}">All Price</a>
 
-                            <ul class="check-box-list">
-                                @foreach ($priceRanges as $item)
-                                    <li>
-                                        <label class="checkbox-inline" for="{{ $item->id }}"><input name="news"
-                                                id="{{ $item->id }}" type="checkbox">Rp{{ $item->price_ranges }}</label>
-                                    </li>
+                                    @foreach ($priceRanges as $item)
+                                <li><a href="{{ route('professional', ['price' => $item->price_ranges]) }}">
+                                        Rp{{ $item->price_ranges }}</a>
+                                </li>
                                 @endforeach
                             </ul>
                         </div>

@@ -11,6 +11,11 @@ class Conversation extends Model
 
     protected $guarded = ['id'];
 
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'user1_id', 'id');
+    }
+
     public function messages()
     {
         return $this->hasMany(Messages::class);

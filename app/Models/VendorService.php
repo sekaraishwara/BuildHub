@@ -21,4 +21,9 @@ class VendorService extends Model
     {
         return $this->belongsTo(VendorCategory::class);
     }
+    //added 9/5/24
+    public function price(): BelongsTo
+    {
+        return $this->belongsTo(PriceRange::class);
+    }
 }

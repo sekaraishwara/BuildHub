@@ -19,6 +19,7 @@ use App\Http\Controllers\Frontend\ProfessionalDashboardController;
 use App\Http\Controllers\Frontend\Vendor\VendorPortfolioController;
 use App\Http\Controllers\Frontend\Customer\CustomerProfileController;
 use App\Http\Controllers\Frontend\Customer\CustomerTransactionController;
+use App\Http\Controllers\Frontend\Home\MessagesController;
 use App\Http\Controllers\Frontend\Home\NotificationController;
 use App\Http\Controllers\Frontend\NotifiactionController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalProfileController;
@@ -53,7 +54,13 @@ Route::get('/service/by-professional/{slug}', [ProfessionalController::class, 's
 Route::get('/service/by-vendor/{id}', [VendorController::class, 'singleService'])->name('serviceItemVendor');
 
 Route::get('/notification', [NotificationController::class, 'index'])->name('notification');
+
 Route::get('/get-regency/{provinceId}', [CustomerProfileController::class, 'getRegencyOfprovince'])->name('get-regency');
+
+// chat universal routes
+Route::get('/inbox', [MessagesController::class, 'index'])->name('inbox');
+Route::get('/inbox/chat/{senderName}', [MessagesController::class, 'show'])->name('inbox.show');
+Route::post('/inbox/chat/store', [MessagesController::class, 'store'])->name('inbox.store');
 
 
 

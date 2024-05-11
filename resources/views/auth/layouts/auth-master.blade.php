@@ -183,6 +183,26 @@
         });
     </script>
 
+
+    <script>
+        document.querySelector('.see-password').addEventListener('click', function(event) {
+            event.preventDefault();
+            var passwordInput = document.getElementById('password');
+            var eyeIcon = this.querySelector('i');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('ti-eye');
+                eyeIcon.classList.add('ti-eye');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('ti-eye');
+                eyeIcon.classList.add('ti-eye');
+            }
+        });
+    </script>
+
+
     <script>
         $(document).ready(function() {
             $(".delete-item").on('click', function(e) {

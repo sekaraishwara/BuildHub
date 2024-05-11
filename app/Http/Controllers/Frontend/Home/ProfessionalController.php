@@ -30,6 +30,15 @@ class ProfessionalController extends Controller
             }
         }
 
+        if ($request->has('price')) {
+            $categoryPrice = $request->price;
+            $price = PriceRange::where('price_ranges', $categoryPrice)->first();
+
+            if ($price) {
+                $professionalService->where('price', $price->price_ranges);
+            }
+        }
+
         $professionalService = $professionalService->get();
 
         $professionalCategory = ProfessionalCategory::all();

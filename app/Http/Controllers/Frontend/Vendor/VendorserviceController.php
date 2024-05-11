@@ -24,6 +24,7 @@ class VendorserviceController extends Controller
         $userId = Auth::id();
         $vendor = Vendor::where('user_id', $userId)->first();
 
+
         $data = VendorService::where('vendor_id', $vendor->id)->get();
         $category = VendorCategory::all();
         $price = PriceRange::all();

@@ -9,7 +9,7 @@
                         <div class="text-center">
                             <h2 class="mb-3 text-brand-1">Register As</h2>
                             <p class="font-sm text-muted mb-4">Choose account type</p>
-                            <div class="row g-4">
+                            <div class="row g-4 py-4">
                                 <div class="col-md-6 mb-5">
                                     <a href="{{ route('register.customer') }}">
                                         <div class="card h-100">
@@ -57,8 +57,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="text-muted text-center mt-5">
-                        Already have an account? <a href="{{ route('login') }}">Sign in</a>
+                    <div class="text-muted text-center py-4">
+                        Already have an account? <a href="{{ route('login') }}" class="font-weight-bold">Sign in</a>
                     </div>
                 </div>
             </div>

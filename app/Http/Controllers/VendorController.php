@@ -19,6 +19,7 @@ class VendorController extends Controller
 
         $vendorService = VendorService::query();
 
+        // filter by category
         if ($request->has('category')) {
             $categoryName = $request->category;
             $category = VendorCategory::where('name', $categoryName)->first();
@@ -27,6 +28,19 @@ class VendorController extends Controller
                 $vendorService->where('category', $category->name);
             }
         }
+
+        // filter by price
+        if ($request->has('price')) {
+            $categoryPrice = $request->price;
+            $price = PriceRange::where('price_ranges', $categoryPrice)->first();
+
+            if ($price) {
+                $vendorService->where('price', $price->price_ranges);
+            }
+        }
+
+        // shorting by
+
 
         $vendorService = $vendorService->get();
         // dd($vendorService);

@@ -19,8 +19,7 @@
     <section class="section-box mt-5">
         <div class="container">
             <div class="row">
-                @include('frontend._customer-dashboard.sidebar-chat')
-                <div class="col-lg-9 col-md-8 col-sm-12 col-12 mb-5">
+                <div class="col-lg-12 col-12 mb-5">
                     <div class="content-single">
                         <div class="card">
                             <div class="card-header border-0">
@@ -38,16 +37,6 @@
                                 <div class="text-center pb-3 text-muted small">Today</div>
                                 <!--  receiver sender -->
                                 <div class="d-flex justify-content-start">
-                                    {{-- <section class="col-1">
-                                        <img id="avatarProfileImg" src="{{ asset('default-uploads/avatar.jpg') }}"
-                                            alt="" width="50">
-                                    </section>
-                                    <section class="col-8 border p-3">
-                                        <p>Selamat Datang di BuildHub.com 👋</p>
-                                        <p>Yuk kenalan dengan fitur-fitur yang bisa Anda nikmati untuk mewujudkan Rumah
-                                            impian di Buildhub.com 😊 </p>
-                                        <small class="text-muted">{{ date('l, h:m:s') }}</small>
-                                    </section> --}}
                                 </div>
                                 <div class="my-3"></div>
                                 <!--  receiver sender -->

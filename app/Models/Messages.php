@@ -15,4 +15,8 @@ class Messages extends Model
     {
         return $this->belongsTo(Conversation::class);
     }
+    public function sender()
+    {
+        return $this->belongsTo(User::class, 'user1_id', 'id');
+    }
 }

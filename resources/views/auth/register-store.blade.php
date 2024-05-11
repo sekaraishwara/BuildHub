@@ -94,7 +94,7 @@
                         </form>
                     </div>
                     <div class="text-muted text-center">Already have an account?
-                        <a href="{{ route('login') }}">Sign in</a>
+                        <a href="{{ route('login') }}" class="font-weight-bold">Sign in</a>
                     </div>
                 </div>
             </div>
