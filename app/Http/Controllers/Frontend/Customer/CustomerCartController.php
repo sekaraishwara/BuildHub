@@ -27,7 +27,6 @@ class CustomerCartController extends Controller
         $cartItem = CustomerCart::where('customer_id', $customer->id)
             ->get();
 
-
         return view('frontend.home._customer._cart', compact('cartItem'));
     }
 
@@ -99,7 +98,7 @@ class CustomerCartController extends Controller
 
                             'product_id' => $product->id,
                             'product_name' => $product->name,
-                            'product_price' => $product->price,
+                            'product_price' => $product->display_price,
                             'store_id' => $product->store_id,
                             'store_name' => $product->store->name,
                             'product_img' => $product->image,
@@ -111,7 +110,7 @@ class CustomerCartController extends Controller
 
                         ];
                         $cartId = $customerCart->id;
-                        $totalPrice += $product->price * $customerCart->item_qty;
+                        $totalPrice += $product->display_price * $customerCart->item_qty;
                     }
                 }
             }

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Frontend\Home;
 
+use App\Models\User;
 use App\Models\Regencie;
+use App\Models\PriceRange;
 use App\Models\Professional;
 use Illuminate\Http\Request;
 use App\Models\ProfessionalService;
 use App\Http\Controllers\Controller;
-use App\Models\PriceRange;
 use App\Models\ProfessionalCategory;
 use App\Models\ProfessionalPortfolio;
 
@@ -57,13 +58,18 @@ class ProfessionalController extends Controller
 
         $portfolio = ProfessionalPortfolio::where('professional_id',  $serviceProfessional->professional_id)->get();
 
-
+        $professionalOwner = User::Where('id', $professional->user_id)->first();
+        // dd($professionalOwner);
 
         $professionalRegency = Regencie::find($professional->kota);
 
-
-
-        return view('frontend.home._professional.single-product', compact('serviceProfessional', 'items', 'portfolio', 'professionalRegency'));
+        return view('frontend.home._professional.single-product', compact(
+            'serviceProfessional',
+            'items',
+            'portfolio',
+            'professionalOwner',
+            'professionalRegency'
+        ));
     }
 
     /**

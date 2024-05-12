@@ -70,7 +70,6 @@
                                               {{-- Menu options based on user role --}}
                                               @if (auth()->user()->role === 'customer')
                                                   <li> <a href="{{ route('customer.dashboard') }}">Dashboard</a></li>
-                                                  <li> <a href="{{ route('customer.chat') }}">Chat</a></li>
                                                   <li> <a href="{{ route('customer.history-transaction') }}">History
                                                           Transaction</a></li>
                                                   <li> <a href="{{ route('customer.building-checklist') }}">Building
@@ -82,8 +81,9 @@
                                                   <li> <a href="{{ route('vendor.dashboard') }}">Dashboard</a></li>
                                               @elseif(auth()->user()->role === 'store')
                                                   <li> <a href="{{ route('store.dashboard') }}">Dashboard</a></li>
-                                                  <li> <a href="{{ route('store.chat') }}">Chat</a></li>
                                               @endif
+                                              <li> <a href="{{ route('inbox') }}">Chat</a></li>
+
                                               {{-- Logout --}}
                                               <li class="text-danger">
                                                   <form method="POST" action="{{ route('logout') }}">

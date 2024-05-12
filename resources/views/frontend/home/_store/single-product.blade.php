@@ -107,12 +107,11 @@
                         </div>
                     </div>
                     <div class="align-items-center">
-                        <form action="{{ route('customer.send.sendMessage') }}" method="get">
-                            <input type="hidden" name="store_id" value="{{ $storeProduct->store->id }}">
+                        <form action="{{ route('inbox.show', $storeOwner->name) }}">
+                            {{-- <input type="hidden" name="store_id" value="{{ $storeProduct->store->id }}"> --}}
                             <button class="btn mx-2 chat-now" type="submit"><i class="fa fa-wechat mr-2"></i>Chat
                                 now</button>
                         </form>
-                        {{-- <button class="btn mx-2"><i class="fa fa-home mr-2"></i>Store</button> --}}
                     </div>
                 </div>
             </div>

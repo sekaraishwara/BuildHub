@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\StoreCategory;
 use App\Models\CustomerReview;
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\User;
 
 class StoreController extends Controller
 {
@@ -68,14 +69,24 @@ class StoreController extends Controller
         $items = StoreProduct::where('store_id',  $storeProduct->store_id)->get();
 
         $store = Store::where('id', $storeProduct->store_id)->first();
+
+        $storeOwner = User::where('id', $store->user_id)->first();
+
         $storeRegency = Regencie::find($store->kota);
 
-
+        // dd($storeOwner);
 
         $reviewCount = CustomerReview::where('product_id', $storeProduct->id)->count();
         $review = CustomerReview::where('product_id', $storeProduct->id)->get();
 
-        return view('frontend.home._store.single-product', compact('storeProduct', 'items', 'storeRegency', 'reviewCount', 'review'));
+        return view('frontend.home._store.single-product', compact(
+            'storeProduct',
+            'items',
+            'storeRegency',
+            'storeOwner',
+            'reviewCount',
+            'review'
+        ));
     }
 
     /**

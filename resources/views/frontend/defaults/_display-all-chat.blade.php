@@ -22,21 +22,54 @@
                     <div class="content-single">
                         <div class="card">
                             <div class="card-header border-0 m-3">
-                                <h5>Chat (100)</h5>
+                                <h5>Chat ({{ $count }})</h5>
                             </div>
                             <div class="card-body">
-                                @foreach ($getConversation as $item)
-                                    <a href="{{ route('inbox.show', $senderItem[$loop->index]['name']) }}">
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <div class="col-4 d-flex align-items-center p-0">
-                                                <img src="{{ $senderItem[$loop->index]['image'] }}" width="50px"
-                                                    alt="">
-                                                <p class="ml-3 mb-0">{{ $senderItem[$loop->index]['name'] }}</p>
-                                            </div>
-                                            <p>{{ $item->updated_at }}</p>
-                                        </div>
-                                    </a>
+                                @foreach ($getConversation as $conversation)
+                                    {{-- Inisialisasi variabel untuk menyimpan ID percakapan yang sudah ditampilkan --}}
+                                    @php
+                                        $displayedConversations = [];
+                                    @endphp
+
+                                    @foreach ($conversation->messages as $message)
+                                        {{-- Periksa jika percakapan sudah ditampilkan sebelumnya --}}
+                                        @if (!in_array($message->conversation_id, $displayedConversations))
+                                            {{-- Tambahkan ID percakapan ke dalam array displayedConversations --}}
+                                            @php
+                                                $displayedConversations[] = $message->conversation_id;
+                                            @endphp
+
+                                            {{-- Tampilkan detail pesan hanya jika Anda bukan pengirimnya --}}
+                                            @if ($message->sender_id !== Auth::id())
+                                                <a href="{{ route('inbox.show', $message->sender->name) }}">
+                                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                                        <div class="col-4 d-flex align-items-center p-0">
+                                                            <img src="{{ $message->sender->image }}" width="50px"
+                                                                alt="">
+                                                            <p class="ml-3 mb-0">{{ $message->sender->name }}</p>
+                                                        </div>
+                                                        <p>{{ $message->created_at }}</p>
+                                                    </div>
+                                                </a>
+                                            @else
+                                                {{-- Tampilkan detail penerima pesan hanya jika ada penerima --}}
+                                                @if ($message->receiver)
+                                                    <a href="{{ route('inbox.show', $message->receiver->name) }}">
+                                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                                            <div class="col-4 d-flex align-items-center p-0">
+                                                                <img src="{{ $message->receiver->image }}" width="50px"
+                                                                    alt="">
+                                                                <p class="ml-3 mb-0">{{ $message->receiver->name }}</p>
+                                                            </div>
+                                                            <p>{{ $message->created_at }}</p>
+                                                        </div>
+                                                    </a>
+                                                @endif
+                                            @endif
+                                        @endif
+                                    @endforeach
                                 @endforeach
+
                             </div>
                         </div>
 

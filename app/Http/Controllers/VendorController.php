@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Vendor;
 use App\Models\Regencie;
 use Illuminate\View\View;
@@ -64,11 +65,14 @@ class VendorController extends Controller
         $items = VendorService::where('vendor_id',  $serviceVendor->vendor_id)->get();
         $portfolio = VendorPortfolio::where('vendor_id',  $serviceVendor->vendor_id)->get();
 
+        $vendorOwner = User::Where('id', $vendor->user_id)->first();
+
+
         $vendorRegency = Regencie::find($vendor->kota);
 
 
         // dd($vendorRegency);
 
-        return view('frontend.home._vendor.single-product', compact('serviceVendor', 'items', 'portfolio', 'vendorRegency'));
+        return view('frontend.home._vendor.single-product', compact('serviceVendor', 'vendorOwner', 'items', 'portfolio', 'vendorRegency'));
     }
 }

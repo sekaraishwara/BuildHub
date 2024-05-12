@@ -5,6 +5,8 @@
             <h3 class="title">Vendor</a></h3>
             <ul class="categor-list">
                 <li><a href="{{ route('vendor.dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ route('vendor.profile') }}">Create an Order</a></li>
+                <li><a href="{{ route('inbox') }}">Chat</a></li>
                 <li><a href="{{ route('vendor.profile') }}">Profile</a></li>
                 <li><a href="{{ route('vendor.service') }}">Service</a></li>
                 <li><a href="{{ route('vendor.portfolio') }}">Portfolio</a></li>

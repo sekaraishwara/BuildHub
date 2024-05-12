@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <div class="align-items-center">
-                        <form action="{{ route('customer.send.sendMessage') }}" method="get">
+                        <form action="{{ route('inbox.show', $vendorOwner->name) }}" method="get">
                             <button class="btn mx-2 chat-now" type="submit"><i class="fa fa-wechat mr-2"></i>Chat
                                 now</button>
                         </form>

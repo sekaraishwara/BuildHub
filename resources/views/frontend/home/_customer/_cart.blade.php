@@ -58,7 +58,7 @@
                                             </p> --}}
                                         </td>
                                         <td class="price" data-title="Price">
-                                            <span>{{ number_format($item?->product->price, 0, ',', '.') }} </span>
+                                            <span>{{ number_format($item?->product->display_price, 0, ',', '.') }} </span>
                                         </td>
                                         <td class="qty" data-title="Qty"><!-- Input Order -->
                                             <div class="input-group">
@@ -80,7 +80,7 @@
                                             <!--/ End Input Order -->
                                         </td>
                                         <td class="total-amount" data-title="Total">
-                                            <span>{{ number_format($item->product->price * $item->item_qty, 0, ',', '.') }}
+                                            <span>{{ number_format($item->product->display_price * $item->item_qty, 0, ',', '.') }}
                                             </span>
                                         </td>
                                         <td class="action" data-title="Remove"><a href="#"><i

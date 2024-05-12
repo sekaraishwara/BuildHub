@@ -1,13 +1,19 @@
 <?php
 
-use App\Http\Controllers\Frontend\Customer\CustomerBuildingChecklistController;
+use App\Models\CustomerTransaction;
+use App\Models\ProfessionalService;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\VendorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Frontend\Home\StoreController;
+use App\Http\Controllers\Frontend\NotifiactionController;
+use App\Http\Controllers\Frontend\Home\MessagesController;
 use App\Http\Controllers\Frontend\StoreDashboardController;
+use App\Http\Controllers\Frontend\Store\StoreChatController;
 use App\Http\Controllers\Frontend\VendorDashboardController;
 use App\Http\Controllers\Frontend\CustomerDashboardController;
+use App\Http\Controllers\Frontend\Home\NotificationController;
 use App\Http\Controllers\Frontend\Home\ProfessionalController;
 use App\Http\Controllers\Frontend\Store\StoreProductController;
 use App\Http\Controllers\Frontend\Store\StoreProfileController;
@@ -19,15 +25,11 @@ use App\Http\Controllers\Frontend\ProfessionalDashboardController;
 use App\Http\Controllers\Frontend\Vendor\VendorPortfolioController;
 use App\Http\Controllers\Frontend\Customer\CustomerProfileController;
 use App\Http\Controllers\Frontend\Customer\CustomerTransactionController;
-use App\Http\Controllers\Frontend\Home\MessagesController;
-use App\Http\Controllers\Frontend\Home\NotificationController;
-use App\Http\Controllers\Frontend\NotifiactionController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalProfileController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalServiceController;
+use App\Http\Controllers\Frontend\Customer\CustomerBuildingChecklistController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
-use App\Http\Controllers\Frontend\Store\StoreChatController;
-use App\Http\Controllers\VendorController;
-use App\Models\CustomerTransaction;
+use App\Http\Controllers\Frontend\Professional\ProfessionalServiceOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,9 +60,11 @@ Route::get('/notification', [NotificationController::class, 'index'])->name('not
 Route::get('/get-regency/{provinceId}', [CustomerProfileController::class, 'getRegencyOfprovince'])->name('get-regency');
 
 // chat universal routes
-Route::get('/inbox', [MessagesController::class, 'index'])->name('inbox');
-Route::get('/inbox/chat/{senderName}', [MessagesController::class, 'show'])->name('inbox.show');
-Route::post('/inbox/chat/store', [MessagesController::class, 'store'])->name('inbox.store');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/inbox', [MessagesController::class, 'index'])->name('inbox');
+    Route::get('/inbox/chat/{senderName}', [MessagesController::class, 'show'])->name('inbox.show');
+    Route::post('/inbox/chat/store', [MessagesController::class, 'store'])->name('inbox.store');
+});
 
 
 
@@ -133,6 +137,9 @@ Route::group(
         Route::post('/portfolio/store', [ProfessionalPortfolioController::class, 'store'])->name('portfolio.store');
         Route::post('/portfolio/update{id}', [ProfessionalPortfolioController::class, 'update'])->name('portfolio.update');
         Route::post('/portfolio/delete{id}', [ProfessionalPortfolioController::class, 'delete'])->name('portfolio.delete');
+
+        Route::get('/order', [ProfessionalServiceOrderController::class, 'index'])->name('service.order');
+        Route::get('/order/create', [ProfessionalServiceOrderController::class, 'create'])->name('service.order.create');
     }
 );
 
