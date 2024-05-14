@@ -27,19 +27,28 @@
                                     <p class="text-muted">Mark as Read</p>
                                 </div>
                             </div>
-                            @foreach ($notify as $item)
+                            @if ($notify->isEmpty())
                                 <div class="card-body">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="notification-message col-9">
-                                            <h6 class="mb-2">{{ $item->title }}</h6>
-                                            <p>{{ substr($item->message, 0, 120) }}...</p>
-                                        </div>
-                                        <div class="notification-date col-3 text-right">
-                                            <p>{{ $item->created_at->format('d M Y') }}</p>
-                                        </div>
+                                    <div class="text-center">
+                                        <p>Tidak ada notifikasi. </p>
                                     </div>
                                 </div>
-                            @endforeach
+                            @else
+                                @foreach ($notify as $item)
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="notification-message col-9">
+                                                <h6 class="mb-2">{{ $item->title }}</h6>
+                                                <p>{{ substr($item->message, 0, 120) }}...</p>
+                                            </div>
+                                            <div class="notification-date col-3 text-right">
+                                                <p>{{ $item->created_at->format('d M Y') }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+
                         </div>
                     </div>
                 </div>

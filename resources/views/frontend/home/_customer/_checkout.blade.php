@@ -6,8 +6,8 @@
                 <div class="col-12">
                     <div class="bread-inner">
                         <ul class="bread-list">
-                            <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
-                            <li><a href="blog-single.html">Cart<i class="ti-arrow-right"></i></a></li>
+                            <li><a href="{{ url('/') }}">Home<i class="ti-arrow-right"></i></a></li>
+                            <li><a href="{{ route('customer.cart') }}">Cart<i class="ti-arrow-right"></i></a></li>
                             <li class="active"><a href="blog-single.html">Checkout</a></li>
                         </ul>
                     </div>

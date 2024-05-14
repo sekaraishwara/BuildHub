@@ -70,10 +70,10 @@ class StoreController extends Controller
 
         $store = Store::where('id', $storeProduct->store_id)->first();
 
-        $storeOwner = User::where('id', $store->user_id)->first();
 
         $storeRegency = Regencie::find($store->kota);
 
+        $storeOwner = User::where('id', $store->user_id)->first();
         // dd($storeOwner);
 
         $reviewCount = CustomerReview::where('product_id', $storeProduct->id)->count();

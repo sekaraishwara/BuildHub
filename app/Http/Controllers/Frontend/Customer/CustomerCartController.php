@@ -175,4 +175,17 @@ class CustomerCartController extends Controller
             return redirect()->route('customer.payment');
         }
     }
+
+    public function delete(string $id)
+    {
+        try {
+            CustomerCart::findOrFail($id)->delete();
+            notify()->success('Deleted Successfully⚡️', 'Success!');
+
+            return back();
+        } catch (\Exception $e) {
+            logger($e);
+            return response(['message' => 'Something Went Wrong. Please Try Again!'], 500);
+        }
+    }
 }

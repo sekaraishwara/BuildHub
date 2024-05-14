@@ -86,6 +86,8 @@ Route::group(
 
         Route::get('/cart', [CustomerCartController::class, 'index'])->name('cart');
         Route::post('/cart/add', [CustomerCartController::class, 'addToCart'])->name('cart.addToCart');
+        Route::delete('/cart/delete/{id}', [CustomerCartController::class, 'delete'])->name('cart.delete');
+
         Route::get('/cart/count-items', [CustomerCartController::class, 'getTotalItemCart'])->name('getTotalItemCart');
 
         Route::get('/cart/checkout', [CustomerCartController::class, 'sessionCheckout'])->name('sessionCheckout');

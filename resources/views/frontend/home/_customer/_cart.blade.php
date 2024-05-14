@@ -6,7 +6,7 @@
                 <div class="col-12">
                     <div class="bread-inner">
                         <ul class="bread-list">
-                            <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+                            <li><a href="{{ url('/') }}">Home<i class="ti-arrow-right"></i></a></li>
                             <li class="active"><a href="blog-single.html">Cart</a></li>
                         </ul>
                     </div>
@@ -23,7 +23,7 @@
             <div class="row">
                 <div class="col-12">
                     <!-- Shopping Summery -->
-                    <form action="{{ route('customer.sessionCheckout') }}" method="get">
+                    <form id="cart-form" action="{{ route('customer.sessionCheckout') }}" method="get">
                         <table class="table shopping-summery">
                             <thead>
                                 <tr class="main-hading">
@@ -34,9 +34,7 @@
                                     <th class="text-center">UNIT PRICE</th>
                                     <th class="text-center">QUANTITY</th>
                                     <th class="text-center">TOTAL</th>
-                                    <th class="text-center"><i class="ti-trash remove-icon"></i></th>
-                                </tr>
-                                <tr>
+                                    <th class="text-center">ACTION</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -44,23 +42,21 @@
                                 @foreach ($cartItem as $item)
                                     <tr>
                                         <td>
-                                            <input type="checkbox" name="cart_id[]" value="{{ $item->id }}">
+                                            <input type="checkbox" name="cart_id[]" value="{{ $item->id }}"
+                                                class="cart-checkbox">
                                         </td>
                                         <td>
-                                            <p>
-                                                {{ $item?->product->store->name }}</p>
+                                            <p>{{ $item?->product->store->name }}</p>
                                         </td>
                                         <td class="image" data-title="No"><img src="{{ $item?->product->image }}"
                                                 alt="#"></td>
                                         <td class="product-des" data-title="Description">
                                             <p class="product-name"><a href="#">{{ $item?->product->name }}</a></p>
-                                            {{-- <p class="product-des">Maboriosam in a tonto nesciung eget distingy magndapibus.
-                                            </p> --}}
                                         </td>
                                         <td class="price" data-title="Price">
                                             <span>{{ number_format($item?->product->display_price, 0, ',', '.') }} </span>
                                         </td>
-                                        <td class="qty" data-title="Qty"><!-- Input Order -->
+                                        <td class="qty" data-title="Qty">
                                             <div class="input-group">
                                                 <div class="button minus">
                                                     <button type="button" class="btn btn-primary btn-number"
@@ -77,22 +73,25 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <!--/ End Input Order -->
                                         </td>
                                         <td class="total-amount" data-title="Total">
-                                            <span>{{ number_format($item->product->display_price * $item->item_qty, 0, ',', '.') }}
-                                            </span>
+                                            <span>{{ number_format($item->product->display_price * $item->item_qty, 0, ',', '.') }}</span>
                                         </td>
-                                        <td class="action" data-title="Remove"><a href="#"><i
-                                                    class="ti-trash remove-icon"></i></a>
+                                        <td class="action" data-title="Remove">
+                                            <form action="{{ route('customer.cart.delete', $item->id) }}" method="POST"
+                                                style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="p-0"><i
+                                                        class="ti-trash remove-icon"></i></button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn">Checkout</button>
+                            <button id="checkout-button" type="submit" class="btn w-full" disabled>Checkout</button>
                         </div>
                     </form>
                     <!--/ End Shopping Summery -->
@@ -100,4 +99,22 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.cart-checkbox');
+            const checkoutButton = document.getElementById('checkout-button');
+
+            function toggleCheckoutButton() {
+                const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+                checkoutButton.disabled = !anyChecked;
+            }
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', toggleCheckoutButton);
+            });
+
+            toggleCheckoutButton(); // Initial check
+        });
+    </script>
 @endsection
