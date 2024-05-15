@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use App\Models\VendorService;
 use App\Models\VendorCategory;
 use App\Models\VendorPortfolio;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 
 class VendorController extends Controller
@@ -40,18 +42,53 @@ class VendorController extends Controller
             }
         }
 
-        // shorting by
 
 
         $vendorService = $vendorService->get();
+
         // dd($vendorService);
 
         $vendorCategory = VendorCategory::all();
 
-
         $priceRanges = PriceRange::all();
 
-        return view('frontend.home._vendor.index', compact('vendorCategory', 'vendorService', 'priceRanges'));
+
+        // GET VENDOR INFORMATION [LOCATION]
+
+        $getVendor = VendorService::pluck('vendor_id');
+        $vendorsRegencie = Vendor::whereIn('id', $getVendor)->with('kota')->get();
+
+        $cityIds = $vendorsRegencie->pluck('kota');
+
+        $regencies = Regencie::whereIn('id', $cityIds)->get(['id', 'name']);
+
+        if ($request->has('price')) {
+            $categoryPrice = $request->price;
+            $price = PriceRange::where('price_ranges', $categoryPrice)->first();
+
+            if ($price) {
+                $vendorService->where('price', $price->price_ranges);
+            }
+        }
+
+        if ($request->has('location')) {
+            $location = $request->location;
+            $regency = Regencie::where('name', $location)->first();
+
+            if ($regency) {
+                $vendorIds = Vendor::where('kota', $regency->id)->pluck('id');
+                // dd($vendorIds);
+                $vendorService->whereIn('location', $vendorIds);
+            }
+        }
+
+
+        return view('frontend.home._vendor.index', compact(
+            'vendorCategory',
+            'vendorService',
+            'priceRanges',
+            'regencies'
+        ));
     }
 
     public function singleService($id)

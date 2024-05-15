@@ -1,5 +1,42 @@
   <!-- Header -->
   <header class="header shop">
+      <div class="topbar">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-4 col-md-12 col-12">
+                      <!-- Top Left -->
+                      <div class="top-left">
+                          <ul class="list-main">
+                              <li>
+                                  <i class="ti-email"></i>
+                                  support@shophub.com
+                              </li>
+                          </ul>
+                      </div>
+                      <!--/ End Top Left -->
+                  </div>
+                  <div class="col-lg-8 col-md-12 col-12">
+                      <!-- Top Right -->
+                      <div class="right-content">
+                          <ul class="list-main">
+                              <li>
+                                  <a href="{{ route('notification') }}" class="single-icon"><i class="fa fa-bell-o"
+                                          aria-hidden="true"></i> Notification</a>
+                              </li>
+                              <li>
+                                  <a href="{{ route('inbox') }}"><i class="ti-comments"></i> Message</a>
+                              </li>
+                              <li>
+                                  <a href="#"><i class="ti-shopping-cart"></i> Cart</a>
+                              </li>
+
+                          </ul>
+                      </div>
+                      <!-- End Top Right -->
+                  </div>
+              </div>
+          </div>
+      </div>
       <div class="middle-inner">
           <div class="container">
               <div class="row align-items-center">
@@ -43,10 +80,10 @@
                       @auth
                           <div class="right-bar">
 
-                              <div class="sinlge-bar">
+                              {{-- <div class="sinlge-bar">
                                   <a href="{{ route('notification') }}" class="single-icon"><i class="fa fa-bell-o"
                                           aria-hidden="true"></i></a>
-                              </div>
+                              </div> --}}
                               {{-- <div class="sinlge-bar">
                                   <a href="#" class="single-icon"><i class="fa fa-wechat" aria-hidden="true"></i></a>
                               </div> --}}
@@ -62,7 +99,6 @@
                                                           alt="">
                                                       <div class="row ml-1">
                                                           <p class="font-weight-bold">{{ auth()->user()->name }}</p>
-                                                          <small class="mx-2"> 300 point</small>
                                                       </div>
                                                   </div>
                                               </li>
@@ -82,8 +118,6 @@
                                               @elseif(auth()->user()->role === 'store')
                                                   <li> <a href="{{ route('store.dashboard') }}">Dashboard</a></li>
                                               @endif
-                                              <li> <a href="{{ route('inbox') }}">Chat</a></li>
-
                                               {{-- Logout --}}
                                               <li class="text-danger">
                                                   <form method="POST" action="{{ route('logout') }}">

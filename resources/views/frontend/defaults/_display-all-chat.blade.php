@@ -21,12 +21,12 @@
                 <div class="col-lg-12 mb-5">
                     <div class="content-single">
                         <div class="card">
-                            <div class="card-header border-0 m-3">
+                            <div class="card-header border-0">
                                 <h5>Chat ({{ $count }})</h5>
                             </div>
                             <div class="card-body">
                                 @foreach ($getConversation as $conversation)
-                                    {{-- Inisialisasi variabel untuk menyimpan ID percakapan yang sudah ditampilkan --}}
+                                    {{-- Inisialisasi variabel untuk menyimpan ID percakapan --}}
                                     @php
                                         $displayedConversations = [];
                                     @endphp
@@ -34,12 +34,11 @@
                                     @foreach ($conversation->messages as $message)
                                         {{-- Periksa jika percakapan sudah ditampilkan sebelumnya --}}
                                         @if (!in_array($message->conversation_id, $displayedConversations))
-                                            {{-- Tambahkan ID percakapan ke dalam array displayedConversations --}}
                                             @php
                                                 $displayedConversations[] = $message->conversation_id;
                                             @endphp
 
-                                            {{-- Tampilkan detail pesan hanya jika Anda bukan pengirimnya --}}
+                                            {{-- Tampilkan detail pesan hanya if Anda bukan pengirimnya --}}
                                             @if ($message->sender_id !== Auth::id())
                                                 <a href="{{ route('inbox.show', $message->sender->name) }}">
                                                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -48,7 +47,7 @@
                                                                 alt="">
                                                             <p class="ml-3 mb-0">{{ $message->sender->name }}</p>
                                                         </div>
-                                                        <p>{{ $message->created_at }}</p>
+                                                        <p>{{ $message->created_at->diffForHumans() }}</p>
                                                     </div>
                                                 </a>
                                             @else
@@ -61,7 +60,7 @@
                                                                     alt="">
                                                                 <p class="ml-3 mb-0">{{ $message->receiver->name }}</p>
                                                             </div>
-                                                            <p>{{ $message->created_at }}</p>
+                                                            <p>{{ $message->created_at->diffForHumans() }}</p>
                                                         </div>
                                                     </a>
                                                 @endif
@@ -69,14 +68,12 @@
                                         @endif
                                     @endforeach
                                 @endforeach
-
                             </div>
                         </div>
 
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
 

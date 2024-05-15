@@ -1,5 +1,42 @@
   <!-- Header -->
   <header class="header shop">
+      <div class="topbar">
+          <div class="container">
+              <div class="row">
+                  <div class="col-lg-4 col-md-12 col-12">
+                      <!-- Top Left -->
+                      <div class="top-left">
+                          <ul class="list-main">
+                              <li>
+                                  <i class="ti-email"></i>
+                                  support@shophub.com
+                              </li>
+                          </ul>
+                      </div>
+                      <!--/ End Top Left -->
+                  </div>
+                  <div class="col-lg-8 col-md-12 col-12">
+                      <!-- Top Right -->
+                      <div class="right-content">
+                          <ul class="list-main">
+                              <li>
+                                  <a href="{{ route('notification') }}" class="single-icon"><i class="fa fa-bell-o"
+                                          aria-hidden="true"></i> Notification</a>
+                              </li>
+                              <li>
+                                  <a href="{{ route('inbox') }}"><i class="ti-comments"></i> Message</a>
+                              </li>
+                              <li>
+                                  <a href="#"><i class="ti-shopping-cart"></i> Cart</a>
+                              </li>
+
+                          </ul>
+                      </div>
+                      <!-- End Top Right -->
+                  </div>
+              </div>
+          </div>
+      </div>
       <div class="middle-inner">
           <div class="container">
               <div class="row align-items-center">
@@ -14,8 +51,9 @@
                           <div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
                           <!-- Search Form -->
                           <div class="search-top">
-                              <form class="search-form">
-                                  <input type="text" placeholder="Search here..." name="search">
+                              <form class="search-form" action="{{ route('store') }}" method="GET">
+                                  <input type="text" placeholder="Search here..." name="search"
+                                      value="{{ request('search') }}">
                                   <button value="search" type="submit"><i class="ti-search"></i></button>
                               </form>
                           </div>
@@ -43,11 +81,13 @@
                       @endguest
                       @auth
                           <div class="right-bar">
-
+                              {{--
                               <div class="sinlge-bar">
                                   <a href="{{ route('notification') }}" class="single-icon"><i class="fa fa-bell-o"
                                           aria-hidden="true"></i></a>
-                              </div>
+
+
+                              </div> --}}
                               {{-- <div class="sinlge-bar">
                               <a href="#" class="single-icon"><i class="fa fa-wechat" aria-hidden="true"></i></a>
                           </div> --}}
@@ -63,7 +103,6 @@
                                                           alt="">
                                                       <div class="row ml-1">
                                                           <p class="font-weight-bold">{{ auth()->user()->name }}</p>
-                                                          <small class="mx-2"> 300 point</small>
                                                       </div>
                                                   </div>
                                               </li>

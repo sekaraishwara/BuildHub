@@ -25,7 +25,7 @@
                     <div class="shop-sidebar">
                         <!-- Single Widget -->
                         <div class="single-widget category">
-                            <h3 class="title">Professional Categories</h3>
+                            <h3 class="title">Categories</h3>
                             <ul class="categor-list">
                                 <li><a href="{{ route('professional') }}">All Category Services</a>
                                 </li>

@@ -80,7 +80,14 @@ class MessagesController extends Controller
             abort(404);
         }
 
-        return view('frontend.defaults._chat', compact('messages', 'sender'));
+        $allMessages = Conversation::with(['sender', 'receiver'])
+            ->where('user1_id', $user->id)
+            ->orWhere('user2_id', $user->id)
+            ->get();
+
+
+
+        return view('frontend.defaults._chat', compact('messages', 'sender', 'allMessages'));
 
         // $user = Auth::user();
         // $sender = User::where('name', $senderName)->first();

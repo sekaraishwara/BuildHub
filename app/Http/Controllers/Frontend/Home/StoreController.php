@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\Home;
 use App\Models\Store;
 use App\Models\Regencie;
 use Illuminate\View\View;
+use App\Traits\Searchable;
 use App\Models\StoreProduct;
 use Illuminate\Http\Request;
 use App\Models\StoreCategory;
@@ -14,6 +15,8 @@ use Illuminate\Foundation\Auth\User;
 
 class StoreController extends Controller
 {
+    use Searchable;
+
     /**
      * Display a listing of the resource.
      */
@@ -30,6 +33,8 @@ class StoreController extends Controller
                 $storeProduct->where('category', $category->name);
             }
         }
+
+        $this->seacrh($storeProduct, ['name']);
 
         $storeProduct = $storeProduct->get();
 

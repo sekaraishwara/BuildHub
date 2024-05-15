@@ -25,7 +25,7 @@
                     <div class="shop-sidebar">
                         <!-- Single Widget -->
                         <div class="single-widget category">
-                            <h3 class="title">Store Categories</h3>
+                            <h3 class="title">Categories</h3>
                             <ul class="categor-list">
                                 <li><a href="{{ route('store') }}">All Category Services</a>
                                 </li>
@@ -93,8 +93,8 @@
                                         </select>
                                     </div>
                                 </div>
-
                             </div>
+
                             <!--/ End Shop Top -->
                         </div>
                     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\Home;
 use App\Models\User;
 use App\Models\Regencie;
 use App\Models\PriceRange;
+use App\Traits\Searchable;
 use App\Models\Professional;
 use Illuminate\Http\Request;
 use App\Models\ProfessionalService;
@@ -14,6 +15,8 @@ use App\Models\ProfessionalPortfolio;
 
 class ProfessionalController extends Controller
 {
+    use Searchable;
+
     /**
      * Display a listing of the resource.
      */
@@ -40,8 +43,9 @@ class ProfessionalController extends Controller
             }
         }
 
-        $professionalService = $professionalService->get();
+        $this->seacrh($professionalService, ['name']);
 
+        $professionalService = $professionalService->get();
         $professionalCategory = ProfessionalCategory::all();
         $priceRanges = PriceRange::all();
 

@@ -32,4 +32,9 @@ class Vendor extends Model
     {
         return $this->hasMany(VendorService::class);
     }
+
+    public function kota()
+    {
+        return $this->belongsTo(Regencie::class);
+    }
 }

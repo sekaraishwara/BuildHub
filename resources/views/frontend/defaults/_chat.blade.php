@@ -19,13 +19,13 @@
     <section class="section-box mt-5">
         <div class="container">
             <div class="row">
-                {{-- @include('frontend._customer-dashboard.sidebar-chat') --}}
-                <div class="col-lg-12 col-12 mb-5">
+                @include('frontend._customer-dashboard.sidebar-chat')
+                <div class="col-lg-9 col-12 mb-5">
                     <div class="content-single">
                         <div class="card">
                             <div class="card-header border-0">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ asset('default-uploads/avatar.jpg') }}" width="40" alt="">
+                                    <img src="{{ $sender->avatar }}" width="40" alt="">
                                     <h6 class="ml-3">{{ $sender->name }}</h6>
                                     <small class="ml-2 text-muted">Active 5 min ago</small>
                                 </div>
@@ -69,8 +69,8 @@
                                         @endif
                                     @endforeach
                                 </div>
-                                <div class="card-footer">
-                                    <form class="py-3" action="{{ route('inbox.store') }}" method="post">
+                                <div class="card-footer bg-white">
+                                    <form class="py-2" action="{{ route('inbox.store') }}" method="post">
                                         @csrf
                                         <input type="hidden" name="receiver_id" value="{{ $sender->id }}">
                                         <input id="x" name="message" class="d-none">
