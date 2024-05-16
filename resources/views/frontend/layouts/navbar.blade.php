@@ -122,7 +122,6 @@
                                               @elseif(auth()->user()->role === 'store')
                                                   <li> <a href="{{ route('store.dashboard') }}">Dashboard</a></li>
                                               @endif
-                                              <li> <a href="{{ route('inbox') }}">Chat</a></li>
 
                                               {{-- Logout --}}
                                               <li class="text-danger">

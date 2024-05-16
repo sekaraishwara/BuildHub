@@ -20,39 +20,67 @@ class CustomerBuildingChecklistController extends Controller
     {
         $user = Auth::user();
 
-        $data = CustomerChecklist::where('user_id', $user->id)->first();
+        $data = CustomerChecklist::where('user_id', $user->id)
+            ->orderBy('isComplete', 'desc')
+            ->get();
 
         return view('frontend._customer-dashboard._buiding-checklist', compact('data'));
     }
 
+
     /**
      * Show the form for creating a new resource.
      */
+    // public function create(Request $request): RedirectResponse
+    // {
+    //     $user = Auth::user();
+
+
+    //     $request->validate([
+    //         'title' => 'string|max:100',
+    //         'list' => 'string|max:100|nullable',
+    //         'notes' => 'string|max:100|nullable',
+    //     ]);
+
+    //     $data = [
+    //         'user_id' => $user->id,
+    //     ];
+
+    //     $customerChecklist = CustomerChecklist::updateOrCreate(
+    //         $data,
+    //         [
+    //             'title' => $request->title,
+    //             'list' => $request->list,
+    //             'notes' => $request->notes,
+    //         ]
+    //     );
+
+    //     notify()->success('Saved Project Successfully⚡️', 'Success!');
+
+    //     return redirect()->back();
+    // }
+
     public function create(Request $request): RedirectResponse
     {
         $user = Auth::user();
 
-
         $request->validate([
-            'title' => 'string|max:100',
-            'list' => 'string|max:100|nullable',
-            'notes' => 'string|max:100|nullable',
+            'title' => 'required|string|max:100',
+            // You can handle 'list' and 'notes' input based on your data structure
         ]);
 
-        $data = [
+        // Create a new checklist for the authenticated user
+        $newChecklist = new CustomerChecklist([
+            'title' => $request->title,
+            'list' => 'string|max:100|nullable',
+            'notes' => 'string|max:100|nullable',
             'user_id' => $user->id,
-        ];
 
-        $customerChecklist = CustomerChecklist::updateOrCreate(
-            $data,
-            [
-                'title' => $request->title,
-                'list' => $request->list,
-                'notes' => $request->notes,
-            ]
-        );
+        ]);
 
-        notify()->success('Saved Project Successfully⚡️', 'Success!');
+        $newChecklist->save();
+
+        notify()->success('New Building Checklist created successfully.', 'Success!');
 
         return redirect()->back();
     }
@@ -65,23 +93,19 @@ class CustomerBuildingChecklistController extends Controller
         $user = Auth::user();
 
         $request->validate([
+            'checklist_id' => 'required|exists:customer_checklists,id,user_id,' . $user->id,
             'list' => 'required|string|max:255',
             'notes' => 'nullable|string|max:255',
         ]);
 
-        $customerChecklist = CustomerChecklist::where('user_id', $user->id)
-            ->firstOrFail();
+        $checklist = CustomerChecklist::findOrFail($request->checklist_id);
 
-
-        $customerChecklist->items()->create([
-            'customer_checklist_id' => $customerChecklist->id,
+        $checklist->items()->create([
             'list' => $request->list,
             'notes' => $request->notes,
         ]);
 
-
-        notify()->success('Added Items Successfully⚡️', 'Success!');
-
+        notify()->success('Added Item Successfully⚡️', 'Success!');
 
         return redirect()->back();
     }
@@ -109,6 +133,19 @@ class CustomerBuildingChecklistController extends Controller
         $item->save();
 
         notify()->success('Updated Items Successfully⚡️', 'Success!');
+
+        return redirect()->back();
+    }
+
+    public function complete(string $id)
+    {
+
+        $currentChecklist = CustomerChecklist::findOrFail($id);
+
+        $currentChecklist->isComplete = true;
+        $currentChecklist->save();
+
+        notify()->success('Completed Successfully⚡️', 'Success!');
 
         return redirect()->back();
     }
