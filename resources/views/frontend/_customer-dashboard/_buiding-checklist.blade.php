@@ -70,7 +70,7 @@
                                                 action="{{ route('customer.building-checklist.complete', $checklist->id) }}"
                                                 method="post">
                                                 @csrf
-                                                <button class="btn"> Mark as Complete</button>
+                                                <button class="btn-warning p-2"> Mark as Complete</button>
                                             </form>
                                         </div>
 
@@ -114,6 +114,7 @@
                                                     </div>
                                                 </div>
                                             </form>
+
                                         </div>
                                     </div>
                                 </div>

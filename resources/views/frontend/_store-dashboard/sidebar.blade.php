@@ -7,7 +7,6 @@
                 <li><a href="{{ route('store.dashboard') }}">Dashboard</a></li>
                 <li><a href="{{ route('store.profile') }}">Profile</a></li>
                 <li><a href="{{ route('store.product') }}">Product</a></li>
-                <li><a href="{{ route('inbox') }}">Chat</a></li>
                 <li><a href="{{ route('store.transaction') }}">Transaction</a></li>
                 {{-- <li><a href="#">History</a></li> --}}
                 <li>

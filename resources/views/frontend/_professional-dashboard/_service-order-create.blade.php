@@ -28,161 +28,193 @@
                 @include('frontend._professional-dashboard.sidebar')
                 <div class="col-lg-9 col-md-8 col-sm-12 col-12">
                     <div class="content-single pb-5">
-
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <a href="{{ route('professional.service.order') }}"> Back to All Order</a>
-                            <h3>Create An Order</h3>
+                            <a href="{{ route('professional.service.order') }}">
+                                << Back to All Order</a>
+                                    <h3>Create An Order</h3>
                         </div>
+                        <form action="{{ route('professional.service.order.store') }}" method="post">
+                            @csrf
+                            <div class="card mb-5">
+                                <div class="card-header p-0 ">
+                                    <div class="alert alert-warning">Order akan otomatis masuk ke sistem setelah invoice
+                                        dibuat.
+                                        Pastikan
+                                        detail order dan alamat email client benar. </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="Name">Order Type</label>
+                                                <input class="form-control text-muted" readonly type="text"
+                                                    name="orderType" id="orderType" value="PROFESSIONAL SERVICE">
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="Name">Client Email</label>
+                                                <input class="form-control" type="email" name="client_email"
+                                                    id="client_email">
+                                                <small class="text-danger">*Untuk notifikasi
+                                                    pembayaran client</small>
+                                            </div>
+                                        </div>
 
-
-                        <div class="card  mb-5">
-                            <div class="card-header p-0 bg-white">
-                                <div class="alert alert-warning">Order akan otomatis masuk ke sistem setelah invoice dibuat.
-                                    Pastikan
-                                    detail order dan alamat email client benar. </div>
-
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12 mb-3">
-                                        <div class="form-group">
-                                            <label for="Name">Client Email <small class="text-danger">*Pengguna akan
-                                                    mendapatkan notifikasi untuk
-                                                    pembayaran</small></label>
-                                            <input class="form-control" type="email" placeholder="joe@gmail.com"
-                                                name="name" id="name">
-
+                                        <div class="col-4">
+                                            <label for="Name">Service Name</label>
+                                            <div class="form-group">
+                                                <select name="service_name" id="service_name">
+                                                    @foreach ($getService as $item)
+                                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="Name">Order Type</label>
-                                            <input class="form-control text-muted" readonly type="text" name="order_type"
-                                                id="order_type" value="VENDOR SERVICE">
-                                        </div>
+                                    <hr>
+                                    <div class="text-right">
+                                        <button id="addItemBtn" type="button" class="btnn p-2">+ Add item</button>
                                     </div>
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="Name">Invoice</label>
-                                            <input class="form-control" type="text" readonly name="name"
-                                                id="name">
-                                            <small class="text-danger">*Otomatis terbuat setelah order
-                                                dibuat</small>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-4">
-                                        <label for="Name">Service Name</label>
-                                        <div class="form-group">
-                                            <select name="" id="">
-                                                <option value="">LUMION 3D RENDERING</option>
-                                                <option value="">SERVICE 2</option>
-                                                <option value="">SERVICE 3</option>
-                                            </select>
+                                    <div id="itemsContainer">
+                                        <div class="row item-row">
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="itemName">Item</label>
+                                                    <input class="form-control" type="text" name="itemName[]"
+                                                        id="itemName">
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="itemQty">Qty <small class="text-danger">*Number
+                                                            only</small></label>
+                                                    <input class="form-control" type="number" name="itemQty[]"
+                                                        id="itemQty">
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="form-group">
+                                                    <label for="itemPrice">Price <small class="text-danger">*Price per
+                                                            item</small></label>
+                                                    <input class="form-control" type="number" name="itemPrice[]"
+                                                        id="itemPrice">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mt-3">
 
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="Name">Detail Item</label>
-                                            <input class="form-control" type="text" name="name" id="name">
+                                <div class="card-footer bg-white">
+                                    <div class="col-12 mb-3 p-0">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="col-6 p-0">
+                                                <label for="totalAmount">Total Amount:</label>
+                                                <h5 id="totalAmount" class="font-weight-bold">0</h5>
+                                                <input type="number" name="total_price">
+                                            </div>
+                                            <div class="col-6 p-0 text-right">
+                                                <button type="button" id="calculateBtn"
+                                                    class="btn-primary p-2">Calculate</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <label for="Name">Kuantiti</label>
-                                            <input class="form-control" type="text" name="name" id="name">
-                                        </div>
+                                    <div class="col-12 p-0 py-2">
+                                        <button type="submit" class="btn w-full">CREATE ORDER</button>
                                     </div>
                                 </div>
-
                             </div>
-                        </div>
-                        <div class="card-footer bg-white">
-                            <button class="btn w-full">CREATE ORDER</button>
-                        </div>
+                        </form>
                     </div>
-
-
                 </div>
             </div>
         </div>
-        </div>
     </section>
 
+    <script>
+        document.getElementById('addItemBtn').addEventListener('click', function() {
+            // Create a new row
+            var newRow = document.createElement('div');
+            newRow.classList.add('row', 'item-row');
 
-    <!-- Modal Create-->
-    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <form method="POST" action="{{ route('professional.service.store') }}" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Create Order</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="alert alert-danger">Order akan otomatis masuk ke sistem setelah invoice dibuat.
-                            Pastikan
-                            untuk memasukkan
-                            detail order dan alamat email client dengan benar. </div>
-                        <div class="row">
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label for="Name">Order</label>
-                                    <input class="form-control text-muted" readonly type="text" name="order_type"
-                                        id="order_type" value="VENDOR SERVICE">
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <label for="Name">Service Name</label>
-                                <div class="form-group">
-                                    <select name="" id="">
-                                        <option value="">LUMION 3D RENDERING</option>
-                                        <option value="">SERVICE 2</option>
-                                        <option value="">SERVICE 3</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label for="Name">Qty</label>
-                                    <input class="form-control" type="text" name="name" id="name">
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label for="Name">Client Email</label>
-                                    <input class="form-control" type="text" name="name" id="name">
-                                    <small class="text-danger">*Pengguna akan mendapatkan notifikasi pembayaran</small>
-                                </div>
-                            </div>
+            // Create the item name input
+            var itemNameDiv = document.createElement('div');
+            itemNameDiv.classList.add('col-4');
+            var itemNameFormGroup = document.createElement('div');
+            itemNameFormGroup.classList.add('form-group');
+            var itemNameLabel = document.createElement('label');
+            itemNameLabel.setAttribute('for', 'itemName');
+            itemNameLabel.textContent = 'Item';
+            var itemNameInput = document.createElement('input');
+            itemNameInput.classList.add('form-control');
+            itemNameInput.setAttribute('type', 'text');
+            itemNameInput.setAttribute('name', 'itemName[]');
+            itemNameInput.setAttribute('id', 'itemName');
+            itemNameFormGroup.appendChild(itemNameLabel);
+            itemNameFormGroup.appendChild(itemNameInput);
+            itemNameDiv.appendChild(itemNameFormGroup);
+            newRow.appendChild(itemNameDiv);
 
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label for="Name">Total Price</label>
-                                    <input class="form-control" type="text" name="name" id="name">
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="form-group">
-                                    <label for="Name">Cek total</label>
-                                    <input class="form-control" type="text" name="name" id="name">
-                                </div>
-                            </div>
+            // Create the quantity input
+            var itemQtyDiv = document.createElement('div');
+            itemQtyDiv.classList.add('col-4');
+            var itemQtyFormGroup = document.createElement('div');
+            itemQtyFormGroup.classList.add('form-group');
+            var itemQtyLabel = document.createElement('label');
+            itemQtyLabel.setAttribute('for', 'itemQty');
+            itemQtyLabel.innerHTML = 'Qty <small class="text-danger">*Number only</small>';
+            var itemQtyInput = document.createElement('input');
+            itemQtyInput.classList.add('form-control');
+            itemQtyInput.setAttribute('type', 'number');
+            itemQtyInput.setAttribute('name', 'itemQty[]');
+            itemQtyInput.setAttribute('id', 'itemQty');
+            itemQtyFormGroup.appendChild(itemQtyLabel);
+            itemQtyFormGroup.appendChild(itemQtyInput);
+            itemQtyDiv.appendChild(itemQtyFormGroup);
+            newRow.appendChild(itemQtyDiv);
 
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
+
+            var itemPriceDiv = document.createElement('div');
+            itemPriceDiv.classList.add('col-4');
+            var itemPriceFormGroup = document.createElement('div');
+            itemPriceFormGroup.classList.add('form-group');
+            var itemPriceLabel = document.createElement('label');
+            itemPriceLabel.setAttribute('for', 'itemPrice');
+            itemPriceLabel.innerHTML = 'Price <small class="text-danger">*Price per item</small>';
+            var itemPriceInput = document.createElement('input');
+            itemPriceInput.classList.add('form-control');
+            itemPriceInput.setAttribute('type', 'number');
+            itemPriceInput.setAttribute('name', 'itemPrice[]');
+            itemPriceInput.setAttribute('id', 'itemPrice');
+            itemPriceFormGroup.appendChild(itemPriceLabel);
+            itemPriceFormGroup.appendChild(itemPriceInput);
+            itemPriceDiv.appendChild(itemPriceFormGroup);
+            newRow.appendChild(itemPriceDiv);
+
+            document.getElementById('itemsContainer').appendChild(newRow);
+        });
+
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            var total = 0;
+            var itemRows = document.getElementsByClassName('item-row');
+
+            for (var i = 0; i < itemRows.length; i++) {
+                var itemQty = itemRows[i].querySelector('input[name="itemQty[]"]').value;
+                var itemPrice = itemRows[i].querySelector('input[name="itemPrice[]"]').value;
+
+                if (itemQty && itemPrice) {
+                    total += (parseFloat(itemQty) * parseFloat(itemPrice));
+                }
+            }
+
+            // Format total as IDR
+            var formattedTotal = total.toLocaleString('id-ID', {
+                style: 'currency',
+                currency: 'IDR'
+            });
+            document.getElementById('totalAmount').textContent = formattedTotal;
+
+            document.querySelector('input[name="total_price"]').value = total.toFixed(2);
+        });
+    </script>
 @endsection

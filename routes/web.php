@@ -143,6 +143,7 @@ Route::group(
 
         Route::get('/order', [ProfessionalServiceOrderController::class, 'index'])->name('service.order');
         Route::get('/order/create', [ProfessionalServiceOrderController::class, 'create'])->name('service.order.create');
+        Route::post('/order/store', [ProfessionalServiceOrderController::class, 'store'])->name('service.order.store');
     }
 );
 

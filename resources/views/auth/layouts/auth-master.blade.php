@@ -148,6 +148,9 @@
             height: 300px;
         }
     </style>
+
+
+
     <script>
         $(document).ready(function() {
             $('#table').DataTable();
@@ -201,7 +204,6 @@
             }
         });
     </script>
-
 
     <script>
         $(document).ready(function() {
