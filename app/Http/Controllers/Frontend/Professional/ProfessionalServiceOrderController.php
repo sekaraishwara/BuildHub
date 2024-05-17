@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CustomerServiceOrder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use App\Models\CustomerServiceOrderItem;
 use Illuminate\Support\Facades\Redirect;
 
 class ProfessionalServiceOrderController extends Controller
@@ -44,7 +45,7 @@ class ProfessionalServiceOrderController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $user = auth()->user()->id;
-        $professional = Professional::where('user_id', $user)->get();
+        $professional = Professional::where('user_id', $user)->first();
 
         $request->validate([
             'orderType' => ['required', 'string'],
@@ -57,15 +58,41 @@ class ProfessionalServiceOrderController extends Controller
             'itemPrice.*' => ['required'],
 
         ]);
-        dd($request->all());
 
+        $order = CustomerServiceOrder::create([
+            'user_id' => $user,
+            'professional_id' => $professional->id,
+            'invoice_no' => $professional->id, //benerin
+            'orderType' => $request->orderType,
+            'service_name' => $request->service_name,
+            'client_email' => $request->client_email,
+            'serviceProvider_email' => $request->client_email, //benerin
+            'serviceProvider_id' => $user, //benerin
+            'total_price' => $request->total_price,
+        ]);
 
+        foreach ($request->itemName as $index => $itemName) {
+            CustomerServiceOrderItem::create([
+                'customer_service_order_id' => $order->id,
+                'itemName' => $itemName,
+                'itemPrice' => $request->itemPrice[$index],
+                'itemQty' => $request->itemQty[$index],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        notify()->success('Order Created Successfully⚡️', 'Success!');
+
+        return redirect()->route('professional.service.order');
+
+        // dd($request->all());
 
         // CustomerServiceOrder::create($data);
 
-        notify()->success('Updated Successfully⚡️', 'Success!');
+        // notify()->success('Updated Successfully⚡️', 'Success!');
 
-        return Redirect::route('professional.service.order');
+        // return Redirect::route('professional.service.order');
     }
 
     /**
