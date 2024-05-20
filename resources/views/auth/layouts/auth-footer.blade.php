@@ -10,11 +10,11 @@
                          <div class="logo">
                              <a href="index.html" class="navbar-brand">BUILDHUB</a>
                          </div>
-                         <p class="text">Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, magna
-                             eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor,
-                             facilisis luctus, metus.</p>
-                         <p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+0123 456
-                                     789</a></span></p>
+                         <p class="text">We provide information on vendors, stores, and professionals in the
+                             construction and building industry. Explore our curated directory to streamline your
+                             construction journey with confidence and ease.</p>
+                         <p class="call">Got Question? Call us 24/7<span><a href="tel:123456789">+(021)
+                                     89109763</a></span></p>
                      </div>
                      <!-- End Single Widget -->
                  </div>
@@ -49,14 +49,13 @@
                  <div class="col-lg-3 col-md-6 col-12">
                      <!-- Single Widget -->
                      <div class="single-footer social">
-                         <h4>Get In Tuch</h4>
+                         <h4>Get In Touch</h4>
                          <!-- Single Widget -->
                          <div class="contact">
                              <ul>
-                                 <li>NO. 342 - London Oxford Street.</li>
-                                 <li>012 United Kingdom.</li>
-                                 <li>info@eshop.com</li>
-                                 <li>+032 3456 7890</li>
+                                 <li>Jakarta, Indonesia</li>
+                                 <li>info@buildhub.ac.id</li>
+                                 <li>(021) 89109763</li>
                              </ul>
                          </div>
                          <!-- End Single Widget -->
@@ -86,7 +85,7 @@
                      </div>
                      <div class="col-lg-6 col-12">
                          <div class="right">
-                             <img src="{{ asset('frontend/images/payments.png') }}" alt="#">
+                             {{-- <img src="{{ asset('frontend/images/payments.png') }}" alt="#"> --}}
                          </div>
                      </div>
                  </div>

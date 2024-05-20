@@ -25,7 +25,13 @@ class VendorserviceController extends Controller
         $vendor = Vendor::where('user_id', $userId)->first();
 
 
-        $data = VendorService::where('vendor_id', $vendor->id)->get();
+
+        if ($vendor) {
+            $data = VendorService::where('vendor_id', $vendor->id)->get();
+        } else {
+            $data = collect();
+        }
+
         $category = VendorCategory::all();
         $price = PriceRange::all();
 
@@ -37,6 +43,11 @@ class VendorserviceController extends Controller
         $userId = auth()->user()->id;
         $vendor = Vendor::where('user_id', $userId)->first();
 
+        // added mei 20
+        if (!$vendor) {
+            notify()->error('Please complete your vendor profile first!', 'Error!');
+            return Redirect::back();
+        }
 
         $request->validate([
             'image' => ['image', 'max:1500'],
@@ -78,7 +89,8 @@ class VendorserviceController extends Controller
             'name' => 'required',
             'category' => 'required',
             'price' => 'required',
-            'desc' => 'required'
+            'desc' => 'required',
+            'image' => 'nullable|image|max:1500'
         ]);
 
         $validatedData = $request->validate($rules);
@@ -91,7 +103,12 @@ class VendorserviceController extends Controller
             'desc' => $validatedData['desc']
         ]);
 
+        if ($request->hasFile('image')) {
+
+            $data->image = $this->uploadFile($request, 'image');
+        }
         $data->save();
+
 
         notify()->success('Updated Successfully⚡️', 'Success!');
 

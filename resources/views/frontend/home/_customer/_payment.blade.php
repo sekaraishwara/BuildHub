@@ -43,7 +43,7 @@
                             <div class="col-6 mx-auto  mb-4">
                                 <div class="d-flex justify-content-between">
                                     @php
-                                        $transactionDate = $getTransaction->transaction_date;
+                                        $transactionDate = $getTransaction->created_date;
                                         $payBefore = date('d-m-Y H:i:s', strtotime("$transactionDate +1 day"));
                                     @endphp
                                     <span>Pay Before</span>

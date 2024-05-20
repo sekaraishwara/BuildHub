@@ -50,6 +50,7 @@ class CustomerProfileController extends Controller
             $data
         );
 
+
         notify()->success('Updated Successfully⚡️', 'Success!');
 
         return redirect()->back();

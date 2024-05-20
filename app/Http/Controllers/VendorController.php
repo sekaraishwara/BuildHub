@@ -7,6 +7,7 @@ use App\Models\Vendor;
 use App\Models\Regencie;
 use Illuminate\View\View;
 use App\Models\PriceRange;
+use App\Traits\Searchable;
 use Illuminate\Http\Request;
 use App\Models\VendorService;
 use App\Models\VendorCategory;
@@ -17,6 +18,8 @@ use Illuminate\Http\RedirectResponse;
 
 class VendorController extends Controller
 {
+    use Searchable;
+
     function index(Request $request): View
     {
 
@@ -41,8 +44,7 @@ class VendorController extends Controller
                 $vendorService->where('price', $price->price_ranges);
             }
         }
-
-
+        $this->seacrh($vendorService, ['name']);
 
         $vendorService = $vendorService->get();
 

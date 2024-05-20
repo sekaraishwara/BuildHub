@@ -41,12 +41,10 @@
                                             {{-- Tampilkan detail pesan hanya if Anda bukan pengirimnya --}}
                                             @if ($message->sender_id !== Auth::id())
                                                 <a href="{{ route('inbox.show', $message->sender->name) }}">
-                                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                                        <div class="col-4 d-flex align-items-center p-0">
-                                                            <img src="{{ $message->sender->image }}" width="50px"
-                                                                alt="">
-                                                            <p class="ml-3 mb-0">{{ $message->sender->name }}</p>
-                                                        </div>
+                                                    <div class="d-flex justify-content-between align-items-center mb-4">
+
+                                                        <strong class=" mb-0">{{ $message->sender->name }}</strong>
+
                                                         <p>{{ $message->created_at->diffForHumans() }}</p>
                                                     </div>
                                                 </a>
@@ -54,11 +52,11 @@
                                                 {{-- Tampilkan detail penerima pesan hanya jika ada penerima --}}
                                                 @if ($message->receiver)
                                                     <a href="{{ route('inbox.show', $message->receiver->name) }}">
-                                                        <div class="d-flex justify-content-between align-items-center mb-3">
-                                                            <div class="col-4 d-flex align-items-center p-0">
-                                                                <img src="{{ $message->receiver->image }}" width="50px"
-                                                                    alt="">
-                                                                <p class="ml-3 mb-0">{{ $message->receiver->name }}</p>
+                                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                                            <div class="d-flex align-items-center p-0">
+
+                                                                <strong
+                                                                    class=" mb-0">{{ $message->receiver->name }}</strong>
                                                             </div>
                                                             <p>{{ $message->created_at->diffForHumans() }}</p>
                                                         </div>
@@ -76,6 +74,4 @@
             </div>
         </div>
     </section>
-
-    <div class="mt-120"></div>
 @endsection

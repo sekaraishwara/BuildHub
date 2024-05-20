@@ -6,11 +6,11 @@
             <ul class="categor-list">
                 <li><a href="{{ route('customer.dashboard') }}">Dashboard</a></li>
                 <li><a href="{{ route('customer.profile') }}">Profile</a></li>
-                <li><a href="{{ route('notification') }}">Notification</a></li>
                 <li><a href="{{ route('customer.order') }}">My Order</a></li>
-                <li><a href="{{ route('inbox') }}">Chat</a></li>
-                <li><a href="{{ route('customer.history-transaction') }}">History Transaction</a></li>
+                {{-- <li><a href="{{ route('inbox') }}">Chat</a></li> --}}
+                <li><a href="{{ route('customer.history-transaction') }}">History Order</a></li>
                 <li><a href="{{ route('customer.building-checklist') }}">Building Checklist</a></li>
+                <li><a href="{{ route('notification') }}">Notification</a></li>
                 {{-- <li><a href="#">History</a></li> --}}
                 <li>
                     <form method="POST" action="{{ route('logout') }}">

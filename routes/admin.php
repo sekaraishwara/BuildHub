@@ -17,6 +17,8 @@ use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Admin\Blog\DataBlogController;
+use App\Http\Controllers\Admin\Event\DataEventController;
 use App\Http\Controllers\Admin\Master\DataProfessionalController;
 use App\Http\Controllers\Admin\Master\DataStoreController;
 
@@ -48,13 +50,16 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
 
     /** Data-User Route*/
     Route::get('data-user', [DataUserController::class, 'index'])->name('data.user');
+    // Route::post('data-user/delete{id}', [DataUserController::class, 'delete'])->name('data.user.delete');
+
     Route::get('data-vendor', [DataVendorController::class, 'index'])->name('data.vendor');
     Route::get('data-professional', [DataProfessionalController::class, 'index'])->name('data.professional');
     Route::get('data-store', [DataStoreController::class, 'index'])->name('data.store');
 
     /** Data-Transaction Route*/
     Route::get('store-transaction/need-approve', [StoreTransactionController::class, 'needApprove'])->name('transaction.approval');
-    Route::post('store-transaction/approve-transaction/{id}', [StoreTransactionController::class, 'approveTransaction'])->name('transaction.approveTransaction');
+    Route::get('store-transaction/need-approve/service', [StoreTransactionController::class, 'needApproveService'])->name('transaction.approval.service');
+    Route::post('store-transaction/approve-transaction/{inv}', [StoreTransactionController::class, 'approveTransaction'])->name('transaction.approveTransaction');
 
     /** Data-Category Route*/
     Route::get('data-category/store', [DataCategoryController::class, 'storeCategory'])->name('data-category.store');
@@ -65,6 +70,22 @@ Route::group(['middleware' => ['auth:admin'], 'prefix' => 'admin', 'as' => 'admi
 
     Route::get('data-category/professional', [DataCategoryController::class, 'professionalCategory'])->name('data-category.professional');
     Route::post('data-category/professional/update', [DataCategoryController::class, 'professionalCategoryUpdate'])->name('data-category.professional.update');
+
+    /** Data-Blog Route*/
+    Route::get('/data-blog', [DataBlogController::class, 'index'])->name('data.blog');
+    Route::get('/data-blog/create', [DataBlogController::class, 'create'])->name('data.blog.create');
+    Route::post('/data-blog/store', [DataBlogController::class, 'store'])->name('data.blog.store');
+    Route::get('/data-blog/edit{slug}', [DataBlogController::class, 'edit'])->name('data.blog.edit');
+    Route::post('/data-blog/update{id}', [DataBlogController::class, 'update'])->name('data.blog.update');
+    Route::delete('/data-blog/delete{id}', [DataBlogController::class, 'delete'])->name('data.blog.delete');
+
+    /** Data-Event Route*/
+    Route::get('/data-event', [DataEventController::class, 'index'])->name('data.event');
+    Route::get('/data-event/create', [DataEventController::class, 'create'])->name('data.event.create');
+    Route::post('/data-event/store', [DataEventController::class, 'store'])->name('data.event.store');
+    Route::get('/data-event/edit{slug}', [DataEventController::class, 'edit'])->name('data.event.edit');
+    Route::post('/data-event/update{id}', [DataEventController::class, 'update'])->name('data.event.update');
+    Route::delete('/data-event/delete{id}', [DataEventController::class, 'delete'])->name('data.event.delete');
 
 
 

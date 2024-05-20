@@ -18,8 +18,12 @@ return new class extends Migration
             $table->string('service_name');
             $table->string('total_price');
             $table->string('client_email');
+            $table->string(' serviceProvider_name');
             $table->string('serviceProvider_email');
             $table->string('serviceProvider_id');
+            $table->string('isActive')->default(1);
+            $table->string('isPayment')->default(0);
+            $table->string('paid_at')->nullable();
             $table->timestamps();
         });
     }

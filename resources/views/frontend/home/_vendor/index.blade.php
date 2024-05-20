@@ -67,31 +67,25 @@
                 <div class="col-lg-9 col-md-8 col-12">
                     <div class="row">
                         <div class="col-12">
-                            <!-- Shop Top -->
-                            <div class="shop-top">
-                                <div class="shop-shorter">
-                                    <div class="single-shorter">
-                                        <label>Show :</label>
-                                        <select>
-                                            <option selected="selected">09</option>
-                                            <option>15</option>
-                                            <option>25</option>
-                                            <option>30</option>
-                                        </select>
-                                    </div>
-                                    <div class="single-shorter">
-                                        <label>Sort By :</label>
-                                        <select>
-                                            <option value="latest" selected="selected">Latest</option>
-                                            <option value="low_price">Low Price</option>
-                                            <option value="high_price">High Price</option>
-                                        </select>
-                                    </div>
+                            <div class="text-right">
+                                <div class="single-shorter">
+                                    <form class="search-form" action="{{ route('vendor') }}" method="GET">
+                                        <div class="d-flex justify-content-start">
+                                            <input type="text" class="form-control rounded-0"
+                                                placeholder="Search vendor here..." name="search"
+                                                value="{{ request('search') }}">
+                                            <button class="btn-primary px-2 rounded-0" value="search" type="submit"><i
+                                                    class="ti-search"></i></button>
+                                        </div>
+                                    </form>
+
                                 </div>
+
                             </div>
-                            <!--/ End Shop Top -->
                         </div>
                     </div>
+                    <hr>
+
                     <div class="row">
                         @foreach ($vendorService as $item)
                             <div class="col-lg-4 col-md-6 col-12">
@@ -100,19 +94,6 @@
                                         <a href="{{ route('serviceItemVendor', $item?->id) }}">
                                             <img class="default-img" src="{{ $item?->image }}" alt="product">
                                         </a>
-                                        <div class="button-head">
-                                            <div class="product-action">
-                                                <a data-toggle="modal" data-target="#exampleModal" title="Quick View"
-                                                    href="#"><i class=" ti-eye"></i><span>Quick Shop</span></a>
-                                                <a title="Wishlist" href="#"><i class=" ti-heart "></i><span>Add to
-                                                        Wishlist</span></a>
-                                                <a title="Compare" href="#"><i class="ti-bar-chart-alt"></i><span>Add
-                                                        to Compare</span></a>
-                                            </div>
-                                            <div class="product-action-2">
-                                                <a title="Add to cart" href="#">Add to cart</a>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="product-content">
                                         <h3><a href="product-details.html">{{ $item?->name }}</a></h3>

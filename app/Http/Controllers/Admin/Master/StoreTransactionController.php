@@ -6,6 +6,7 @@ use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\CustomerTransaction;
 use App\Http\Controllers\Controller;
+use App\Models\CustomerServiceOrder;
 use Illuminate\Http\RedirectResponse;
 
 class StoreTransactionController extends Controller
@@ -17,16 +18,24 @@ class StoreTransactionController extends Controller
         return view('admin.dashboard.store-transaction.needApprove', compact('data'));
     }
 
-    function approveTransaction(Request $request, $id): RedirectResponse
+    function needApproveService(): View
     {
-        $customerTransaction = CustomerTransaction::find($id);
+        $dataService = CustomerServiceOrder::all();
+
+        return view('admin.dashboard.store-transaction.needApproveService', compact('dataService'));
+    }
+
+    function approveTransaction($inv): RedirectResponse
+    {
+        $customerTransaction = CustomerTransaction::where('invoice_no', $inv)->first();
 
 
+        if (!$customerTransaction) {
+            $customerTransaction = CustomerServiceOrder::where('invoice_no', $inv)->first();
+        }
         $customerTransaction->update([
-            'isApproved' => 1
+            'isApprove' => 1
         ]);
-
-
 
         notify()->success('Approve Successfully⚡️', 'Success!');
 

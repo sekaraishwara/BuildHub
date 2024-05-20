@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\Professional;
 use App\Models\Professional;
 use Illuminate\Http\Request;
 use App\Traits\FileUploadTrait;
+use App\Models\ProfessionalService;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,13 @@ class ProfessionalPortfolioController extends Controller
         $userId = Auth::id();
         $professional = Professional::where('user_id', $userId)->first();
 
-        $data = ProfessionalPortfolio::where('professional_id', $professional->id)->get();
+
+        if ($professional) {
+            $data = ProfessionalPortfolio::where('professional_id', $professional->id)->get();
+        } else {
+            $data = collect();
+        }
+        // $data = ProfessionalPortfolio::where('professional_id', $professional->id)->get();
 
         return view('frontend._professional-dashboard._portfolio', compact('data'));
     }
@@ -29,7 +36,13 @@ class ProfessionalPortfolioController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $userId = auth()->user()->id;
-        // $professional = Professional::where('user_id', $userId)->first();
+        $professional = Professional::where('user_id', $userId)->first();
+
+        // added mei 20
+        if (!$professional) {
+            notify()->error('Please complete your professional profile first!', 'Error!');
+            return Redirect::back();
+        }
 
         $request->validate([
             'image' => ['image', 'max:1500'],
@@ -42,7 +55,7 @@ class ProfessionalPortfolioController extends Controller
         $imagePath = $this->uploadFile($request, 'image');
 
         $data = ProfessionalPortfolio::create([
-            'professional_id' => 1,
+            'professional_id' => $professional->id,
             'name' => $request->name,
             'desc' => $request->desc,
             'year' => $request->year,
@@ -67,7 +80,9 @@ class ProfessionalPortfolioController extends Controller
         $rules = ([
             'name' => 'required',
             'desc' => 'required',
-            'year' => 'required'
+            'year' => 'required',
+            'image' => 'nullable|image|max:1500'
+
         ]);
 
         $validatedData = $request->validate($rules);
@@ -79,6 +94,10 @@ class ProfessionalPortfolioController extends Controller
             'year' => $validatedData['year'],
         ]);
 
+        if ($request->hasFile('image')) {
+
+            $data->image = $this->uploadFile($request, 'image');
+        }
         $data->save();
 
         notify()->success('Updated Successfully⚡️', 'Success!');

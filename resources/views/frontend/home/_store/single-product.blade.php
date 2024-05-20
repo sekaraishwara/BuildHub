@@ -72,7 +72,11 @@
                                 @csrf
                                 <div class="d-none">
                                     <input name="product_id" value="{{ $storeProduct?->id }}">
+                                    <input name="store_name" value="{{ $storeProduct?->store->name }}">
+                                    <input name="item_name" value="{{ $storeProduct?->name }}">
+                                    <input name="item_image" value="{{ $storeProduct?->image }}">
                                     <input name="item_qty" value="1">
+                                    <input name="item_price" value="{{ $storeProduct?->display_price }}">
                                 </div>
                                 <button class="btn btn-cart mr-3"><i class="fa fa-shopping-cart mr-2"></i> Add to
                                     Cart</button>

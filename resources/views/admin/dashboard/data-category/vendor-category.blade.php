@@ -24,7 +24,6 @@
                                             <tr role="row">
                                                 <th>Category Name</th>
                                                 <th>Created_at</th>
-                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -32,7 +31,6 @@
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1">{{ $item->name }}</td>
                                                     <td>{{ $item->created_at->format('d-M-Y') }}</td>
-                                                    <td>Edit | Delete</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

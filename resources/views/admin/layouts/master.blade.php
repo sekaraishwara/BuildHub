@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>BUILDHUB CMS - ADMIN</title>
+    <title>BUILDHUB ADMIN</title>
     <meta name="description" content="Ela Admin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -23,6 +23,11 @@
 
     <link rel="stylesheet" href="{{ asset('admin/css/lib/datatable/dataTables.bootstrap.min.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css">
 </head>
 
 <body>
@@ -54,7 +59,7 @@
             <div class="footer-inner bg-white">
                 <div class="row">
                     <div class="col-sm-6">
-                        Copyright © {{ date('Y') }} BUILDHUB CMS - Admin
+                        Copyright © {{ date('Y') }} BUILDHUB - Admin
                     </div>
                 </div>
             </div>
@@ -87,81 +92,64 @@
     <script src="{{ asset('admin/js/lib/data-table/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('admin/js/init/datatables-init.js') }}"></script>
 
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.all.min.js"></script>
 
+    <style>
+        .trix-content {
+            height: 300px;
+        }
+    </style>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    {{-- <script>
-        var urlProvinsi = "https://ibnux.github.io/data-indonesia/provinsi.json";
-        var urlKabupaten = "https://ibnux.github.io/data-indonesia/kabupaten/";
 
-        function clearOptions(id) {
-            $('#' + id).empty().trigger('change');
-        }
-
-        console.log('Load Provinsi...');
-        $.getJSON(urlProvinsi, function(res) {
-
-            res = $.map(res, function(obj) {
-                obj.text = obj.nama
-                return obj;
-            });
-
-            data = [{
-                id: "",
-                nama: "- Pilih Provinsi -",
-                text: "- Pilih Provinsi -"
-            }].concat(res);
-
-            // Implement data ke select provinsi
-            $("#select2-provinsi").select2({
-                dropdownAutoWidth: true,
-                width: '100%',
-                data: data
-            })
-        });
-
-        var selectProv = $('#select2-provinsi');
-        $(selectProv).change(function() {
-            var value = $(selectProv).val();
-            clearOptions('select2-kabupaten');
-
-            if (value) {
-                console.log("on change selectProv");
-
-                var text = $('#select2-provinsi :selected').text();
-                console.log("value = " + value + " / " + "text = " + text);
-
-                console.log('Load Kabupaten di ' + text + '...')
-                $.getJSON(urlKabupaten + value + ".json", function(res) {
-
-                    res = $.map(res, function(obj) {
-                        obj.text = obj.nama
-                        return obj;
-                    });
-
-                    data = [{
-                        id: "",
-                        nama: "- Pilih Kabupaten -",
-                        text: "- Pilih Kabupaten -"
-                    }].concat(res);
-
-                    // Implement data ke select kabupaten
-                    $("#select2-kabupaten").select2({
-                        dropdownAutoWidth: true,
-                        width: '100%',
-                        data: data
-                    })
-                })
-            }
-        });
-    </script> --}}
 
 
     <x-notify::notify />
     @notifyJs
 
+
+    <script>
+        $(document).ready(function() {
+            $(".delete-item").on('click', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href'); // Ubah let menjadi var
+                Swal.fire({ // Ubah panggilan swal menjadi Swal.fire
+                    title: 'Are you sure?',
+                    text: 'Once deleted, you will not be able to recover this data!',
+                    icon: 'warning',
+                    showCancelButton: true, // Menggunakan showCancelButton daripada buttons:true
+                    confirmButtonColor: '#d33', // Ubah dangerMode menjadi confirmButtonColor
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Yes, delete it!',
+                }).then((result) => { // Mengubah willDelete menjadi result
+                    if (result
+                        .isConfirmed
+                    ) { // Menggunakan isConfirmed untuk mengecek apakah tombol konfirmasi ditekan
+                        $.ajax({
+                            method: 'DELETE',
+                            url: url,
+                            data: {
+                                _token: "{{ csrf_token() }}"
+                            },
+                            success: function(response) {
+                                window.location.reload();
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(xhr);
+                                Swal.fire(xhr.responseJSON
+                                    .message, { // Ubah swal menjadi Swal.fire
+                                        icon: 'error',
+                                    });
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

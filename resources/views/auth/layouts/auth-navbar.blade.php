@@ -9,7 +9,7 @@
                           <ul class="list-main">
                               <li>
                                   <i class="ti-email"></i>
-                                  support@shophub.com
+                                  info@buildhub.ac.id
                               </li>
                           </ul>
                       </div>
@@ -26,9 +26,6 @@
                               <li>
                                   <a href="{{ route('inbox') }}"><i class="ti-comments"></i> Message</a>
                               </li>
-                              <li>
-                                  <a href="#"><i class="ti-shopping-cart"></i> Cart</a>
-                              </li>
 
                           </ul>
                       </div>
@@ -43,7 +40,8 @@
                   <div class="col-lg-2 col-md-2 col-12">
                       <!-- Logo -->
                       <div class="logo m-0">
-                          <a href="{{ url('./') }}" class="navbar-brand">BUILDHUB</a>
+                          {{-- <a href="{{ url('./') }}" class="navbar-brand">BUILDHUB</a> --}}
+                          <a href=""><img src="{{ asset('default-uploads/logo.jpeg') }}" alt=""></a>
                       </div>
                       <!--/ End Logo -->
                       <!-- Search Form -->
@@ -88,8 +86,9 @@
                                   <a href="#" class="single-icon"><i class="fa fa-wechat" aria-hidden="true"></i></a>
                               </div> --}}
                               <div class="sinlge-bar shopping" data-toggle="dropdown">
-                                  <a href="#" class="single-icon"><i class="fa fa-user-circle-o"
-                                          aria-hidden="true"></i></a>
+                                  <a href="{{ route('customer.dashboard') }}" class="single-icon"><i
+                                          class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i></a>
+
                                   <div class="shopping-item dropdown">
                                       <div class="dropdown">
                                           <ul class="list">
@@ -132,7 +131,8 @@
                               </div>
                               @if (auth()->user()->role === 'customer')
                                   <div class="sinlge-bar shopping">
-                                      <a href="{{ route('customer.cart') }}" class="single-icon"><i class="ti-bag"></i>
+                                      <a href="{{ route('customer.cart') }}" class="single-icon"><i
+                                              class="fa fa-shopping-cart fa-lg"></i>
                                           <span id="total-count" class="total-count font-weight-bold"></span></a>
 
                                   </div>

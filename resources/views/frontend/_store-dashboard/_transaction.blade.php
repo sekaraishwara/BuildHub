@@ -24,14 +24,14 @@
         <div class="container">
             <div class="row">
                 @include('frontend._store-dashboard.sidebar')
-                <div class="col-lg-9 col-md-8 col-sm-12 col-12 mb-50">
+                <div class="col-lg-9 col-md-8 col-sm-12 col-12 mb-5">
                     <div class="content-single">
 
                         <div class="d-flex justify-content-between align-items-center">
                             <h3>Current Transaction</h3>
                         </div>
 
-                        <div class="my-4">
+                        <div class="my-3">
                             <table class="table table-hover" id="table">
                                 <thead>
                                     <tr>
@@ -55,17 +55,13 @@
                                             <td>{{ $item->invoice_no }}</td>
                                             <td>{{ $item->transaction_date }}</td>
                                             <td>
-                                                @foreach ($cartIds as $cart)
-                                                    @if ($cart['cart_id'] == $item->cart_id)
-                                                        {{ $cart['product_name'] }}
-                                                    @endif
+                                                @foreach ($item->checkout->items as $co)
+                                                    {{ $co->item_name }}
                                                 @endforeach
                                             </td>
                                             <td>
-                                                @foreach ($cartIds as $cart)
-                                                    @if ($cart['cart_id'] == $item->cart_id)
-                                                        {{ $cart['item_qty'] }}
-                                                    @endif
+                                                @foreach ($item->checkout->items as $co)
+                                                    {{ $co->item_name }}
                                                 @endforeach
                                             </td>
                                             <td>{{ number_format($item->total_price, 0, ',', '.') }}</td>
@@ -95,16 +91,10 @@
                         <div class="modal-header align-items-center">
                             <div class="row">
                                 <div class="col-12">
-                                    <input type="text" class="d-none" name="transaction_id" value="{{ $item->id }}">
+                                    <input type="text" class="d-none" name="invoice_no" value="{{ $item->invoice_no }}">
                                     <p class="modal-title">Transaction: {{ $item->invoice_no }}</p>
-                                    <!-- Move the product name here -->
-                                    @foreach ($cartIds as $cart)
-                                        @if ($cart['cart_id'] == $item->cart_id)
-                                            <h6 class="mt-2"> {{ $cart['product_name'] }}</h6>
-                                        @endif
-                                    @endforeach
+
                                 </div>
-                                <!-- Remove the product name from the previous column -->
                             </div>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>

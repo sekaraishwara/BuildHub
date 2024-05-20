@@ -98,14 +98,14 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
-                                                <label>Email Store<span>*</span></label>
+                                                <label>Email Customer<span>*</span></label>
                                                 <input type="text" class="form-control" name="email" placeholder=""
-                                                    required="required" value="{{ $customerInfo?->email }}">
+                                                    required="required" value="{{ auth()->user()->email }}">
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
-                                                <label>Phone Store<span>*</span></label>
+                                                <label>Phone Customer<span>*</span></label>
                                                 <input type="text" class="form-control" name="phone" placeholder=""
                                                     required="required" value="{{ $customerInfo?->phone }}">
                                             </div>
@@ -182,7 +182,7 @@
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
-                                                <label>Password</label>
+                                                <label>Change Password</label>
                                                 <input type="text" class="form-control" name="password"
                                                     placeholder="" required="required">
                                             </div>

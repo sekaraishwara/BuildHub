@@ -9,7 +9,7 @@
                           <ul class="list-main">
                               <li>
                                   <i class="ti-email"></i>
-                                  support@shophub.com
+                                  info@buildhub.ac.id
                               </li>
                           </ul>
                       </div>
@@ -18,16 +18,24 @@
                   <div class="col-lg-8 col-md-12 col-12">
                       <!-- Top Right -->
                       <div class="right-content">
-                          <ul class="list-main">
+                          @auth
+                              <ul class="list-main">
+                                  <li>
+                                      <a href="{{ route('notification') }}" class="single-icon"><i class="fa fa-bell-o"
+                                              aria-hidden="true"></i> Notification</a>
+                                  </li>
+                                  <li>
+                                      <a href="{{ route('inbox') }}"><i class="ti-comments"></i> Message</a>
+                                  </li>
+
+                              </ul>
+                          @endauth
+                          <ul class="list-main d-lg-none">
                               <li>
-                                  <a href="{{ route('notification') }}" class="single-icon"><i class="fa fa-bell-o"
-                                          aria-hidden="true"></i> Notification</a>
+                                  <a href="{{ route('login') }}" class="single-icon"> Login</a>
                               </li>
                               <li>
-                                  <a href="{{ route('inbox') }}"><i class="ti-comments"></i> Message</a>
-                              </li>
-                              <li>
-                                  <a href="#"><i class="ti-shopping-cart"></i> Cart</a>
+                                  <a href="{{ route('register.as') }}"> Register</a>
                               </li>
 
                           </ul>
@@ -43,7 +51,8 @@
                   <div class="col-lg-2 col-md-2 col-12">
                       <!-- Logo -->
                       <div class="logo m-0">
-                          <a href="{{ url('./') }}" class="navbar-brand">BUILDHUB</a>
+                          {{-- <a href="{{ url('./') }}" class="navbar-brand">BUILDHUB</a> --}}
+                          <a href=""><img src="{{ asset('default-uploads/logo.jpeg') }}" alt=""></a>
                       </div>
                       <!--/ End Logo -->
                       <!-- Search Form -->
@@ -92,8 +101,8 @@
                               <a href="#" class="single-icon"><i class="fa fa-wechat" aria-hidden="true"></i></a>
                           </div> --}}
                               <div class="sinlge-bar shopping" data-toggle="dropdown">
-                                  <a href="#" class="single-icon"><i class="fa fa-user-circle-o"
-                                          aria-hidden="true"></i></a>
+                                  <a href="{{ route('customer.dashboard') }}" class="single-icon"><i
+                                          class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i></a>
                                   <div class="shopping-item dropdown">
                                       <div class="dropdown">
                                           <ul class="list">
@@ -137,7 +146,8 @@
                               </div>
                               @if (auth()->user()->role === 'customer')
                                   <div class="sinlge-bar shopping">
-                                      <a href="{{ route('customer.cart') }}" class="single-icon"><i class="ti-bag"></i>
+                                      <a href="{{ route('customer.cart') }}" class="single-icon"><i
+                                              class="fa fa-shopping-cart fa-lg"></i>
                                           <span id="total-count" class="total-count font-weight-bold"></span></a>
                                       <!-- Shopping Item -->
 
@@ -185,8 +195,8 @@
                                               <li><a href="{{ route('vendor') }}">Vendor</a></li>
                                               <li><a href="{{ route('professional') }}">Professional</a></li>
                                               <li><a href="{{ route('store') }}">Store</a></li>
-                                              <li><a href="#">Event</a></li>
-                                              <li><a href="#">Blog</a></li>
+                                              <li><a href="{{ route('blog') }}">Blog</a></li>
+                                              <li><a href="{{ route('event') }}">Event</a></li>
                                           </ul>
                                       </div>
                                   </div>

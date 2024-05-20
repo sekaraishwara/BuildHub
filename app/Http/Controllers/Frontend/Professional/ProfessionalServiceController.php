@@ -23,7 +23,13 @@ class ProfessionalServiceController extends Controller
         $userId = Auth::id();
         $professional = Professional::where('user_id', $userId)->first();
 
-        $data = ProfessionalService::where('professional_id', $professional->id)->get();
+        if ($professional) {
+            $data = ProfessionalService::where('professional_id', $professional->id)->get();
+        } else {
+            $data = collect();
+        }
+
+
         $category = ProfessionalCategory::all();
         $price = PriceRange::all();
 
@@ -34,6 +40,11 @@ class ProfessionalServiceController extends Controller
     {
         $userId = auth()->user()->id;
         $professional = Professional::where('user_id', $userId)->first();
+
+        if (!$professional) {
+            notify()->error('Please complete your professional profile first!', 'Error!');
+            return Redirect::back();
+        }
 
         $request->validate([
             'image' => ['image', 'max:1500'],
@@ -77,7 +88,8 @@ class ProfessionalServiceController extends Controller
             'name' => 'required',
             'category' => 'required',
             'desc' => 'required',
-            'price' => 'required'
+            'price' => 'required',
+            'image' => 'nullable|image|max:1500'
         ]);
 
         $validatedData = $request->validate($rules);
@@ -90,6 +102,10 @@ class ProfessionalServiceController extends Controller
             'price' => $validatedData['price']
         ]);
 
+        if ($request->hasFile('image')) {
+
+            $data->image = $this->uploadFile($request, 'image');
+        }
         $data->save();
 
         notify()->success('Updated Successfully⚡️', 'Success!');

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\VendorPortfolio;
 use App\Traits\FileUploadTrait;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 
@@ -18,7 +19,16 @@ class VendorPortfolioController extends Controller
     public function index(): View
     {
 
-        $data = VendorPortfolio::all();
+        $userId = Auth::id();
+        $vendor = Vendor::where('user_id', $userId)->first();
+
+
+        if ($vendor) {
+            $data = VendorPortfolio::where('vendor_id', $vendor->id)->get();
+        } else {
+            $data = collect();
+        }
+        // $data = VendorPortfolio::all();
 
         return view('frontend._vendor-dashboard._portfolio', compact('data'));
     }
@@ -27,6 +37,12 @@ class VendorPortfolioController extends Controller
     {
         $userId = auth()->user()->id;
         $vendor = Vendor::where('user_id', $userId)->first();
+
+        // added mei 20
+        if (!$vendor) {
+            notify()->error('Please complete your vendor profile first!', 'Error!');
+            return Redirect::back();
+        }
 
         $request->validate([
             'image' => ['image', 'max:1500'],
@@ -63,7 +79,8 @@ class VendorPortfolioController extends Controller
         $rules = ([
             'name' => 'required',
             'desc' => 'required',
-            'year' => 'required'
+            'year' => 'required',
+            'image' => 'nullable|image|max:1500'
         ]);
 
         $validatedData = $request->validate($rules);
@@ -75,6 +92,10 @@ class VendorPortfolioController extends Controller
             'year' => $validatedData['year'],
         ]);
 
+        if ($request->hasFile('image')) {
+
+            $data->image = $this->uploadFile($request, 'image');
+        }
         $data->save();
 
         notify()->success('Updated Successfully⚡️', 'Success!');

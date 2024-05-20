@@ -148,7 +148,8 @@
         <div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" role="dialog"
             aria-labelledby="editModal" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
-                <form method="POST" action="{{ route('vendor.service.update', ['id' => $item->id]) }}">
+                <form method="POST" action="{{ route('vendor.service.update', ['id' => $item->id]) }}"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="modal-content">
                         <div class="modal-header">

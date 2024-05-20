@@ -13,15 +13,13 @@ class Conversation extends Model
 
     public function sender()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'user1_id'); // Merujuk ke user1_id sebagai sender
     }
 
     public function receiver()
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'user2_id'); // Merujuk ke user2_id sebagai receiver
     }
-
-
 
     public function messages()
     {

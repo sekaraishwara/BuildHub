@@ -35,4 +35,9 @@ class Store extends Model
     {
         return $this->hasMany(Notification::class);
     }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

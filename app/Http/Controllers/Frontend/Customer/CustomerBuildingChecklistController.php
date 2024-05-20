@@ -21,44 +21,11 @@ class CustomerBuildingChecklistController extends Controller
         $user = Auth::user();
 
         $data = CustomerChecklist::where('user_id', $user->id)
-            ->orderBy('isComplete', 'desc')
+            ->orderBy('isComplete', 'asc')
             ->get();
 
         return view('frontend._customer-dashboard._buiding-checklist', compact('data'));
     }
-
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    // public function create(Request $request): RedirectResponse
-    // {
-    //     $user = Auth::user();
-
-
-    //     $request->validate([
-    //         'title' => 'string|max:100',
-    //         'list' => 'string|max:100|nullable',
-    //         'notes' => 'string|max:100|nullable',
-    //     ]);
-
-    //     $data = [
-    //         'user_id' => $user->id,
-    //     ];
-
-    //     $customerChecklist = CustomerChecklist::updateOrCreate(
-    //         $data,
-    //         [
-    //             'title' => $request->title,
-    //             'list' => $request->list,
-    //             'notes' => $request->notes,
-    //         ]
-    //     );
-
-    //     notify()->success('Saved Project Successfully⚡️', 'Success!');
-
-    //     return redirect()->back();
-    // }
 
     public function create(Request $request): RedirectResponse
     {
@@ -148,5 +115,39 @@ class CustomerBuildingChecklistController extends Controller
         notify()->success('Completed Successfully⚡️', 'Success!');
 
         return redirect()->back();
+    }
+
+    public function pin($id)
+    {
+        $checklist = CustomerChecklist::findOrFail($id);
+        $checklist->isActive = false;
+        $checklist->save();
+
+        notify()->success('Project pinned successfully!⚡️', 'Success!');
+
+        return redirect()->back();
+    }
+    public function unpin($id)
+    {
+        $checklist = CustomerChecklist::findOrFail($id);
+        $checklist->isActive = true;
+        $checklist->save();
+
+        notify()->success('Project pinned successfully!⚡️', 'Success!');
+
+        return redirect()->back();
+    }
+
+    public function delete($id)
+    {
+        try {
+            CustomerChecklist::findOrFail($id)->delete();
+            notify()->success('Deleted Successfully⚡️', 'Success!');
+
+            return response(['message' => 'success'], 200);
+        } catch (\Exception $e) {
+            logger($e);
+            return response(['message' => 'Something Went Wrong. Please Try Again!'], 500);
+        }
     }
 }

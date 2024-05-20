@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Frontend\Home;
 
+use App\Models\Messages;
+use App\Traits\Searchable;
 use App\Models\Conversation;
+use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Messages;
-use GuzzleHttp\Psr7\Message;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 
 class MessagesController extends Controller
 {
+
+    use Searchable;
 
     /**
      * Store a newly created resource in storage.
@@ -29,28 +32,12 @@ class MessagesController extends Controller
             ->get() // Kelompokkan data berdasarkan pasangan user1_id dan user2_id
         ;
 
+        // dd($getConversation);
         $count = Conversation::with('sender', 'receiver')
             ->where(function ($query) use ($user) {
                 $query->where('user1_id', $user->id)
                     ->orWhere('user2_id', $user->id);
             })->count();
-
-        // $senderNames = [];
-        // $senderImgs = [];
-
-        // foreach ($getConversation as $conversation) {
-        //     foreach ($conversation->messages as $message) {
-        //         if ($message->sender_id !== $user->id) {
-        //             $senderNames[] = $message->sender->name;
-        //             $senderImgs[] = $message->sender->image;
-        //         }
-        //     }
-        // }
-
-        // $senderName = array_unique($senderNames);
-        // $senderImg = array_unique($senderImgs);
-
-        // dd($senderName);
 
         return view('frontend.defaults._display-all-chat', compact('getConversation', 'count'));
     }
@@ -58,7 +45,6 @@ class MessagesController extends Controller
 
     public function show($senderName)
     {
-
         $user = Auth::user();
         $sender = User::where('name', $senderName)->first();
 
@@ -80,51 +66,15 @@ class MessagesController extends Controller
             abort(404);
         }
 
-        $allMessages = Conversation::with(['sender', 'receiver'])
-            ->where('user1_id', $user->id)
-            ->orWhere('user2_id', $user->id)
+        $allMessages = Conversation::with('sender', 'receiver')
+            ->where(function ($query) use ($user) {
+                $query->where('user1_id', $user->id)
+                    ->orWhere('user2_id', $user->id);
+            })
             ->get();
 
 
-
         return view('frontend.defaults._chat', compact('messages', 'sender', 'allMessages'));
-
-        // $user = Auth::user();
-        // $sender = User::where('name', $senderName)->first();
-
-        // $conversation = Conversation::where(function ($query) use ($user, $sender) {
-        //     $query->where('user1_id', $user->id)
-        //         ->where('user2_id', $sender->id);
-        // })->orWhere(function ($query) use ($user, $sender) {
-        //     $query->where('user1_id', $sender->id)
-        //         ->where('user2_id', $user->id);
-        // })->first();
-
-        // // if theres no conversation
-        // if (!$conversation) {
-        //     return view('frontend.defaults._empty-chat', compact('sender'));
-        // }
-
-        // // if theres a conversation
-        // $messages = Messages::with('sender')
-        //     ->where(function ($query) use ($user, $sender) {
-        //         $query->where('receiver_id', $user->id)
-        //             ->where('sender_id', $sender->id);
-        //     })
-        //     ->orWhere(function ($query) use ($user, $sender) {
-        //         $query->where('receiver_id', $sender->id)
-        //             ->where('sender_id', $user->id);
-        //     })
-        //     ->orderBy('created_at')
-        //     ->get();
-
-        // // dd($messages);
-
-        // if (!$messages) {
-        //     abort(404);
-        // }
-
-        return view('frontend.defaults._chat', compact('messages', 'sender'));
     }
 
     // public function store(Request $request)
@@ -198,7 +148,7 @@ class MessagesController extends Controller
         $message->conversation_id = $conversation->id;
         $message->save();
 
-        // Redirect atau response sesuai kebutuhan Anda
-        return redirect()->back()->with('success', 'Pesan berhasil dikirim');
+        notify()->success('Send Messages Successfully⚡️', 'Success!');
+        return redirect()->back();
     }
 }

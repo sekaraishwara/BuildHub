@@ -111,7 +111,7 @@
                                             <div class="col-6 p-0">
                                                 <label for="totalAmount">Total Amount:</label>
                                                 <h5 id="totalAmount" class="font-weight-bold">0</h5>
-                                                <input type="number" name="total_price">
+                                                <input type="number" class="d-none" name="total_price">
                                             </div>
                                             <div class="col-6 p-0 text-right">
                                                 <button type="button" id="calculateBtn"

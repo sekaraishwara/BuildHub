@@ -19,4 +19,9 @@ class HomeController extends Controller
         $storeProduct = StoreProduct::all();
         return view('frontend.home.index', compact('serviceProfessional', 'serviceVendor', 'storeProduct'));
     }
+
+    function helpCenter(): View
+    {
+        return view('frontend.defaults._help-center');
+    }
 }

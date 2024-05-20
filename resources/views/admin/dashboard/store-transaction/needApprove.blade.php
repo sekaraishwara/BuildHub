@@ -34,19 +34,19 @@
                                             @foreach ($data as $item)
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1">
-                                                        @if ($item->isApproved)
-                                                            <span class="text-success">Approved</span>
+                                                        @if ($item->isApprove)
+                                                            <span class="text-success">Approve by Admin</span>
                                                         @else
-                                                            <span class="text-danger">Waiting for Payment</span>
+                                                            <span class="text-danger">Waiting for Approve</span>
                                                         @endif
                                                     </td>
                                                     <td class="sorting_1">{{ $item->invoice_no }}</td>
                                                     <td class="sorting_1">{{ $item->transaction_date }}</td>
                                                     <td class="sorting_1">{{ $item->isActive ? 'Yes' : 'No' }}</td>
-                                                    <td class="sorting_1">{{ $item->payment_status }}</td>
+                                                    <td class="sorting_1" width="5%">{{ $item->payment_status }}</td>
                                                     <td class="sorting_1">{{ $item->paid_at }}</td>
                                                     <form
-                                                        action="{{ route('admin.transaction.approveTransaction', $item->id) }}"
+                                                        action="{{ route('admin.transaction.approveTransaction', $item->invoice_no) }}"
                                                         method="post">
                                                         @csrf
                                                         @if ($item->payment_status === 'paid')
@@ -56,9 +56,9 @@
                                                             <td> <button class="btn btn-sm btn-secondary disabled">Approved
                                                             </td>
                                                             </button>
+                                                        @endif
                                                     </form>
-                                            @endif
-                                            </tr>
+                                                </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -67,42 +67,9 @@
 
                         </div>
 
+
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <form action="{{ route('admin.data-category.store.update') }}" method="POST">
-                    <div class="modal-body">
-                        @csrf
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="company" class=" form-control-label">Category
-                                        Name</label>
-                                    <input type="text" id="name" name="name" placeholder="Enter category name"
-                                        class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

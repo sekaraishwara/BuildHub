@@ -48,4 +48,25 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class);
     }
+
+
+    public function customer()
+    {
+        return $this->hasOne(Customer::class);
+    }
+
+    public function store()
+    {
+        return $this->hasOne(Store::class);
+    }
+
+    public function vendor()
+    {
+        return $this->hasOne(Vendor::class);
+    }
+
+    public function professional()
+    {
+        return $this->hasOne(Professional::class);
+    }
 }

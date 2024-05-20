@@ -28,8 +28,11 @@ use App\Http\Controllers\Frontend\Customer\CustomerTransactionController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalProfileController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalServiceController;
 use App\Http\Controllers\Frontend\Customer\CustomerBuildingChecklistController;
+use App\Http\Controllers\Frontend\Home\BlogController;
+use App\Http\Controllers\Frontend\Home\EventController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalPortfolioController;
 use App\Http\Controllers\Frontend\Professional\ProfessionalServiceOrderController;
+use App\Http\Controllers\Frontend\Vendor\VendorServiceOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +53,14 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/professional', [ProfessionalController::class, 'index'])->name('professional');
 Route::get('/store', [StoreController::class, 'index'])->name('store');
 Route::get('/vendorr', [VendorController::class, 'index'])->name('vendor');
+
+Route::get('/help-center-buildhub', [HomeController::class, 'helpCenter'])->name('help-center');
+
+Route::get('/blog', [BlogController::class, 'index'])->name('blog');
+Route::get('/blog/show/{slug}', [BlogController::class, 'show'])->name('blog.show');
+
+Route::get('/event', [EventController::class, 'index'])->name('event');
+Route::get('/event/show/{slug}', [EventController::class, 'show'])->name('event.show');
 
 Route::get('/product/{slug}', [StoreController::class, 'singleProduct'])->name('singleItem');
 Route::get('/service/by-professional/{slug}', [ProfessionalController::class, 'singleService'])->name('serviceItemProfessional');
@@ -84,21 +95,31 @@ Route::group(
         Route::post('/profile/password-update', [CustomerProfileController::class, 'updatePassword'])->name('profile.password-update');
 
 
-        Route::get('/cart', [CustomerCartController::class, 'index'])->name('cart');
-        Route::post('/cart/add', [CustomerCartController::class, 'addToCart'])->name('cart.addToCart');
         Route::delete('/cart/delete/{id}', [CustomerCartController::class, 'delete'])->name('cart.delete');
+        Route::post('/cart/add', [CustomerCartController::class, 'addToCart'])->name('cart.addToCart');
 
         Route::get('/cart/count-items', [CustomerCartController::class, 'getTotalItemCart'])->name('getTotalItemCart');
 
-        Route::get('/cart/checkout', [CustomerCartController::class, 'sessionCheckout'])->name('sessionCheckout');
-        Route::post('/cart/checkout', [CustomerCartController::class, 'sessionCheckout'])->name('sessionCheckout');
+        // START BEGIN CHECKOUT
+        Route::get('/cart', [CustomerCartController::class, 'index'])->name('cart');
+        Route::post('/cart/checkout/', [CustomerCartController::class, 'checkoutStore'])->name('checkout.store');
+        Route::get('/cart/checkout/item/{checkout_id}', [CustomerCartController::class, 'checkoutItem'])->name('checkout.item');
+        Route::post('/cart/checkout/submit', [CustomerCartController::class, 'checkoutSubmit'])->name('checkout.submit');
 
-        Route::post('/cart/checkout-submit', [CustomerCartController::class, 'sessionTransaction'])->name('sessionTransaction');
 
-        Route::get('/payment', [CustomerTransactionController::class, 'getPayment'])->name('payment');
+        // Route::get('/cart/checkout/{cartId}', [CustomerCartController::class, 'checkoutItem'])->name('checkout.item');
+
+        // END BEGIN CHECKOUT
+
+        // Route::get('/cart/checkout', [CustomerCartController::class, 'sessionCheckout'])->name('sessionCheckout');
+        // Route::post('/cart/checkout', [CustomerCartController::class, 'sessionCheckout'])->name('sessionCheckout');
+
+
+        Route::get('/payment{inv}', [CustomerTransactionController::class, 'getPayment'])->name('payment');
 
         Route::get('/transaction', [CustomerDashboardController::class, 'transaction'])->name('order');
-        Route::post('/transaction/payment-upload', [CustomerTransactionController::class, 'uploadPayment'])->name('payment.upload');
+        // Route::post('/transaction/payment-upload', [CustomerTransactionController::class, 'uploadPayment'])->name('payment.upload');
+        Route::post('/transaction/payment-upload', [CustomerTransactionController::class, 'uploadPaymentProof'])->name('payment.upload');
 
         Route::get('/chat', [CustomerChatController::class, 'index'])->name('chat');
         Route::get('/chat/sendMessage', [CustomerChatController::class, 'sendMessage'])->name('send.sendMessage');
@@ -106,6 +127,7 @@ Route::group(
 
         Route::get('/history-transaction', [CustomerDashboardController::class, 'historyTransaction'])->name('history-transaction');
         Route::post('/history-transaction/send-rate', [CustomerTransactionController::class, 'sessionRate'])->name('sessionRate');
+        Route::post('/history-transaction/service-send-rate', [CustomerTransactionController::class, 'serviceRate'])->name('serviceRate');
 
         Route::get('/building-checklist', [CustomerBuildingChecklistController::class, 'index'])->name('building-checklist');
         Route::post('/building-checklist', [CustomerBuildingChecklistController::class, 'create'])->name('building-checklist.create');
@@ -113,6 +135,9 @@ Route::group(
         Route::delete('/building-checklist/items-delete{id}', [CustomerBuildingChecklistController::class, 'deleteItem'])->name('building-checklist.items-delete');
         Route::post('/building-checklist/items-done{id}', [CustomerBuildingChecklistController::class, 'doneItem'])->name('building-checklist.items-done');
         Route::post('/building-checklist/complete{id}', [CustomerBuildingChecklistController::class, 'complete'])->name('building-checklist.complete');
+        Route::post('/building-checklist/pin{id}', [CustomerBuildingChecklistController::class, 'pin'])->name('building-checklist.pin');
+        Route::post('/building-checklist/unpin{id}', [CustomerBuildingChecklistController::class, 'unpin'])->name('building-checklist.unpin');
+        Route::delete('/building-checklist/delete{id}', [CustomerBuildingChecklistController::class, 'delete'])->name('building-checklist.delete');
     }
 );
 
@@ -144,6 +169,9 @@ Route::group(
         Route::get('/order', [ProfessionalServiceOrderController::class, 'index'])->name('service.order');
         Route::get('/order/create', [ProfessionalServiceOrderController::class, 'create'])->name('service.order.create');
         Route::post('/order/store', [ProfessionalServiceOrderController::class, 'store'])->name('service.order.store');
+        Route::get('/order/show/{inv}', [ProfessionalServiceOrderController::class, 'show'])->name('service.order.show');
+        // added 20 mei
+        Route::delete('/order/delete{id}', [ProfessionalServiceOrderController::class, 'delete'])->name('service.order.delete');
     }
 );
 
@@ -171,6 +199,12 @@ Route::group(
         Route::post('/portfolio/store', [VendorPortfolioController::class, 'store'])->name('portfolio.store');
         Route::post('/portfolio/update{id}', [VendorPortfolioController::class, 'update'])->name('portfolio.update');
         Route::post('/portfolio/delete{id}', [VendorPortfolioController::class, 'delete'])->name('portfolio.delete');
+
+        Route::get('/order', [VendorServiceOrderController::class, 'index'])->name('service.order');
+        Route::get('/order/create', [VendorServiceOrderController::class, 'create'])->name('service.order.create');
+        Route::post('/order/store', [VendorServiceOrderController::class, 'store'])->name('service.order.store');
+        Route::get('/order/show/{inv}', [VendorServiceOrderController::class, 'show'])->name('service.order.show');
+        Route::delete('/order/delete{id}', [VendorServiceOrderController::class, 'delete'])->name('service.order.delete');
     }
 );
 

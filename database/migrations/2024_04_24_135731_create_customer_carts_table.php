@@ -16,8 +16,12 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade'); // krena customers itu untuk detail identitas as a Customer
             $table->foreignId('product_id')->constrained('store_products')->onDelete('cascade');
 
+            $table->string('store_name');
             $table->string('item_qty')->default(0); // per product
-            $table->date('date'); // per product
+            $table->string('item_name');
+            $table->integer('item_price');
+            $table->string('item_image');
+            $table->date('date');
 
             $table->timestamps();
         });

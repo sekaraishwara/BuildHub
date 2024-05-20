@@ -15,86 +15,89 @@
             </div>
         </div>
     </div>
-    <form action="{{ route('customer.sessionCheckout') }}" method="post">
+    <form action="{{ route('customer.checkout.submit') }}" method="post">
         @csrf
         <section class="shop checkout section p-0 mt-5">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            @foreach ($cartItems as $item)
-                                <div class="d-flex justify-content-start">
-
-                                    <input type="text" class="d-none" name="card_id" value="{{ $item['cart_id'] }}">
-                                    <input type="text" class="d-none" name="invoice_no" value="{{ $transInv }}">
-                                    <input type="text" class="d-none" name="transaction_date"
-                                        value="{{ $transDate }}">
-                                    <input type="text" class="d-none" name="total_price"
-                                        value="{{ $item['product_price'] * $item['product_qty'] }}">
-                                    <input type="text" class="d-none" name="shipping_address"
-                                        value="{{ $item['customer_alamat'] }}">
-                                </div>
-                                <div class="card-body">
-                                    <div class="customer customer-info">
+                            <div class="d-flex justify-content-start">
+                                <input type="hidden" class="" name="checkout_id" value="{{ $checkoutId }}">
+                            </div>
+                            <div class="card-body">
+                                <div class="customer customer-info">
+                                    @if ($cartItems)
                                         <div class="col-12">
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <strong><i class="fa fa-location-arrow mx-2"></i> Shipping to:
                                                 </strong>
-                                                <span>{{ $item['customer_name'] }}</span>
-                                                <span>{{ $item['customer_phone'] }}</span>
-                                                <span>{{ $item['customer_alamat'] }}, BEKASI, JAWA BARAT, 17520</span>
+                                                <span>{{ $customer->name }}</span>
+                                                <span>{{ $customer->phone }}</span>
+                                                <span>{{ $customer->alamat }}, {{ $customer->kota }},
+                                                    {{ $customer->kodepos }}</span>
                                                 <a href="{{ route('customer.profile') }}" class="text-primary"><i
                                                         class="fa fa-pencil-square-o mx-2"></i>Change Address</a>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 </div>
-                            @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section class="shop checkout section p-0">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="checkout-form">
-                            <h2 class="mb-3">Product Order</h2>
-                            {{-- <p>Please register in order to checkout more quickly</p> --}}
-                            @foreach ($cartItems as $item)
+        @foreach ($cartItems as $item)
+            <section class="shop checkout section p-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="checkout-form">
+                                <h2 class="mb-3">Product Order</h2>
                                 <div class="row">
                                     <div class="col-12">
+                                        <div class="d-none">
+                                            <input type="text" class="" name="store_name"
+                                                value="{{ $item->store_name }}">
+                                            <input type="text" class="" name="total_price"
+                                                value="{{ $item->item_price * $item->item_qty }}">
+                                            <input type="text" class="" name="shipping_address"
+                                                value="{{ $customer->alamat }}, {{ $customer->kota }}">
+                                            <input type="text" name="item_qty" value="{{ $item->item_qty }}">
+                                            <input type="text" name="product_id" value="{{ $item->product_id }}">
+                                            <input type="text" name="item_price" value="{{ $item->item_price }}">
+                                            <input type="text" name="item_name" value="{{ $item->item_name }}">
+                                            <input type="text" name="item_image" value="{{ $item->item_image }}">
+                                        </div>
                                         <div class="card">
                                             <div class="card-header">
                                                 <div class="col-12">
                                                     <p class="m-0"><i
-                                                            class="fa fa-home mr-2"></i>{{ $item['store_name'] }}
+                                                            class="fa fa-home mr-2"></i>{{ $item->store_name }}
                                                     </p>
                                                 </div>
                                             </div>
                                             <div class="card-body">
-
                                                 <div class="d-flex justify-content-between align-items-center">
-
                                                     <div class="col-2">
-                                                        <img src="{{ $item['product_img'] }}" alt="">
+                                                        <img src="{{ $item->item_image }}" alt="">
                                                     </div>
                                                     <div class="col-3">
                                                         <p class="mb-2 text-muted">Product Name
                                                         </p>
-                                                        <p>{{ $item['product_name'] }}</p>
+                                                        <p>{{ $item->item_name }}</p>
 
                                                     </div>
                                                     <div class="col-2">
                                                         <p class="mb-2 text-muted">Item Qty
                                                         </p>
-                                                        <p>{{ $item['product_qty'] }}</p>
+                                                        <p>{{ $item->item_qty }}</p>
                                                     </div>
                                                     <div class="col-2">
                                                         <p class="mb-2 text-muted">Item Price
                                                         </p>
-                                                        <p>Rp{{ number_format($item['product_price'], 0, ',', '.') }}
+                                                        <p>Rp{{ number_format($item->item_price, 0, ',', '.') }}
                                                         </p>
 
                                                     </div>
@@ -102,7 +105,7 @@
                                                         <p class="mb-2 text-muted">Subtotal Product
                                                         </p>
                                                         <p id="total-payment">
-                                                            Rp{{ number_format($item['product_price'] * $item['product_qty'], 0, ',', '.') }}
+                                                            Rp{{ number_format($item->item_price * $item->item_qty, 0, ',', '.') }}
                                                         </p>
 
                                                     </div>
@@ -113,11 +116,11 @@
                                                 <div class="col-12 ">
                                                     <div class="d-flex align-items-center justify-content-end p-2">
 
-                                                        <span class="mr-2">Total Payment ({{ $item['product_qty'] }}
+                                                        <span class="mr-2">Total Payment ({{ $item->item_qty }}
                                                             Product):
 
                                                         </span>
-                                                        <h5> Rp{{ number_format($item['product_price'] * $item['product_qty'], 0, ',', '.') }}
+                                                        <h5> Rp{{ number_format($item->item_price * $item->item_qty, 0, ',', '.') }}
                                                         </h5>
                                                     </div>
                                                 </div>
@@ -125,17 +128,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <section class="shop checkout section p-0 mb-5">
-            <div class="container">
-                <div class="row">
-                    @foreach ($cartItems as $item)
+            <section class="shop checkout section p-0 mb-5">
+                <div class="container">
+                    <div class="row">
                         <div class="col-12">
                             <div class="card border-top-0 rounded-0">
                                 <div class="card-body">
@@ -145,7 +146,7 @@
                                                 Subtotal Product:
                                             </td>
                                             <td class="td-value">
-                                                Rp{{ number_format($item['product_price'] * $item['product_qty'], 0, ',', '.') }}
+                                                Rp{{ number_format($item->item_price * $item->item_qty, 0, ',', '.') }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -168,7 +169,63 @@
                                             </td>
                                             <td class="td-value">
                                                 <h3 id="totalPayment">
-                                                    Rp{{ number_format($item['product_price'] * $item['product_qty'], 0, ',', '.') }}
+                                                    Rp{{ number_format($item->item_price * $item->item_qty, 0, ',', '.') }}
+                                                </h3>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="card-footer bg-white p-4">
+                                    <div class="d-flex justify-content-end">
+                                        <button class="btn text-white" type="submit">Create
+                                            Order</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        @endforeach
+        {{--
+        <section class="shop checkout section p-0 mb-5">
+            <div class="container">
+                <div class="row">
+                    @foreach ($cartItems as $item)
+                        <div class="col-12">
+                            <div class="card border-top-0 rounded-0">
+                                <div class="card-body">
+                                    <table class="table-payment table-responsive mb-0 d-flex justify-content-end">
+                                        <tr>
+                                            <td>
+                                                Subtotal Product:
+                                            </td>
+                                            <td class="td-value">
+                                                Rp{{ number_format($item->item_price * $item->item_qty, 0, ',', '.') }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Shipping Cost:
+                                            </td>
+                                            <td class="td-value">Rp0 </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Service Fee:
+                                            </td>
+                                            <td class="td-value">Rp0 </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Total Payment:
+                                            </td>
+                                            <td class="td-value">
+                                                <h3 id="totalPayment">
+                                                    Rp{{ number_format($item->item_price * $item->item_qty, 0, ',', '.') }}
                                                 </h3>
                                             </td>
                                         </tr>
@@ -185,7 +242,7 @@
                     @endforeach
                 </div>
             </div>
-        </section>
+        </section> --}}
     </form>
 @endsection
 

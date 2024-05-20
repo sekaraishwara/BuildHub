@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Frontend\Store;
 
-use Illuminate\View\View;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreMyStoreUpdateRequest;
+use App\Models\User;
 use App\Models\Store;
-use App\Models\StoreCategory;
+use Illuminate\View\View;
 use App\Models\StoreProduct;
+use Illuminate\Http\Request;
+use App\Models\StoreCategory;
 use App\Traits\FileUploadTrait;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\StoreMyStoreUpdateRequest;
 
 class StoreProductController extends Controller
 {
@@ -19,7 +22,16 @@ class StoreProductController extends Controller
 
     public function index(): View
     {
-        $data = StoreProduct::all();
+        $user = Auth::user();
+        $store = Store::where('user_id', $user->id)->first();
+
+
+        if ($store) {
+            $data = StoreProduct::where('store_id', $store->id)->get();
+        } else {
+            $data = collect();
+        }
+
 
         return view('frontend._store-dashboard._product', compact('data'));
     }
@@ -35,6 +47,11 @@ class StoreProductController extends Controller
     {
         $userId = auth()->user()->id;
         $store = Store::where('user_id', $userId)->first();
+
+        if (!$store) {
+            notify()->error('Please complete your store profile first!', 'Error!');
+            return Redirect::back();
+        }
 
         $request->validate([
             'image' => ['image', 'max:1500'],
@@ -64,15 +81,15 @@ class StoreProductController extends Controller
         ];
 
 
-
-
         if (!empty($imagePath)) {
             $data['image'] = $imagePath;
         }
 
+
         StoreProduct::create($data);
 
         notify()->success('Updated Successfully⚡️', 'Success!');
+
 
         return Redirect::route('store.product');
     }
@@ -80,7 +97,9 @@ class StoreProductController extends Controller
     public function edit(string $id)
     {
         $data = StoreProduct::findOrFail($id);
-        return view('frontend._store-dashboard.product.edit', compact('data'));
+        $category = StoreCategory::all();
+
+        return view('frontend._store-dashboard.product.edit', compact('data', 'category'));
     }
 
     public function delete(string $id)
@@ -104,11 +123,24 @@ class StoreProductController extends Controller
             'name' => 'required',
             'category' => 'required',
             'desc' => 'required',
-            'price' => 'required',
-            'status' => 'required'
+            'normal_price' => 'required',
+            'discount_price' => 'required',
+            'stock' => 'required',
+            'image' => 'nullable|image|max:1500'
         ]);
 
         $data->update($validatedData);
+
+        if ($request->hasFile('image')) {
+            if ($data->image) {
+                Storage::delete($data->image);
+            }
+
+            $data->image = $this->uploadFile($request, 'image');
+        }
+
+        $data->save();
+
 
         notify()->success('Updated Successfully⚡️', 'Success!');
 

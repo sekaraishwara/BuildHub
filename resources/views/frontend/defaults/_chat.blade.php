@@ -8,7 +8,7 @@
                         <ul class="bread-list">
                             <li><a href="{{ url('/') }}">Home<i class="ti-arrow-right"></i></a></li>
                             <li><a href="{{ route('inbox') }}">Chat<i class="ti-arrow-right"></a></i></li>
-                            <li class="active">{{ $sender->name }}</li>
+                            <li class="active"><a href="">{{ $sender->name }}</a></li>
                         </ul>
                     </div>
                 </div>
@@ -23,12 +23,18 @@
                 <div class="col-lg-9 col-12 mb-5">
                     <div class="content-single">
                         <div class="card">
-                            <div class="card-header border-0">
-                                <div class="d-flex align-items-center">
-                                    <img src="{{ $sender->avatar }}" width="40" alt="">
+                            <div class="card-header bg-white border-0 py-3">
+                                {{-- <img src="{{ $sender->logo }}" width="40" alt=""> --}}
+                                <div class="row">
                                     <h6 class="ml-3">{{ $sender->name }}</h6>
-                                    <small class="ml-2 text-muted">Active 5 min ago</small>
                                 </div>
+                                <div class="row pt-1">
+                                    <p class="ml-3 text-muted">Talk with {{ Str::upper($sender->role) }}</p>
+                                </div>
+
+
+                                {{-- <small class="ml-2 text-muted">Active 5 min ago</small> --}}
+
                             </div>
                             <div class="card">
                                 <div class="bg-white" style="position: relative;">
@@ -44,7 +50,8 @@
                                             <div class="d-flex justify-content-end mb-2">
                                                 <section class="col-6 p-2 text-right">
                                                     <p>{!! $item->message !!}</p>
-                                                    <small class="text-muted">{{ date('l, h:m:s') }}</small>
+                                                    <small
+                                                        class="text-muted">{{ $item->updated_at->diffForHumans() }}</small>
                                                 </section>
                                                 <section class="col-1">
                                                     <img id="avatarProfileImg"
@@ -61,9 +68,11 @@
                                                         width="50">
                                                 </section>
                                                 <!-- Bagian Konten Pesan di sebelah kiri -->
-                                                <section class="col-6 p-2">
+                                                <section class="col-6 p-1">
                                                     <p>{!! $item->message !!}</p>
-                                                    <small class="text-muted">{{ date('l, h:m:s') }}</small>
+                                                    <small
+                                                        class="text-muted">{{ $item->updated_at->diffForHumans() }}</small>
+
                                                 </section>
                                             </div>
                                         @endif

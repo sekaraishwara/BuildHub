@@ -21,10 +21,10 @@
                                         aria-describedby="bootstrap-data-table_info">
                                         <thead>
                                             <tr role="row">
-                                                <th>User Name</th>
+                                                <th>Name</th>
                                                 <th>Email</th>
+                                                <th>Phone</th>
                                                 <th>Join Date</th>
-                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -32,8 +32,8 @@
                                                 <tr role="row" class="odd">
                                                     <td class="sorting_1">{{ $item->name }}</td>
                                                     <td class="sorting_1">{{ $item->email }}</td>
+                                                    <td class="sorting_1">{{ $item->phone }}</td>
                                                     <td>{{ $item->created_at->format('d-M-Y') }}</td>
-                                                    <td>Edit | Delete</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>

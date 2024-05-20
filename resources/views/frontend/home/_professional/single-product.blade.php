@@ -55,7 +55,7 @@
                                     </tr>
                                     <tr>
                                         <td class="text-muted">Location</td>
-                                        <td>{{ $professionalRegency->name }}</td>
+                                        <td>{{ $professionalRegency?->name }}</td>
                                     </tr>
 
                                 </tbody>
