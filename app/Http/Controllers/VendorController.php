@@ -14,6 +14,7 @@ use App\Models\VendorCategory;
 use App\Models\VendorPortfolio;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use App\Models\CustomerServiceReview;
 use Illuminate\Http\RedirectResponse;
 
 class VendorController extends Controller
@@ -106,12 +107,23 @@ class VendorController extends Controller
 
         $vendorOwner = User::Where('id', $vendor->user_id)->first();
 
-
         $vendorRegency = Regencie::find($vendor->kota);
 
+        $serviceCurrent =  VendorService::where('id', $id)->first();
 
-        // dd($vendorRegency);
+        $reviewCount = CustomerServiceReview::where('service_name', $serviceCurrent->name)->count();
+        $review = CustomerServiceReview::where('service_name', $serviceCurrent->name)
+            ->with('customer')
+            ->get();
 
-        return view('frontend.home._vendor.single-product', compact('serviceVendor', 'vendorOwner', 'items', 'portfolio', 'vendorRegency'));
+        return view('frontend.home._vendor.single-product', compact(
+            'serviceVendor',
+            'vendorOwner',
+            'items',
+            'portfolio',
+            'vendorRegency',
+            'reviewCount',
+            'review'
+        ));
     }
 }

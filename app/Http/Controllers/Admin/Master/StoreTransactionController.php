@@ -20,7 +20,7 @@ class StoreTransactionController extends Controller
 
     function needApproveService(): View
     {
-        $dataService = CustomerServiceOrder::all();
+        $dataService = CustomerServiceOrder::orderBy('created_at', 'desc')->get();
 
         return view('admin.dashboard.store-transaction.needApproveService', compact('dataService'));
     }
@@ -36,6 +36,7 @@ class StoreTransactionController extends Controller
         $customerTransaction->update([
             'isApprove' => 1
         ]);
+
 
         notify()->success('Approve Successfully⚡️', 'Success!');
 

@@ -7,7 +7,7 @@
                 <div class="col-12">
                     <div class="bread-inner">
                         <ul class="bread-list">
-                            <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+                            <li><a href="{{ url('/') }}">Home<i class="ti-arrow-right"></i></a></li>
                             <li class="active"><a href="blog-single.html">Vendor</a></li>
                         </ul>
                     </div>
@@ -47,18 +47,6 @@
                                     <li><a href="{{ route('vendor', ['price' => $item->price_ranges]) }}">
                                             Rp{{ $item->price_ranges }}</a>
                                     </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        <div class="single-widget range">
-                            <h3 class="title">Service by Location</h3>
-                            <ul class="categor-list">
-                                <li><a href="{{ route('vendor') }}">All Price</a>
-                                </li>
-
-                                @foreach ($regencies as $item)
-                                    <li><a href="{{ route('vendor', ['location' => $item->name]) }}">
-                                            {{ $item->name }}</a></li>
                                 @endforeach
                             </ul>
                         </div>

@@ -46,6 +46,6 @@ class Customer extends Model
 
     public function serviceReviews()
     {
-        return $this->hasMany(CustomerServiceReview::class, 'email_client');
+        return $this->hasMany(CustomerServiceReview::class, 'client_email', 'email');
     }
 }

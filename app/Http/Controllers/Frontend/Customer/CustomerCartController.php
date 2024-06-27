@@ -23,17 +23,29 @@ use Illuminate\Support\Facades\Redirect;
 
 class CustomerCartController extends Controller
 {
+    // public function index(): View
+    // {
+    //     $user = Auth::user();
+    //     $customer = Customer::where('user_id', $user->id)->firstOrFail();
+
+    //     $cartItem = CustomerCart::where('customer_id', $customer->id)
+    //         ->get();
+
+    //     return view('frontend.home._customer._cart', compact('cartItem'));
+    // }
+
     public function index(): View
     {
         $user = Auth::user();
-        $customer = Customer::where('user_id', $user->id)->firstOrFail();
+        $customer = Customer::where('user_id', $user->id)->first();
 
-        $cartItem = CustomerCart::where('customer_id', $customer->id)
+        $customerId = $customer ? $customer->id : null;
+
+        $cartItem = CustomerCart::where('customer_id', $customerId)
             ->get();
 
         return view('frontend.home._customer._cart', compact('cartItem'));
     }
-
 
     public function getTotalItemCart()
     {
@@ -50,7 +62,6 @@ class CustomerCartController extends Controller
     {
         $user = Auth::user();
         $customer = Customer::where('user_id', $user->id)->firstOrFail();
-
 
         $request->validate([
             'product_id' => 'required|exists:store_products,id',

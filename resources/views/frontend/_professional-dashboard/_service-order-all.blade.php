@@ -11,7 +11,7 @@
                                 <li><a href="{{ route('professional.dashboard') }}">Dashboard </a><i
                                         class="ti-arrow-right"></i></a>
                                 </li>
-                                <li class="active"><a href="{{ route('professional.service') }}">Service</a>
+                                <li class="active"><a href="{{ route('professional.service') }}">Invoice</a>
                                 </li>
                             </ul>
                         </div>

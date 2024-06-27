@@ -6,7 +6,7 @@
             <ul class="categor-list">
                 <li><a href="{{ route('vendor.dashboard') }}">Dashboard</a></li>
                 <li><a href="{{ route('vendor.profile') }}">Profile</a></li>
-                <li><a href="{{ route('vendor.service.order') }}">Order</a></li>
+                <li><a href="{{ route('vendor.service.order') }}">Invoice</a></li>
                 <li><a href="{{ route('vendor.service') }}">Service</a></li>
                 <li><a href="{{ route('vendor.portfolio') }}">Portfolio</a></li>
                 {{-- <li><a href="#">History</a></li> --}}

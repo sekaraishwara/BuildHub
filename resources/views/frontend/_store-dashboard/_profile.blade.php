@@ -73,13 +73,11 @@
                                             <div class="form-group">
                                                 <label>Store Category<span>*</span></label>
                                                 <select name="category_store_id" id="category_store_id">
-                                                    <option readonly>--Pilih Kategori Store--</option>
-                                                    <option value="0">Los Angeles</option>
-                                                    <option>Chicago</option>
-                                                    <option>Houston</option>
-                                                    <option>San Diego</option>
-                                                    <option>Dallas</option>
-                                                    <option>Charlotte</option>
+                                                    <option class="text-muted">--Pilih Kategori Vendor--</option>
+                                                    @foreach ($storeCategory as $item)
+                                                        <option @selected($item->id == $storeInfo?->category_store_id) value="{{ $item->id }}">
+                                                            {{ $item->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>

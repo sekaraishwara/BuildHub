@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ProfessionalInfoUpdateRequest;
 use App\Http\Requests\ProfessionalProfileUpdateRequest;
+use App\Models\ProfessionalCategory;
 
 class ProfessionalProfileController extends Controller
 {
@@ -28,7 +29,15 @@ class ProfessionalProfileController extends Controller
         $provinces = Province::all();
         $regencies = Regencie::all();
 
-        return view('frontend._professional-dashboard._profile', compact('professionalInfo', 'provinces', 'regencies'));
+        $category = ProfessionalCategory::all();
+        // dd($category);
+
+        return view('frontend._professional-dashboard._profile', compact(
+            'professionalInfo',
+            'provinces',
+            'regencies',
+            'category'
+        ));
     }
 
     /**
@@ -45,7 +54,7 @@ class ProfessionalProfileController extends Controller
         if (!empty($bannerPath)) $data['banner'] = $bannerPath;
 
         $data['name'] = $request->name;
-        $data['category_vendor_id'] = $request->category_vendor_id;
+        $data['category_professional_id'] = $request->category_professional_id;
         $data['desc'] = $request->desc;
         $data['instagram'] = $request->instagram;
         $data['facebook'] = $request->facebook;

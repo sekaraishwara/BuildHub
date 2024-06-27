@@ -73,9 +73,20 @@
     <!-- Trix Editor -->
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
     <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
 </head>
 
 <body class="js p-0 m-0">
+
+    <style>
+        * {
+            font-family: "Open Sans", sans-serif;
+        }
+    </style>
 
     <!-- Preloader -->
     {{-- <div class="preloader">

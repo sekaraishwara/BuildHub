@@ -23,7 +23,7 @@
                 <div class="col-lg-9 col-md-8 col-sm-12 col-12 mb-5">
                     <h5 class="mb-3">History Order</h5>
                     <div class="row">
-                        @if ($getTransaction->isEmpty())
+                        @if ($getTransaction->isEmpty() && $getServiceOrder->isEmpty())
                             <div class="card-body">
                                 <div class="text-center py-3">
                                     <p>Tidak ada riwayat transaksi. </p>

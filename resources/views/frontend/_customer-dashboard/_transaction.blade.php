@@ -80,11 +80,12 @@
                                             </div>
                                         @else
                                             <div class="d-flex align-items-center">
-                                                <div class="alert alert-success alert-sm p-1 small m-0">Payment success
-                                                    on {{ $item->paid_at }}. Payment proof was
-                                                    successfully
-                                                    sent
+                                                <div class="alert alert-success alert-sm p-1 small m-0">
+                                                    Payment success on
+                                                    {{ \Carbon\Carbon::parse($item->paid_at)->format('Y-m-d') }}. Payment
+                                                    proof was successfully sent
                                                 </div>
+
                                             </div>
                                         @endif
                                     </div>

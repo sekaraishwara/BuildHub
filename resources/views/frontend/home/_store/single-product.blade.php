@@ -178,9 +178,7 @@
                             </p>
                         </div>
                         <div class="my-5"></div>
-
                     </div>
-
                 </div>
             </div>
         </div>
@@ -263,6 +261,45 @@
             </div>
         </div>
     </section>
+
+    @if ($simillarProduct->isNotEmpty())
+        <section class="shop-home-list section">
+            <div class="container">
+                <div class="col-12">
+                    <div class="shop-section-title">
+                        <h1>SIMILAR PRODUCTS</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach ($simillarProduct as $item)
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="single-list">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="list-image overlay">
+                                            <img src="{{ $item->image }}" alt="#">
+                                            <a href="{{ route('singleItem', $item->slug) }}" class="buy"><i
+                                                    class="fa fa-shopping-bag"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-12 no-padding">
+                                        <div class="content">
+                                            <div class="title">
+                                                <a href="#">{{ $item->name }}</a> <br>
+                                                <strong class="text-store-name">{{ $item->store->name }}</strong>
+                                            </div>
+                                            <p class="price with-discount">
+                                                Rp{{ number_format($item->display_price, 0, ',', '.') }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+    @endif
 
 
     <!--/ End Product Style 1  -->
@@ -357,5 +394,9 @@
 
     .product-description p {
         width: 70%;
+    }
+
+    .text-store-name {
+        color: #996330;
     }
 </style>

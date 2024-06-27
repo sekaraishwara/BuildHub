@@ -13,7 +13,7 @@ class CustomerServiceReview extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class, 'client_email');
+        return $this->belongsTo(Customer::class, 'client_email', 'email');
     }
 
     public function transaction()

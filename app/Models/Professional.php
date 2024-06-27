@@ -14,7 +14,7 @@ class Professional extends Model
         'logo',
         'banner',
         'name',
-        'category_store_id',
+        'category_professional_id',
         'desc',
         'instagram',
         'facebook',

@@ -7,7 +7,7 @@
                 <div class="col-12">
                     <div class="bread-inner">
                         <ul class="bread-list">
-                            <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+                            <li><a href="{{ url('/') }}">Home<i class="ti-arrow-right"></i></a></li>
                             <li class="active"><a href="blog-single.html">Professional</a></li>
                         </ul>
                     </div>
@@ -61,7 +61,7 @@
                                     <form class="search-form" action="{{ route('professional') }}" method="GET">
                                         <div class="d-flex justify-content-start">
                                             <input type="text" class="form-control rounded-0"
-                                                placeholder="Search vendor here..." name="search"
+                                                placeholder="Search professional..." name="search"
                                                 value="{{ request('search') }}">
                                             <button class="btn-primary px-2 rounded-0" value="search" type="submit"><i
                                                     class="ti-search"></i></button>

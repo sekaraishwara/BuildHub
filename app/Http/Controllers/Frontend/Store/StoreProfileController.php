@@ -17,6 +17,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\StoreInfoUpdateRequest;
 use App\Http\Requests\StoreMyStoreUpdateRequest;
+use App\Models\StoreCategory;
 
 class StoreProfileController extends Controller
 {
@@ -28,7 +29,10 @@ class StoreProfileController extends Controller
         $provinces = Province::all();
         $regencies = Regencie::all();
 
-        return view('frontend._store-dashboard._profile', compact('storeInfo', 'provinces', 'regencies'));
+        $storeCategory = StoreCategory::all();
+
+
+        return view('frontend._store-dashboard._profile', compact('storeInfo', 'provinces', 'regencies', 'storeCategory'));
     }
 
     function updateMyStore(StoreMyStoreUpdateRequest $request): RedirectResponse

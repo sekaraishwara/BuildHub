@@ -28,10 +28,22 @@
 
     <!-- SweetAlert CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.8/dist/sweetalert2.min.css">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     @include('admin.layouts.sidebar')
+
+    <style>
+        * {
+            font-family: "Open Sans", sans-serif;
+        }
+    </style>
 
     <!-- Right Panel -->
     {{-- <div id="right-panel" class="right-panel">

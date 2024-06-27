@@ -159,52 +159,15 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="product-description">
-                            <h6 class="mb-3">Product Description</h6>
+                            <h6 class="mb-3">Service Description</h6>
+                            <hr>
                             <P>
-                                Features:
-                                <br>
-                                1. Working quietly. It would not be disruptive while you nap and sleep <br>
-                                2. 250ml large capacity <br>
-                                3. Automatic power failure protection, anti-dry <br>
-                                4. Mini size, easy to carry <br>
-                                5. For home and car use
-                            </P>
-                            <br>
-                            <P>
-                                Cara Penggunaan :
-                                <br>
-                                1. Working quietly. It would not be disruptive while you nap and sleep <br>
-                                2. 250ml large capacity <br>
-                                3. Automatic power failure protection, anti-dry <br>
-                                4. Mini size, easy to carry <br>
-                                5. For home and car use
-                            </P>
+                                {!! $serviceProfessional?->desc !!}
+                            </p>
                         </div>
                         <div class="my-5"></div>
-                        <div class="product-description">
-                            <h6 class="mb-3">Product Details</h6>
-                            <P>
-                                Features:
-                                <br>
-                                1. Working quietly. It would not be disruptive while you nap and sleep <br>
-                                2. 250ml large capacity <br>
-                                3. Automatic power failure protection, anti-dry <br>
-                                4. Mini size, easy to carry <br>
-                                5. For home and car use
-                            </P>
-                            <br>
-                            <P>
-                                Cara Penggunaan :
-                                <br>
-                                1. Working quietly. It would not be disruptive while you nap and sleep <br>
-                                2. 250ml large capacity <br>
-                                3. Automatic power failure protection, anti-dry <br>
-                                4. Mini size, easy to carry <br>
-                                5. For home and car use
-                            </P>
-                        </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -216,22 +179,34 @@
                 <div class="card">
                     <div class="col-12">
                         <div class="comments">
-                            <h3 class="comment-title">Product Review (2)</h3>
+                            <h3 class="comment-title">Product Review ({{ $reviewCount }})</h3>
                             <!-- Single Comment -->
-                            <div class="single-comment">
-                                <img src="https://via.placeholder.com/80x80" alt="#">
-                                <div class="content">
-                                    <h4>Alisa harm <span>At 8:59 pm On Feb 28, 2018</span></h4>
-                                    <p>Enthusiastically leverage existing premium quality vectors with
-                                        enterprise-wide innovation collaboration Phosfluorescently leverage others
-                                        enterprisee Phosfluorescently leverage.</p>
-                                    <div class="button">
-                                        <a href="#" class="btn"><i class="fa fa-reply"
-                                                aria-hidden="true"></i>Reply</a>
+                            @foreach ($review as $item)
+                                <div class="single-comment">
+                                    <img src="{{ asset('default-uploads/avatar.jpg') }}" width="80" alt="#">
+                                    <div class="content">
+                                        <div class="d-flex justify-content-between align-item-center">
+                                            <h4>{{ $item->customer?->name }} <span>At
+                                                    {{ $item->created_at->format('h:i A \O\n M d, Y') }}</span></h4>
+                                            <div class="col-3">
+                                                @php
+                                                    $full_stars = $item?->rating;
+                                                    $empty_stars = 5 - $item?->rating;
+                                                @endphp
+
+                                                @for ($i = 1; $i <= $full_stars; $i++)
+                                                    <span class="rating-star">★</span>
+                                                @endfor
+
+                                                @for ($i = 1; $i <= $empty_stars; $i++)
+                                                    <span class="rating-star">☆</span>
+                                                @endfor
+                                            </div>
+                                        </div>
+                                        <p>{{ $item?->comment }}</p>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- End Single Comment -->
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -379,6 +354,96 @@
 
     .product-text {
         margin-left: 60px;
+    }
+
+    .product-text h4 {
+        line-height: 2rem;
+        font-weight: 600;
+        font-size: 22px;
+    }
+
+    .product-info td {
+        padding-bottom: 15px;
+    }
+
+    .product-info {
+        padding-top: 20px;
+    }
+
+
+    #uploadedImage {
+        width: 100%;
+        height: auto;
+    }
+
+    .product-ratings i {
+        color: #e6a50f;
+    }
+
+    .product-price {
+        background-color: #f8f9f8;
+        margin: 15px 0;
+        padding: 15px 20px;
+    }
+
+    .product-price .normal-price {
+        font-size: 28px;
+        font-weight: 600;
+        margin: 10px 0;
+        color: #996300;
+    }
+
+    .product-price .promo-price {
+        font-size: 20px;
+    }
+
+    .promo-price {
+        text-decoration: line-through;
+    }
+
+    .store-detail {
+        background-color: #f8f9f8;
+        padding: 20px 10px;
+    }
+
+    .store-name {
+        font-size: 18px;
+        font-weight: 500;
+        margin: 5px 0;
+    }
+
+    #store-ava {
+        width: 70px;
+        margin-right: 10px;
+    }
+
+    .product-description p {
+        width: 70%;
+    }
+
+    < .single-item {
+        margin: 50px 0;
+    }
+
+    .star-icon {
+        font-size: 24px;
+        color: #ea9103;
+        cursor: pointer;
+    }
+
+    .product-image {
+        width: 680px;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .product-text {
+        margin-left: 60px;
+    }
+
+    .rating-star {
+        font-size: 25px;
+        color: #ffc700;
     }
 
     .product-text h4 {

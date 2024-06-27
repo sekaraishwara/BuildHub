@@ -7,7 +7,7 @@
                 <div class="col-12">
                     <div class="bread-inner">
                         <ul class="bread-list">
-                            <li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+                            <li><a href="{{ url('/') }}">Home<i class="ti-arrow-right"></i></a></li>
                             <li class="active"><a href="blog-single.html">Store</a></li>
                         </ul>
                     </div>
@@ -43,9 +43,9 @@
                             <div class="price-filter">
                             </div>
                             <ul class="categor-list">
-                                <li>Lates</li>
-                                <li>Hight Price</li>
-                                <li>Low Price</li>
+                                <li><a href="{{ route('store') }}">Latest</a></li>
+                                <li><a href="{{ route('store', ['price_order' => 'highest']) }}">Highest</a></li>
+                                <li><a href="{{ route('store', ['price_order' => 'lowest']) }}">Lowest</a></li>
                             </ul>
                         </div>
                         <!--/ End Shop By Price -->
@@ -82,7 +82,8 @@
 
                                     </div>
                                     <div class="product-content">
-                                        <h3><a href="product-details.html">{{ $item?->name }}</a></h3>
+                                        <h3><a>{{ $item?->name }}</a></h3>
+                                        <strong class="text-store-name">{{ $item?->store->name }}</strong>
                                         <div class="product-price">
                                             <span>Rp{{ number_format($item?->display_price, 0, ',', '.') }}</span>
                                         </div>
@@ -97,3 +98,9 @@
     </section>
     <!--/ End Product Style 1  -->
 @endsection
+
+<style>
+    .text-store-name {
+        color: #996330;
+    }
+</style>

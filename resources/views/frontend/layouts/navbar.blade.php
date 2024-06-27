@@ -52,7 +52,7 @@
                       <!-- Logo -->
                       <div class="logo m-0">
                           {{-- <a href="{{ url('./') }}" class="navbar-brand">BUILDHUB</a> --}}
-                          <a href=""><img src="{{ asset('default-uploads/logo.jpeg') }}" alt=""></a>
+                          <a href="{{ url('/') }}"><img src="{{ asset('default-uploads/logo.jpeg') }}"></a>
                       </div>
                       <!--/ End Logo -->
                       <!-- Search Form -->

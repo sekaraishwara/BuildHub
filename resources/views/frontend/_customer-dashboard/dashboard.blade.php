@@ -107,7 +107,7 @@
                                                 </div>
                                                 <div>
                                                     <span class="d-block font-weight-bold text-uppercase">Chat</span>
-                                                    <h2 class="mb-0">2</h2>
+                                                    <h2 class="mb-0">{{ $inbox }}</h2>
                                                 </div>
                                             </div>
                                         </div>

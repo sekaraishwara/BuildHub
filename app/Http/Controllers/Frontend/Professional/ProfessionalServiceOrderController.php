@@ -42,6 +42,11 @@ class ProfessionalServiceOrderController extends Controller
         $user = Auth::user();
         $professional = Professional::where('user_id', $user->id)->first();
 
+        if (!$professional) {
+            notify()->error('Please complete your professional profile first!', 'Error!');
+            return Redirect::back();
+        }
+
         $getService = ProfessionalService::where('professional_id', $professional->id)->get();
 
 
@@ -145,7 +150,6 @@ class ProfessionalServiceOrderController extends Controller
         $data->delete();
 
         notify()->success('Deleted Successfully⚡️', 'Success!');
-
 
         return back();
     }

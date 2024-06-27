@@ -34,6 +34,16 @@ class StoreController extends Controller
             }
         }
 
+        if ($request->has('price_order')) {
+            $priceOrder = $request->price_order;
+
+            if ($priceOrder == 'highest') {
+                $storeProduct->orderBy('display_price', 'desc');
+            } elseif ($priceOrder == 'lowest') {
+                $storeProduct->orderBy('display_price', 'asc');
+            }
+        }
+
         $this->seacrh($storeProduct, ['name']);
 
         $storeProduct = $storeProduct->get();
@@ -84,37 +94,34 @@ class StoreController extends Controller
         $reviewCount = CustomerReview::where('product_id', $storeProduct->id)->count();
         $review = CustomerReview::where('product_id', $storeProduct->id)->get();
 
+        // simillar product
+        $keywords = explode(' ', $storeProduct->name);
+        $tags = explode(',', $storeProduct->tag);
+
+        $simillarProductQuery = StoreProduct::query();
+        foreach ($keywords as $keyword) {
+            $simillarProductQuery->orWhere('name', 'LIKE', '%' . $keyword . '%');
+        }
+        foreach ($tags as $item) {
+            $simillarProductQuery->orWhere('tag', 'LIKE', '%' . trim($item) . '%');
+        }
+        $simillarProductQuery->where('id', '!=', $storeProduct->id);
+
+        $simillarProduct = $simillarProductQuery->get();
+
+        if ($simillarProduct->count() <= 1) {
+            $simillarProduct = collect();
+        }
+
+
         return view('frontend.home._store.single-product', compact(
             'storeProduct',
             'items',
             'storeRegency',
             'storeOwner',
             'reviewCount',
-            'review'
+            'review',
+            'simillarProduct'
         ));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

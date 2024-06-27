@@ -59,7 +59,6 @@ class StoreDashboardController extends Controller
     function transaction(): View
     {
 
-
         $user = Auth::user();
 
         $getTransaction = CustomerTransaction::with('checkout.items')
@@ -68,8 +67,13 @@ class StoreDashboardController extends Controller
             })
             ->get();
 
-        // dd($getTransaction);
-        return view('frontend._store-dashboard._transaction', compact('getTransaction'));
+        //added 20052024_0434
+        $invoiceNos = $getTransaction->pluck('invoice_no')->toArray();
+        $transProofs = GeneranTransactionProof::whereIn('invoice_no', $invoiceNos)->first();
+
+        // dd($transProofs);
+
+        return view('frontend._store-dashboard._transaction', compact('getTransaction', 'invoiceNos', 'transProofs'));
     }
 
     function uploadResi(Request $request): RedirectResponse

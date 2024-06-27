@@ -29,14 +29,22 @@ class CustomerDashboardController extends Controller
 
         $checklist = CustomerChecklist::where('user_id', $user->id)->count();
 
-        $chatCount = Conversation::where('user1_id', $user->id)
-            ->orWhere('user2_id', $user->id)
+        // $chatCount = Conversation::where('user1_id', $user->id)
+        //     ->orWhere('user2_id', $user->id)
+        //     ->count();
+
+        $inbox = Conversation::with('sender', 'receiver')
+            ->where(function ($query) use ($user) {
+                $query->where('user1_id', $user->id)
+                    ->orWhere('user2_id', $user->id);
+            })
             ->count();
+
 
         // dd($order);
 
 
-        return view('frontend._customer-dashboard.dashboard', compact('order', 'checklist'));
+        return view('frontend._customer-dashboard.dashboard', compact('order', 'checklist', 'inbox'));
     }
 
     function transaction(): View

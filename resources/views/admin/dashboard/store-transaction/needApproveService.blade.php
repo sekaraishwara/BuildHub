@@ -53,9 +53,13 @@
                                                         action="{{ route('admin.transaction.approveTransaction', $item->invoice_no) }}"
                                                         method="post">
                                                         @csrf
-                                                        @if ($item->isPayment)
-                                                            <td> <button class="btn btn-sm btn-success">Approved</td>
-                                                            </button>
+                                                        @if ($item?->isPayment)
+                                                            @if ($item?->isApprove)
+                                                                <td><strong class="text-success">COMPLETE</strong></td>
+                                                            @else
+                                                                <td> <button class="btn btn-sm btn-success">Approved
+                                                                    </button></td>
+                                                            @endif
                                                         @else
                                                             <td> <button class="btn btn-sm btn-secondary disabled">Approved
                                                             </td>

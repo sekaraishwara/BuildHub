@@ -87,7 +87,7 @@
                                                         Current Income
                                                         <span class="dot"></span>
                                                     </span>
-                                                    <h2 class="mb-0">Rp. 10.450.089</h2>
+                                                    <h2 class="mb-0">Rp0</h2>
                                                 </div>
                                             </div>
                                         </div>

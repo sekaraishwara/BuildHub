@@ -41,21 +41,29 @@
                                                         @endif
                                                     </td>
                                                     <td class="sorting_1">{{ $item->invoice_no }}</td>
-                                                    <td class="sorting_1">{{ $item->transaction_date }}</td>
+                                                    <td class="sorting_1">
+                                                        {{ \Carbon\Carbon::parse($item?->transaction_date)->format('Y-m-d') }}
+                                                    </td>
                                                     <td class="sorting_1">{{ $item->isActive ? 'Yes' : 'No' }}</td>
                                                     <td class="sorting_1" width="5%">{{ $item->payment_status }}</td>
-                                                    <td class="sorting_1">{{ $item->paid_at }}</td>
+                                                    <td class="sorting_1">
+                                                        {{ \Carbon\Carbon::parse($item?->paid_at)->format('Y-m-d') }}</td>
                                                     <form
                                                         action="{{ route('admin.transaction.approveTransaction', $item->invoice_no) }}"
                                                         method="post">
                                                         @csrf
                                                         @if ($item->payment_status === 'paid')
-                                                            <td> <button class="btn btn-sm btn-success">Approved</td>
-                                                            </button>
+                                                            @if ($item?->isApprove)
+                                                                <td><strong class="text-success">COMPLETE</strong></td>
+                                                            @else
+                                                                <td> <button
+                                                                        class="btn btn-sm btn-success">Approved</button>
+                                                                </td>
+                                                            @endif
                                                         @else
                                                             <td> <button class="btn btn-sm btn-secondary disabled">Approved
+                                                                </button>
                                                             </td>
-                                                            </button>
                                                         @endif
                                                     </form>
                                                 </tr>

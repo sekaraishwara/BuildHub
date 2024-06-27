@@ -53,7 +53,8 @@
                                         <tr>
                                             <td>{{ $i++ }}</td>
                                             <td>{{ $item->invoice_no }}</td>
-                                            <td>{{ $item->transaction_date }}</td>
+                                            {{-- <td>{{ $item->transaction_date }}</td> --}}
+                                            <td>{{ $item->created_at->format('Y-m-d') }}</td>
                                             <td>
                                                 @foreach ($item->checkout->items as $co)
                                                     {{ $co->item_name }}
@@ -66,9 +67,16 @@
                                             </td>
                                             <td>{{ number_format($item->total_price, 0, ',', '.') }}</td>
                                             <td>{{ $item->payment_status }}</td>
-                                            <td> <a href="#" data-toggle="modal"
-                                                    data-target="#uploadResiModal{{ $item->id }}"
-                                                    class="text-primary">Upload</a></td>
+                                            @if (
+                                                $transProofs &&
+                                                    $transProofs->where('invoice_no', $item->invoice_no)->first() &&
+                                                    $transProofs->where('invoice_no', $item->invoice_no)->first()->shipping_proof)
+                                                <td><a href="#" class="text-success">Uploaded</a></td>
+                                            @else
+                                                <td><a href="#" data-toggle="modal"
+                                                        data-target="#uploadResiModal{{ $item->id }}"
+                                                        class="text-primary">Upload</a></td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 </tbody>

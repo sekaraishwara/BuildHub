@@ -8,8 +8,10 @@ use App\Models\PriceRange;
 use App\Traits\Searchable;
 use App\Models\Professional;
 use Illuminate\Http\Request;
+use App\Models\CustomerReview;
 use App\Models\ProfessionalService;
 use App\Http\Controllers\Controller;
+use App\Models\CustomerServiceReview;
 use App\Models\ProfessionalCategory;
 use App\Models\ProfessionalPortfolio;
 
@@ -63,16 +65,27 @@ class ProfessionalController extends Controller
         $portfolio = ProfessionalPortfolio::where('professional_id',  $serviceProfessional->professional_id)->get();
 
         $professionalOwner = User::Where('id', $professional->user_id)->first();
+        $professionalRegency = Regencie::find($professional->kota);
         // dd($professionalOwner);
 
-        $professionalRegency = Regencie::find($professional->kota);
+        $serviceCurrent =  ProfessionalService::where('slug', $slug)->first();
+
+        $reviewCount = CustomerServiceReview::where('service_name', $serviceCurrent->name)->count();
+        $review = CustomerServiceReview::where('service_name', $serviceCurrent->name)
+            ->with('customer')
+            ->get();
+        // dd($reviews);
+
+
 
         return view('frontend.home._professional.single-product', compact(
             'serviceProfessional',
             'items',
             'portfolio',
             'professionalOwner',
-            'professionalRegency'
+            'professionalRegency',
+            'reviewCount',
+            'review'
         ));
     }
 

@@ -74,14 +74,12 @@
                                         <div class="col-lg-6 col-md-6 col-12">
                                             <div class="form-group">
                                                 <label>Professional Category<span>*</span></label>
-                                                <select name="category_store_id" id="category_store_id">
-                                                    <option readonly>--Pilih Kategori Professional--</option>
-                                                    <option value="0">Los Angeles</option>
-                                                    <option>Chicago</option>
-                                                    <option>Houston</option>
-                                                    <option>San Diego</option>
-                                                    <option>Dallas</option>
-                                                    <option>Charlotte</option>
+                                                <select class="nice-select" name="category_professional_id">
+                                                    <option class="text-muted">--Select Category--</option>
+                                                    @foreach ($category as $item)
+                                                        <option @selected($item->id == $professionalInfo?->category_professional_id) value="{{ $item->id }}">
+                                                            {{ $item->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
